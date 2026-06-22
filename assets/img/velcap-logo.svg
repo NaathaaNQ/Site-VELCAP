@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1090 300" role="img" aria-label="VELCAP" fill="#0a0a0a">
+  <!-- V -->
+  <polygon points="30,60 100,60 175,200 250,60 320,60 205,240 145,240" />
+  <!-- E (trois barres) -->
+  <rect x="360" y="60"  width="132" height="36" />
+  <rect x="360" y="132" width="104" height="36" />
+  <rect x="360" y="204" width="132" height="36" />
+  <!-- L -->
+  <rect x="532" y="60"  width="44"  height="180" />
+  <rect x="532" y="204" width="120" height="36" />
+  <!-- C (disque ouvert) -->
+  <path d="M788,104 A80,80 0 1 0 788,196" fill="none" stroke="#0a0a0a" stroke-width="44" stroke-linecap="butt" />
+  <!-- A (triangle évidé) -->
+  <path d="M884,60 L958,240 L810,240 Z M884,142 L912,206 L856,206 Z" fill-rule="evenodd" />
+  <!-- P -->
+  <rect x="984" y="60" width="44" height="180" />
+  <path d="M1028,60 A50,50 0 0 1 1028,160 L1028,134 A24,24 0 0 0 1028,86 Z" />
+</svg>
