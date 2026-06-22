@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELCAP — Structure sportive · Association, Athlétisme, Cyclisme, Élite & Coaching</title>
+  <meta name="description" content="VELCAP : une structure sportive qui réunit association, club FFA (athlétisme), club FFC (cyclisme), team élite, la Corrida, nos actions de terrain et le coaching privé. Engage-toi." />
+  <meta name="theme-color" content="#0A0A0A" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="VELCAP — Une structure, toutes les ambitions" />
+  <meta property="og:description" content="Association, athlétisme, cyclisme, team élite, la Corrida, nos actions et coaching privé. Rejoins le mouvement." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts : paire Sports/Fitness (Barlow Condensed + Barlow) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <a href="#top" class="brand" aria-label="VELCAP — accueil">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__word">VELCAP</span>
+    </a>
+
+    <nav class="topnav" aria-label="Sections">
+      <button class="topnav__link" data-goto="0">Association</button>
+      <button class="topnav__link" data-goto="1">Club FFA</button>
+      <button class="topnav__link" data-goto="2">Club FFC</button>
+      <button class="topnav__link" data-goto="3">Team Élite</button>
+      <button class="topnav__link" data-goto="4">La Corrida</button>
+      <button class="topnav__link" data-goto="5">Nos Actions</button>
+      <button class="topnav__link" data-goto="6">Coaching</button>
+    </nav>
+
+    <a href="#engage" class="btn btn--solid header-cta">Rejoindre</a>
+
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__lines" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <p class="hero__kicker"><span class="dot"></span> Structure sportive · une maison, toutes les disciplines</p>
+      <h1 class="hero__title">
+        REPOUSSE<br />
+        TES <span class="accent">LIMITES.</span>
+      </h1>
+      <p class="hero__sub">
+        VELCAP réunit sept univers sous une même bannière&nbsp;: l'association, l'athlétisme,
+        le cyclisme, le team élite, la Corrida, nos actions de terrain et le coaching privé.
+        Choisis ton terrain de jeu et engage-toi.
+      </p>
+      <div class="hero__cta">
+        <a href="#plateforme" class="btn btn--solid">Découvrir la plateforme</a>
+        <a href="#engage" class="btn btn--ghost">S'engager →</a>
+      </div>
+
+      <ul class="stats" aria-label="Chiffres clés">
+        <li><b data-count="7">7</b><span>univers</span></li>
+        <li><b data-count="2">2</b><span>fédérations</span></li>
+        <li><b data-count="1" data-suffix="">∞</b><span>ambition</span></li>
+      </ul>
+    </div>
+
+    <a href="#plateforme" class="hero__scroll" aria-label="Défiler vers la plateforme">
+      <span></span>
+    </a>
+  </section>
+
+  <!-- ============ PLATEFORME TOURNANTE ============ -->
+  <section class="platform" id="plateforme">
+    <div class="platform__head">
+      <h2 class="section-title">LA PLATEFORME <span class="accent">TOURNANTE</span></h2>
+      <p class="section-lead">Fais tourner les panneaux. Chaque face est un univers VELCAP — explore, fais défiler, engage-toi.</p>
+    </div>
+
+    <div class="stage" id="stage" aria-roledescription="carrousel" aria-label="Panneaux des univers VELCAP">
+      <div class="deck" id="deck"><!-- panneaux injectés par JS --></div>
+
+      <button class="nav-arrow nav-arrow--prev" id="prev" aria-label="Panneau précédent">‹</button>
+      <button class="nav-arrow nav-arrow--next" id="next" aria-label="Panneau suivant">›</button>
+    </div>
+
+    <div class="platform__controls">
+      <button class="autoplay-toggle" id="autoplay" aria-pressed="false">
+        <span class="ap-icon" aria-hidden="true"></span><span class="ap-label">Rotation auto</span>
+      </button>
+      <div class="dots" id="dots" role="tablist" aria-label="Choisir un univers"></div>
+      <div class="counter"><span id="counterNow">01</span> <i>/</i> <span id="counterTotal">07</span></div>
+    </div>
+  </section>
+
+  <!-- ============ ENGAGE / CTA ============ -->
+  <section class="engage" id="engage">
+    <div class="engage__inner">
+      <h2 class="section-title section-title--light">PRÊT À <span class="accent">ENTRER DANS LA COURSE&nbsp;?</span></h2>
+      <p class="engage__lead">Licence, essai gratuit, bénévolat ou coaching : il y a une place pour toi chez VELCAP.</p>
+      <form class="engage__form" id="engageForm" novalidate>
+        <input type="text" name="name" placeholder="Ton nom" aria-label="Ton nom" required />
+        <input type="email" name="email" placeholder="Ton e-mail" aria-label="Ton e-mail" required />
+        <select name="interest" aria-label="Ton intérêt" required>
+          <option value="" disabled selected>Je veux…</option>
+          <option>Rejoindre l'association</option>
+          <option>Une licence FFA (athlétisme)</option>
+          <option>Une licence FFC (cyclisme)</option>
+          <option>Intégrer la Team Élite</option>
+          <option>Participer à la Corrida</option>
+          <option>Soutenir nos actions</option>
+          <option>Du coaching privé</option>
+        </select>
+        <button type="submit" class="btn btn--solid">Je m'engage</button>
+      </form>
+      <p class="engage__feedback" id="engageFeedback" role="status"></p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__brand">
+      <span class="brand__word">VELCAP</span>
+      <p>Une structure. Toutes les ambitions.</p>
+    </div>
+    <nav class="footer__nav" aria-label="Pied de page">
+      <button data-goto="0">Association</button>
+      <button data-goto="1">Club FFA</button>
+      <button data-goto="2">Club FFC</button>
+      <button data-goto="3">Team Élite</button>
+      <button data-goto="4">La Corrida</button>
+      <button data-goto="5">Nos Actions</button>
+      <button data-goto="6">Coaching</button>
+    </nav>
+    <div class="footer__meta">
+      <p>© <span id="year"></span> VELCAP — Tous droits réservés.</p>
+      <p class="footer__credit">Identité rouge · noir · blanc</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
