@@ -90,6 +90,7 @@ h1, h2, h3, .display {
   border-bottom: 1px solid var(--line);
 }
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--ink); }
+.brand__logo { display: block; height: 34px; width: auto; }
 .brand__mark {
   width: 18px; height: 18px;
   background: var(--red);
