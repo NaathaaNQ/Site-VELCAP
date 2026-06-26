@@ -16,10 +16,18 @@ Direction : *Swiss / éditorial / techwear* — blanc majoritaire, noir, rouge
 
 ```bash
 npm install
-npm run dev       # http://localhost:4321
-npm run build     # génère /dist (statique)
-npm run preview   # prévisualise le build
+npm run dev            # http://localhost:4321
+npm run build          # génère /dist (statique, pour hébergement)
+npm run preview        # prévisualise le build
+npm run build:offline  # /dist ouvrable en double-cliquant index.html (file://)
 ```
+
+### Version « double-clic » (sans serveur)
+
+`npm run build:offline` produit un `dist/` où **`index.html` s'ouvre directement**
+dans le navigateur (chemins relatifs + JS regroupé en script classique via
+`scripts/make-offline.mjs`). Pratique pour un aperçu hors-ligne. Pour un vrai
+hébergement en ligne, utiliser plutôt `npm run build`.
 
 ## Structure
 
