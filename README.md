@@ -22,12 +22,18 @@ npm run preview        # prévisualise le build
 npm run build:offline  # /dist ouvrable en double-cliquant index.html (file://)
 ```
 
-### Version « double-clic » (sans serveur)
+### Ouvrir le site sans rien installer
 
-`npm run build:offline` produit un `dist/` où **`index.html` s'ouvre directement**
-dans le navigateur (chemins relatifs + JS regroupé en script classique via
-`scripts/make-offline.mjs`). Pratique pour un aperçu hors-ligne. Pour un vrai
-hébergement en ligne, utiliser plutôt `npm run build`.
+Le dépôt contient une version **déjà compilée et ouvrable par double-clic** :
+
+- **`OUVRIR-LE-SITE.html`** (à la racine) → ouvre le site (redirige vers `site/`).
+- ou directement **`site/index.html`**.
+
+C'est la version générée par `npm run build:offline` (chemins relatifs + JS en
+script classique), copiée dans `site/` par `npm run build:site`.
+
+> ⚠️ Penser à relancer **`npm run build:site`** après toute modification du code
+> source pour régénérer `site/`. Pour un hébergement en ligne, utiliser `npm run build`.
 
 ## Structure
 
