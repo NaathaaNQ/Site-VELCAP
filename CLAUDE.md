@@ -4,9 +4,12 @@ Site vitrine de la structure sportive **VELCAP** (7 univers : Association,
 Club FFA, Club FFC, Team Élite, La Corrida, Nos Actions, Coaching privé).
 
 ## Stack
-- Site statique : `index.html` + `assets/css/styles.css` + `assets/js/app.js`.
-- **Aucun build.** Tester via `python3 -m http.server 8000`.
-- Pièce maîtresse : la **plateforme tournante** (carrousel 3D de panneaux), JS dans `assets/js/app.js` (tableau `PANELS`).
+- **Astro** (sortie statique) + **GSAP/ScrollTrigger** + **Lenis** (smooth scroll).
+- `npm install` puis `npm run dev` (port 4321) / `npm run build` (→ `dist/`).
+- Contenu des 7 univers : source unique `src/data/univers.js`.
+- Pièce maîtresse : la **plateforme tournante** — `src/components/Turntable.astro` + `src/scripts/turntable.js`.
+- Pages univers générées dynamiquement : `src/pages/univers/[slug].astro`.
+- Visuels = duotones générés (`Visual.astro`) ; remplacer par de vraies photos dans `public/img/univers/`.
 
 ## Design — IMPORTANT
 Pour **toute évolution visuelle du site**, suivre **[`DESIGN.md`](./DESIGN.md)**

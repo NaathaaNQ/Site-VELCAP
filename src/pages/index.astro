@@ -1,0 +1,206 @@
+---
+import Base from '../layouts/Base.astro';
+import Turntable from '../components/Turntable.astro';
+import Visual from '../components/Visual.astro';
+import { univers } from '../data/univers.js';
+---
+<Base title="VELCAP — Une structure, sept univers, un seul cap">
+  <!-- ============ HERO ============ -->
+  <section class="hero" data-parallax-scope>
+    <span class="hero__label hero__label--tl mono" data-intro data-intro-order="0">VELCAP&reg;</span>
+    <span class="hero__label hero__label--tr mono" data-intro data-intro-order="0">Structure sportive — FFA · FFC</span>
+    <span class="hero__label hero__label--bl mono" data-intro data-intro-order="5">↓ Scroll</span>
+    <span class="hero__label hero__label--br mono" data-intro data-intro-order="5">07 univers — YR26</span>
+
+    <div class="container hero__inner">
+      <p class="hero__kicker mono eyebrow" data-intro data-intro-order="1">Une structure. Sept univers. Un seul cap.</p>
+
+      <img class="hero__logo" src="/img/velcap-logo.svg" alt="VELCAP" width="1090" height="300" data-intro="clip" data-intro-order="2" />
+
+      <div class="hero__bottom">
+        <div class="hero__pitch" data-intro data-intro-order="4">
+          <p class="hero__lead">
+            Athlétisme, cyclisme, haut niveau, événement, terrain, coaching.
+            VELCAP rassemble toutes les manières de se dépasser sous une même bannière —
+            <strong>et te laisse choisir la tienne.</strong>
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--red" href="#univers">Explorer les univers <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn--ghost" href="#engager">S'engager</a>
+          </div>
+        </div>
+
+        <a class="hero__visual" href="#univers" data-intro data-intro-order="3" aria-label="Voir les univers">
+          <Visual slug="team-elite" tone="red" label="Showreel / 07" />
+          <span class="hero__visual-pill mono">Voir <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {Array.from({ length: 2 }).map(() => (
+        <span class="marquee__row">
+          {univers.map((u) => (
+            <span class="marquee__item">{u.name}<span class="marquee__star">✳</span></span>
+          ))}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ============ MANIFESTE ============ -->
+  <section class="section manifesto">
+    <div class="container">
+      <p class="mono eyebrow" data-reveal>Le projet</p>
+      <p class="manifesto__statement display" data-reveal data-delay="0.05">
+        Une seule licence.<br />Toutes les façons<br />de <span class="accent">tenir le cap.</span>
+      </p>
+      <div class="manifesto__grid" data-reveal-group>
+        <div class="manifesto__col" data-reveal-item>
+          <span class="manifesto__n display">07</span>
+          <p class="mono">Univers</p>
+          <p>De l'association au coaching privé, chaque discipline a sa porte d'entrée.</p>
+        </div>
+        <div class="manifesto__col" data-reveal-item>
+          <span class="manifesto__n display">02</span>
+          <p class="mono">Fédérations</p>
+          <p>FFA pour l'athlétisme, FFC pour le cyclisme. Deux affiliations, un maillot.</p>
+        </div>
+        <div class="manifesto__col" data-reveal-item>
+          <span class="manifesto__n display accent">01</span>
+          <p class="mono">Exigence</p>
+          <p>Du loisir au podium, le même soin porté à chaque athlète.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLATEFORME TOURNANTE ============ -->
+  <Turntable />
+
+  <!-- ============ STATS / ROSTER (dark) ============ -->
+  <section class="section section--dark roster" data-parallax-scope>
+    <div class="container">
+      <p class="mono eyebrow" data-reveal>Pourquoi VELCAP</p>
+      <div class="roster__grid" data-reveal-group>
+        <div class="roster__row" data-reveal-item>
+          <span class="roster__k mono">Tous niveaux</span>
+          <span class="roster__v display">Du premier dossard au podium</span>
+        </div>
+        <div class="roster__row" data-reveal-item>
+          <span class="roster__k mono">Encadrement</span>
+          <span class="roster__v display">Des coachs qui te suivent vraiment</span>
+        </div>
+        <div class="roster__row" data-reveal-item>
+          <span class="roster__k mono">Collectif</span>
+          <span class="roster__v display">Le terrain, l'équipe, l'après-course</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENGAGER ============ -->
+  <section class="section engager" id="engager">
+    <div class="container engager__grid">
+      <div class="engager__head" data-reveal>
+        <p class="mono eyebrow">Rejoindre la structure</p>
+        <h2 class="engager__title display">On t'attend sur<br />la ligne de départ.</h2>
+        <p class="engager__lead">Licence, essai, bénévolat ou coaching — dis-nous ce qui t'amène, on s'occupe du reste.</p>
+      </div>
+
+      <form class="engager__form" data-engage-form data-reveal data-delay="0.1" novalidate>
+        <div class="field">
+          <label class="mono" for="f-name">Nom</label>
+          <input id="f-name" name="name" type="text" placeholder="Ton nom" required />
+        </div>
+        <div class="field">
+          <label class="mono" for="f-email">E-mail</label>
+          <input id="f-email" name="email" type="email" placeholder="toi@exemple.fr" required />
+        </div>
+        <div class="field">
+          <label class="mono" for="f-interest">Je veux</label>
+          <select id="f-interest" name="interest" required>
+            <option value="" disabled selected>Choisir…</option>
+            {univers.map((u) => <option>{u.cta}</option>)}
+          </select>
+        </div>
+        <button type="submit" class="btn btn--red">Envoyer ma demande <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="engager__feedback mono" data-engage-feedback role="status"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* — Hero — */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-block: 6rem 2rem; }
+  .hero__label { position: absolute; z-index: 2; }
+  .hero__label--tl { top: 5.2rem; left: var(--gutter); }
+  .hero__label--tr { top: 5.2rem; right: var(--gutter); text-align: right; }
+  .hero__label--bl { bottom: 1.6rem; left: var(--gutter); }
+  .hero__label--br { bottom: 1.6rem; right: var(--gutter); text-align: right; }
+  .hero__inner { width: 100%; }
+  .hero__kicker { margin-bottom: 1.4rem; }
+  .hero__logo { width: 100%; max-width: 1100px; height: auto; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
+  .hero__bottom { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: end; }
+  .hero__lead { font-size: var(--fs-lead); max-width: 42ch; color: #2a2a2e; }
+  .hero__lead strong { color: var(--ink); font-weight: 600; }
+  .hero__cta { display: flex; gap: 0.8rem; margin-top: 1.6rem; flex-wrap: wrap; }
+  .hero__visual { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; display: block; }
+  .hero__visual-pill {
+    position: absolute; left: 1rem; bottom: 1rem; z-index: 3;
+    background: var(--white); color: var(--ink); padding: 0.5rem 0.9rem; border-radius: 999px;
+    display: inline-flex; gap: 0.5rem; transition: transform 0.3s var(--ease);
+  }
+  .hero__visual:hover .hero__visual-pill { transform: translateX(4px); }
+
+  /* — Marquee — */
+  .marquee { background: var(--ink); color: var(--white); padding-block: 1.1rem; overflow: hidden; border-block: 1px solid var(--ink); }
+  .marquee__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+  .marquee__row { display: flex; }
+  .marquee__item { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; font-size: clamp(1.6rem, 4vw, 2.8rem); letter-spacing: -0.01em; display: inline-flex; align-items: center; padding-inline: 1.2rem; white-space: nowrap; }
+  .marquee__star { color: var(--red-bright); margin-left: 2.4rem; font-size: 0.6em; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+
+  /* — Manifeste — */
+  .manifesto__statement { font-size: var(--fs-h2); margin: 0.8rem 0 clamp(2.5rem, 6vw, 5rem); }
+  .manifesto__statement .accent { color: var(--red); }
+  .manifesto__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 3rem); border-top: 1px solid var(--hairline); padding-top: 2.4rem; }
+  .manifesto__n { font-size: clamp(3rem, 7vw, 6rem); line-height: 1; display: block; }
+  .manifesto__col .mono { margin: 0.6rem 0 0.5rem; color: var(--ink); }
+  .manifesto__col p:last-child { color: #4a4a50; max-width: 30ch; }
+
+  /* — Roster (dark) — */
+  .roster__grid { margin-top: 1.5rem; }
+  .roster__row { display: grid; grid-template-columns: 12rem 1fr; gap: 1.5rem; align-items: baseline; padding-block: clamp(1.4rem, 3vw, 2.4rem); border-top: 1px solid var(--hairline-d); }
+  .roster__row:last-child { border-bottom: 1px solid var(--hairline-d); }
+  .roster__k { color: var(--red-bright); }
+  .roster__v { font-size: clamp(1.6rem, 4.5vw, 3.2rem); }
+
+  /* — Engager — */
+  .engager__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .engager__title { font-size: var(--fs-h2); margin: 0.8rem 0 1rem; }
+  .engager__lead { font-size: var(--fs-lead); color: #4a4a50; max-width: 36ch; }
+  .engager__form { display: grid; gap: 1rem; background: var(--ink); color: #fff; padding: clamp(1.5rem, 3vw, 2.4rem); border-radius: 16px; }
+  .field { display: grid; gap: 0.4rem; }
+  .field label { color: #8a8a90; }
+  .field input, .field select {
+    background: #15151a; border: 1px solid #2a2a31; border-radius: 9px; padding: 0.85rem 1rem; color: #fff;
+  }
+  .field input::placeholder { color: #6a6a72; }
+  .field input:focus, .field select:focus { outline: 2px solid var(--red); border-color: var(--red); }
+  .engager__form .btn { justify-content: center; margin-top: 0.4rem; }
+  .engager__feedback { color: var(--red-bright); min-height: 1.2em; text-transform: none; letter-spacing: 0; }
+
+  @media (max-width: 860px) {
+    .hero__bottom { grid-template-columns: 1fr; align-items: start; }
+    .hero__visual { max-width: 360px; }
+    .manifesto__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .roster__row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .engager__grid { grid-template-columns: 1fr; }
+  }
+</style>

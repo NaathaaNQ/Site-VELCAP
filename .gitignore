@@ -1,7 +1,13 @@
-# Python caches (générés par les scripts des skills)
+# Dépendances & build
+node_modules/
+dist/
+.astro/
+
+# Python caches (scripts des skills)
 __pycache__/
 *.pyc
 .coverage
 
-# OS
+# OS / éditeurs
 .DS_Store
+*.log

@@ -1,44 +1,60 @@
 # VELCAP — Site web
 
-Site vitrine de la structure sportive **VELCAP**, qui réunit 7 univers :
-Association · Club FFA (athlétisme) · Club FFC (cyclisme) · Team Élite · La Corrida · Nos Actions · Coaching privé.
+Site de la structure sportive **VELCAP** (7 univers : Association, Club FFA,
+Club FFC, Team Élite, La Corrida, Nos Actions, Coaching privé).
 
-## Concept
+Direction : *Swiss / éditorial / techwear* — blanc majoritaire, noir, rouge
+`#E2000F` ; typo **Space Grotesk + Inter + JetBrains Mono**. Voir [`DESIGN.md`](./DESIGN.md).
 
-- **Plateforme tournante 3D** : un carrousel « drum/coverflow » de panneaux digitaux
-  (type panneau LED de stade), un par univers. On fait défiler les panneaux et
-  on scrolle le contenu à l'intérieur du panneau actif.
-- **Identité** : blanc majoritaire, noir, rouge sport (`#E2000F`) — accordée au logo.
-- **Typo** : Barlow Condensed (titres) + Barlow (texte) — paire « Sports/Fitness ».
-- Dynamique, sportif, orienté engagement (formulaire d'adhésion).
+## Stack
 
-## Lancer en local
+- **[Astro](https://astro.build)** (sortie 100 % statique)
+- **GSAP** + **ScrollTrigger** (animations) · **Lenis** (smooth scroll)
+- Aucune dépendance serveur. Déployable sur GitHub Pages / Netlify / Vercel.
 
-Aucun build. Ouvre simplement `index.html`, ou sers le dossier :
+## Démarrer
 
 ```bash
-python3 -m http.server 8000
-# puis http://localhost:8000
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # génère /dist (statique)
+npm run preview   # prévisualise le build
 ```
-
-## Navigation de la plateforme
-
-- Flèches ‹ › · rail du haut · pastilles du bas · clavier ← → · swipe/drag
-- Bouton **Rotation auto** pour la faire tourner toute seule
 
 ## Structure
 
 ```
-index.html              # page
-assets/css/styles.css   # styles (palette, 3D, responsive)
-assets/js/app.js         # plateforme tournante + contenu des 7 univers
-assets/img/             # logo/visuels (déposer velcap-logo.png ici)
+src/
+  data/univers.js          # contenu des 7 univers (source unique)
+  layouts/Base.astro       # <head>, polices, header/footer, init JS
+  components/
+    Header.astro           # en-tête + menu plein écran
+    Footer.astro
+    Turntable.astro        # la plateforme tournante (panneaux 3D)
+    Visual.astro           # visuel duotone généré (placeholder photo)
+  pages/
+    index.astro            # accueil
+    univers/[slug].astro   # 7 pages générées depuis univers.js
+  scripts/
+    main.js                # Lenis + GSAP reveals + header + menu + form
+    turntable.js           # logique de la plateforme tournante
+  styles/global.css        # design system (tokens, base)
+public/img/velcap-logo.svg # logo (recréation vectorielle)
 ```
 
-## À personnaliser
+## Animations
 
-- **Contenu** des univers : tableau `PANELS` dans `assets/js/app.js`.
-- **Logo** : le wordmark est en CSS ; pour utiliser ton fichier, dépose
-  `assets/img/velcap-logo.png` et remplace `.brand__word` dans `index.html`.
-- **Formulaire** : `#engageForm` affiche un message de confirmation côté client.
-  Brancher un back-end / service mail pour recevoir les demandes.
+- Smooth scroll (Lenis), séquence d'intro au chargement, reveals au scroll,
+  parallaxe douce, plateforme tournante (rotation GSAP, drag, clavier, auto).
+- `prefers-reduced-motion` respecté : tout s'affiche sans animation si demandé.
+
+## À brancher / personnaliser
+
+- **Photos** : les visuels sont des duotones générés (placeholders). Déposer de
+  vraies photos dans `public/img/univers/` et remplacer le bloc média de
+  `Visual.astro`. *(Le CDN d'images externes était bloqué à la création.)*
+- **Logo** : `public/img/velcap-logo.svg` — remplacer par le PNG/vectoriel
+  officiel si fourni.
+- **Formulaire** : confirmation côté client seulement. Brancher un service
+  (Netlify Forms, Formspree, e-mail) pour recevoir les demandes.
+- **Contenu** : tout passe par `src/data/univers.js`.

@@ -1,0 +1,59 @@
+---
+import { univers } from '../data/univers.js';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__lead">
+      <p class="mono eyebrow">Rejoindre la structure</p>
+      <a href="/#engager" class="site-footer__cta display">
+        Entre dans<br />la course <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <nav class="site-footer__nav" aria-label="Univers">
+      <p class="mono">Univers</p>
+      <ul>
+        {univers.map((u) => (
+          <li><a href={`/univers/${u.slug}`}><span class="mono">{u.index}</span> {u.name}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <hr class="site-footer__rule" />
+
+  <div class="site-footer__meta">
+    <span class="brand-word display">VELCAP</span>
+    <span class="mono">© {year} — Tous droits réservés</span>
+    <span class="mono">Rouge · Noir · Blanc — YR{String(year).slice(2)}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--ink); color: var(--white); padding: clamp(3.5rem, 7vw, 6rem) var(--gutter) 2rem; }
+  .site-footer > * { max-width: var(--container); margin-inline: auto; }
+  .site-footer__top { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; align-items: start; }
+  .site-footer__lead .eyebrow { color: #6f6f77; margin-bottom: 1rem; }
+  .site-footer__cta {
+    display: inline-block; font-size: clamp(2.4rem, 6vw, 5rem); color: var(--white);
+    transition: color 0.3s var(--ease);
+  }
+  .site-footer__cta .arrow { color: var(--red-bright); display: inline-block; transition: transform 0.35s var(--ease); }
+  .site-footer__cta:hover { color: var(--red-bright); }
+  .site-footer__cta:hover .arrow { transform: translate(6px, -6px); }
+
+  .site-footer__nav p { color: #6f6f77; margin-bottom: 1rem; }
+  .site-footer__nav ul { display: grid; gap: 0.5rem; }
+  .site-footer__nav a { color: #c8c8cf; display: inline-flex; gap: 0.7rem; transition: color 0.25s var(--ease); }
+  .site-footer__nav a:hover { color: var(--white); }
+  .site-footer__nav .mono { color: #5f5f67; }
+
+  .site-footer__rule { border: 0; height: 1px; background: var(--hairline-d); margin-block: clamp(2.5rem, 5vw, 4rem); }
+  .site-footer__meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .brand-word { font-size: clamp(2.5rem, 9vw, 7rem); letter-spacing: -0.03em; line-height: 1; }
+  .site-footer__meta .mono { color: #6f6f77; }
+
+  @media (max-width: 760px) {
+    .site-footer__top { grid-template-columns: 1fr; }
+  }
+</style>

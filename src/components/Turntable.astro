@@ -1,0 +1,148 @@
+---
+import { univers } from '../data/univers.js';
+import Visual from './Visual.astro';
+---
+<section class="tt" id="univers" data-parallax-scope>
+  <div class="container tt__head">
+    <div>
+      <p class="mono eyebrow" data-reveal>Directory — 07 univers</p>
+      <h2 class="tt__title display" data-reveal data-delay="0.05">La plateforme<br />tournante</h2>
+    </div>
+    <p class="tt__lead" data-reveal data-delay="0.1">
+      Sept univers, un seul mouvement. Fais tourner les panneaux, ouvre celui qui
+      te ressemble.
+    </p>
+  </div>
+
+  <div class="tt__stage" data-turntable role="group" aria-roledescription="carrousel" aria-label="Les univers VELCAP">
+    <div class="tt__deck">
+      {univers.map((u) => (
+        <article class="tt-panel" data-panel data-name={u.name} aria-hidden="true">
+          <a class="board" href={`/univers/${u.slug}`}>
+            <div class="board__visual">
+              <Visual slug={u.slug} tone={Number(u.index) % 2 ? 'red' : 'ink'} label={`VELCAP / ${u.index}`} />
+            </div>
+            <div class="board__body">
+              <div class="board__row">
+                <span class="board__idx mono">{u.index} / 07</span>
+                <span class="board__disc mono">{u.discipline}</span>
+              </div>
+              <h3 class="board__name display">{u.name}</h3>
+              <p class="board__lead">{u.lead}</p>
+              <span class="board__cta mono">Explorer l'univers <span class="arrow" aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <button class="tt-arrow tt-arrow--prev" data-tt-prev aria-label="Univers précédent">‹</button>
+    <button class="tt-arrow tt-arrow--next" data-tt-next aria-label="Univers suivant">›</button>
+  </div>
+
+  <div class="container tt__controls">
+    <button class="tt-auto" data-tt-auto aria-pressed="false">
+      <span class="tt-auto__dot" aria-hidden="true"></span> Rotation auto
+    </button>
+    <div class="tt__dots" role="tablist" aria-label="Choisir un univers">
+      {univers.map((u) => (
+        <button class="tt-dot" data-tt-dot role="tab" aria-label={u.name}></button>
+      ))}
+    </div>
+    <p class="tt__counter mono">
+      <span data-tt-now>01</span><i>/</i>07 — <span data-tt-name>Association</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .tt { padding-block: clamp(4rem, 9vw, 8rem); background: var(--paper); overflow: hidden; }
+  .tt__head {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: end;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+  }
+  .tt__title { font-size: var(--fs-h2); margin-top: 0.8rem; }
+  .tt__lead { font-size: var(--fs-lead); color: #44444a; max-width: 38ch; }
+
+  .tt__stage {
+    position: relative; height: clamp(440px, 62vh, 600px);
+    perspective: 1900px; touch-action: pan-y; cursor: grab;
+  }
+  .tt__stage:active { cursor: grabbing; }
+  .tt__deck { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+  .tt-panel {
+    position: absolute; top: 50%; left: 50%;
+    width: min(380px, 80vw); height: clamp(400px, 56vh, 540px);
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    transition: opacity 0.4s var(--ease);
+  }
+  .board {
+    display: flex; flex-direction: column; height: 100%; color: var(--white);
+    background: var(--ink-2); border: 1px solid #232329; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 30px 70px -34px rgba(0,0,0,.6);
+    transition: box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .tt-panel.is-active .board {
+    border-color: var(--red); box-shadow: 0 44px 90px -34px rgba(226,0,15,.5);
+  }
+  .board__visual { position: relative; height: 56%; border-bottom: 1px solid #232329; }
+  .board__visual::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px;
+    background: linear-gradient(90deg, var(--red), var(--red-bright));
+  }
+  .board__body { padding: 1.2rem 1.3rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+  .board__row { display: flex; justify-content: space-between; }
+  .board__idx { color: var(--red-bright); }
+  .board__disc { color: #7a7a82; }
+  .board__name { font-size: clamp(1.6rem, 4.5vw, 2.2rem); }
+  .board__lead { color: #b9b9c0; font-size: 0.96rem; }
+  .board__cta { margin-top: auto; color: #fff; display: inline-flex; gap: 0.5rem; }
+  .board__cta .arrow { color: var(--red-bright); transition: transform 0.3s var(--ease); }
+  .tt-panel.is-active .board:hover .board__cta .arrow { transform: translateX(5px); }
+
+  .tt-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 50;
+    width: 54px; height: 54px; border-radius: 50%; cursor: pointer;
+    background: var(--white); color: var(--ink); border: 1.5px solid var(--ink);
+    font-size: 1.7rem; line-height: 0; display: grid; place-items: center;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+    box-shadow: 0 14px 30px -14px rgba(0,0,0,.4);
+  }
+  .tt-arrow:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .tt-arrow--prev { left: clamp(0.5rem, 4vw, 3rem); }
+  .tt-arrow--next { right: clamp(0.5rem, 4vw, 3rem); }
+
+  .tt__controls {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    margin-top: 2.4rem; flex-wrap: wrap;
+  }
+  .tt-auto {
+    display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer;
+    background: transparent; border: 1.5px solid var(--ink); border-radius: 999px;
+    padding: 0.5rem 1rem; font-family: var(--font-mono); font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink);
+    transition: all 0.3s var(--ease);
+  }
+  .tt-auto__dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
+  .tt-auto[aria-pressed="true"] { background: var(--red); border-color: var(--red); color: #fff; }
+  .tt-auto[aria-pressed="true"] .tt-auto__dot { background: #fff; border-color: #fff; }
+
+  .tt__dots { display: flex; gap: 0.55rem; }
+  .tt-dot {
+    width: 10px; height: 10px; border-radius: 50%; cursor: pointer; padding: 0;
+    background: transparent; border: 1.5px solid #b3b3b3; transition: all 0.25s var(--ease);
+  }
+  .tt-dot.is-active { background: var(--red); border-color: var(--red); transform: scale(1.3); }
+
+  .tt__counter { color: var(--ink); font-size: 0.95rem; letter-spacing: 0.1em; }
+  .tt__counter i { color: var(--smoke); margin: 0 0.2rem; font-style: normal; }
+  .tt__counter [data-tt-now] { color: var(--red); }
+
+  @media (max-width: 760px) {
+    .tt__head { grid-template-columns: 1fr; align-items: start; }
+    .tt-arrow { width: 44px; height: 44px; font-size: 1.4rem; }
+    .tt__controls { justify-content: center; }
+  }
+</style>
