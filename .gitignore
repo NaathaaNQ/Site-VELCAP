@@ -1,0 +1,7 @@
+# Python caches (générés par les scripts des skills)
+__pycache__/
+*.pyc
+.coverage
+
+# OS
+.DS_Store
