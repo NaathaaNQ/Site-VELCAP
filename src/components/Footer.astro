@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
   <hr class="site-footer__rule" />
 
   <div class="site-footer__meta">
-    <span class="brand-word display">VELCAP</span>
+    <img class="footer-logo" src="/img/velcap-logo-white.svg" alt="VELCAP" width="447" height="140" />
     <span class="mono">© {year} — Tous droits réservés</span>
     <span class="mono">Rouge · Noir · Blanc — YR{String(year).slice(2)}</span>
   </div>
@@ -50,7 +50,7 @@ const year = new Date().getFullYear();
 
   .site-footer__rule { border: 0; height: 1px; background: var(--hairline-d); margin-block: clamp(2.5rem, 5vw, 4rem); }
   .site-footer__meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  .brand-word { font-size: clamp(2.5rem, 9vw, 7rem); letter-spacing: -0.03em; line-height: 1; }
+  .footer-logo { width: clamp(180px, 34vw, 360px); height: auto; }
   .site-footer__meta .mono { color: #6f6f77; }
 
   @media (max-width: 760px) {
