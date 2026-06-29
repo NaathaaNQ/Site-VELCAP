@@ -1,9 +1,35 @@
 /* =========================================================
    VELCAP — Design system
    Direction : Swiss Modernism 2.0 × Kinetic Brutalism
-   Type      : Space Grotesk (display) · Inter (body) · JetBrains Mono (data)
+   Type      : Big Shoulders (display) · Outfit (body) · Geist Mono (data)
    Palette   : blanc · noir · rouge (accent unique)
    ========================================================= */
+
+/* — Polices auto-hébergées (woff2, fonctionnent hors-ligne) — */
+@font-face {
+  font-family: "Big Shoulders"; font-style: normal; font-weight: 400;
+  font-display: swap; src: url("/fonts/BigShoulders-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Big Shoulders"; font-style: normal; font-weight: 700;
+  font-display: swap; src: url("/fonts/BigShoulders-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Outfit"; font-style: normal; font-weight: 400;
+  font-display: swap; src: url("/fonts/Outfit-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Outfit"; font-style: normal; font-weight: 700;
+  font-display: swap; src: url("/fonts/Outfit-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Geist Mono"; font-style: normal; font-weight: 400;
+  font-display: swap; src: url("/fonts/GeistMono-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Geist Mono"; font-style: normal; font-weight: 600;
+  font-display: swap; src: url("/fonts/GeistMono-Bold.woff2") format("woff2");
+}
 
 :root {
   /* — Couleurs — */
@@ -20,17 +46,17 @@
   --hairline-d: #26262b;   /* filets sur fond sombre */
 
   /* — Typo — */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body:    "Inter", system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Big Shoulders", "Arial Narrow", system-ui, sans-serif;
+  --font-body:    "Outfit", system-ui, sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, monospace;
 
-  /* échelle fluide */
+  /* échelle fluide (Big Shoulders est condensé → on pousse les tailles) */
   --fs-mono:   clamp(0.66rem, 0.62rem + 0.2vw, 0.74rem);
   --fs-body:   clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
-  --fs-lead:   clamp(1.2rem, 1.05rem + 0.7vw, 1.6rem);
-  --fs-h3:     clamp(1.5rem, 1.2rem + 1.4vw, 2.4rem);
-  --fs-h2:     clamp(2.4rem, 1.6rem + 3.6vw, 5rem);
-  --fs-display:clamp(3.4rem, 1.2rem + 11vw, 13rem);
+  --fs-lead:   clamp(1.25rem, 1.05rem + 0.8vw, 1.7rem);
+  --fs-h3:     clamp(1.7rem, 1.2rem + 1.8vw, 2.8rem);
+  --fs-h2:     clamp(2.8rem, 1.6rem + 5vw, 6.5rem);
+  --fs-display:clamp(4rem, 1.2rem + 13vw, 15rem);
 
   /* — Layout — */
   --container: 1340px;
@@ -74,8 +100,8 @@ html.lenis, html.lenis body { height: auto; }
 .display {
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  line-height: 0.9;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
 }
 .mono {
@@ -115,8 +141,21 @@ html.lenis, html.lenis body { height: auto; }
 .btn--red { --bg: var(--red); --fg: var(--white); --bd: var(--red); }
 .btn--red::after { background: var(--ink); }
 .btn--red:hover { border-color: var(--ink); }
+.btn--dark { --bg: var(--ink); --fg: var(--white); --bd: var(--ink); }
+.btn--dark::after { background: var(--red); }
+.btn--dark:hover { border-color: var(--red); }
 .btn--ghost { --bg: transparent; --fg: var(--ink); --bd: var(--ink); }
 .btn--light { --bg: transparent; --fg: var(--white); --bd: rgba(255,255,255,.4); }
+
+/* grand bouton mis en avant */
+.btn--lg {
+  font-size: 0.92rem; letter-spacing: 0.1em;
+  padding: 1.15rem 2.1rem; gap: 0.9rem;
+  box-shadow: 0 14px 30px -16px rgba(10,10,10,.5);
+}
+.btn--lg.btn--red { box-shadow: 0 16px 34px -14px rgba(226,0,15,.55); }
+.btn--lg .arrow { font-size: 1.1em; }
+[data-magnetic] { will-change: transform; }
 
 /* — Sections — */
 .section { padding-block: clamp(4rem, 9vw, 9rem); position: relative; }

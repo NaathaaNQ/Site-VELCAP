@@ -7,33 +7,38 @@ import { univers } from '../data/univers.js';
 <Base title="VELCAP — Une structure, sept univers, un seul cap">
   <!-- ============ HERO ============ -->
   <section class="hero" data-parallax-scope>
-    <span class="hero__label hero__label--tl mono" data-intro data-intro-order="0">VELCAP&reg;</span>
-    <span class="hero__label hero__label--tr mono" data-intro data-intro-order="0">Structure sportive — FFA · FFC</span>
-    <span class="hero__label hero__label--bl mono" data-intro data-intro-order="5">↓ Scroll</span>
-    <span class="hero__label hero__label--br mono" data-intro data-intro-order="5">07 univers — YR26</span>
-
     <div class="container hero__inner">
       <p class="hero__kicker mono eyebrow" data-intro data-intro-order="1">Une structure. Sept univers. Un seul cap.</p>
 
       <img class="hero__logo" src="/img/velcap-logo.svg" alt="VELCAP" width="447" height="140" data-intro="clip" data-intro-order="2" />
 
       <div class="hero__bottom">
-        <div class="hero__pitch" data-intro data-intro-order="4">
+        <div class="hero__pitch" data-intro data-intro-order="3">
           <p class="hero__lead">
             Athlétisme, cyclisme, haut niveau, événement, terrain, coaching.
             VELCAP rassemble toutes les manières de se dépasser sous une même bannière —
             <strong>et te laisse choisir la tienne.</strong>
           </p>
           <div class="hero__cta">
-            <a class="btn btn--red" href="#univers">Explorer les univers <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn--ghost" href="#engager">S'engager</a>
+            <a class="btn btn--red btn--lg" href="#univers" data-magnetic>
+              Explorer les univers <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn--dark btn--lg" href="#engager" data-magnetic>
+              S'engager <span class="arrow" aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
 
-        <a class="hero__visual" href="#univers" data-intro data-intro-order="3" aria-label="Voir les univers">
-          <Visual slug="team-elite" tone="red" label="Showreel / 07" />
-          <span class="hero__visual-pill mono">Voir <span aria-hidden="true">→</span></span>
-        </a>
+        <nav class="hero__index" aria-label="Les univers" data-intro data-intro-order="4">
+          {univers.map((u) => (
+            <a class="hero__index-row" href={`/univers/${u.slug}`}>
+              <span class="hero__index-n mono">{u.index}</span>
+              <span class="hero__index-name display">{u.name}</span>
+              <span class="hero__index-disc mono">{u.discipline}</span>
+              <span class="hero__index-arrow" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </nav>
       </div>
     </div>
   </section>
@@ -136,26 +141,34 @@ import { univers } from '../data/univers.js';
 
 <style>
   /* — Hero — */
-  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-block: 6rem 2rem; }
-  .hero__label { position: absolute; z-index: 2; }
-  .hero__label--tl { top: 5.2rem; left: var(--gutter); }
-  .hero__label--tr { top: 5.2rem; right: var(--gutter); text-align: right; }
-  .hero__label--bl { bottom: 1.6rem; left: var(--gutter); }
-  .hero__label--br { bottom: 1.6rem; right: var(--gutter); text-align: right; }
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-block: 6rem 2.5rem; }
   .hero__inner { width: 100%; }
-  .hero__kicker { margin-bottom: 1.4rem; }
-  .hero__logo { width: 100%; max-width: 1100px; height: auto; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
-  .hero__bottom { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: end; }
-  .hero__lead { font-size: var(--fs-lead); max-width: 42ch; color: #2a2a2e; }
-  .hero__lead strong { color: var(--ink); font-weight: 600; }
-  .hero__cta { display: flex; gap: 0.8rem; margin-top: 1.6rem; flex-wrap: wrap; }
-  .hero__visual { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; display: block; }
-  .hero__visual-pill {
-    position: absolute; left: 1rem; bottom: 1rem; z-index: 3;
-    background: var(--white); color: var(--ink); padding: 0.5rem 0.9rem; border-radius: 999px;
-    display: inline-flex; gap: 0.5rem; transition: transform 0.3s var(--ease);
+  .hero__kicker { margin-bottom: 1rem; }
+  .hero__logo { width: 100%; max-width: min(64vw, 880px); height: auto; margin-bottom: clamp(1.4rem, 3vw, 2.4rem); }
+  .hero__bottom {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 5rem);
+    align-items: start; border-top: 1px solid var(--hairline); padding-top: clamp(1.4rem, 2.6vw, 2.2rem);
   }
-  .hero__visual:hover .hero__visual-pill { transform: translateX(4px); }
+  .hero__lead { font-size: var(--fs-lead); max-width: 40ch; color: #2a2a2e; line-height: 1.45; }
+  .hero__lead strong { color: var(--ink); font-weight: 700; }
+  .hero__cta { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+
+  /* index des univers (remplit l'espace, sert de navigation) */
+  .hero__index { display: grid; }
+  .hero__index-row {
+    display: grid; grid-template-columns: 2.4rem 1fr auto 1.4rem; align-items: center; gap: 1rem;
+    padding: clamp(0.5rem, 1.1vw, 0.85rem) 0; border-bottom: 1px solid var(--hairline);
+    position: relative; transition: padding-left 0.35s var(--ease), color 0.3s var(--ease);
+  }
+  .hero__index-row:first-child { border-top: 1px solid var(--hairline); }
+  .hero__index-n { color: var(--smoke); }
+  .hero__index-name { font-size: clamp(1.3rem, 2.3vw, 1.9rem); line-height: 1; transition: color 0.3s var(--ease); }
+  .hero__index-disc { color: var(--smoke); justify-self: end; }
+  .hero__index-arrow { color: var(--red); opacity: 0; transform: translateX(-6px); transition: all 0.3s var(--ease); justify-self: end; }
+  .hero__index-row:hover { padding-left: 0.8rem; }
+  .hero__index-row:hover .hero__index-name { color: var(--red); }
+  .hero__index-row:hover .hero__index-arrow { opacity: 1; transform: translateX(0); }
+  .hero__index-row:hover .hero__index-disc { opacity: 0; }
 
   /* — Marquee — */
   .marquee { background: var(--ink); color: var(--white); padding-block: 1.1rem; overflow: hidden; border-block: 1px solid var(--ink); }

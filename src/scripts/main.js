@@ -120,6 +120,22 @@ function initIntro() {
   });
 }
 
+function initMagnetic() {
+  if (REDUCED || window.matchMedia('(hover: none)').matches) return;
+  document.querySelectorAll('[data-magnetic]').forEach((el) => {
+    const strength = 0.35;
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * strength;
+      const y = (e.clientY - r.top - r.height / 2) * strength;
+      gsap.to(el, { x, y, duration: 0.5, ease: 'power3.out' });
+    });
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+    });
+  });
+}
+
 function initForm() {
   const form = document.querySelector('[data-engage-form]');
   if (!form) return;
@@ -140,6 +156,7 @@ export function initSite() {
   initHeader();
   initMenu();
   initForm();
+  initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });
   // Recalcule après chargement des polices
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());

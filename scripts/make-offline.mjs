@@ -24,15 +24,16 @@ await build({
 console.log('✓ app.js bundlé (script classique)');
 
 // 2) Lister les .html --------------------------------------------------------
-function walk(dir) {
+function walkExt(dir, ext) {
   let out = [];
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
-    if (statSync(p).isDirectory()) out = out.concat(walk(p));
-    else if (name.endsWith('.html')) out.push(p);
+    if (statSync(p).isDirectory()) out = out.concat(walkExt(p, ext));
+    else if (name.endsWith(ext)) out.push(p);
   }
   return out;
 }
+const walk = (dir) => walkExt(dir, '.html');
 
 // Convertit un chemin absolu du site en fichier dist-relatif
 function toTargetFile(absPath) {
@@ -56,6 +57,17 @@ function relForFile(htmlFile, value) {
   return rel + (hash !== undefined ? '#' + hash : '');
 }
 
+// 2bis) Réécrire les url(/...) dans les CSS (polices, etc.) en relatif --------
+const cssFiles = walkExt(DIST, '.css');
+for (const file of cssFiles) {
+  let css = readFileSync(file, 'utf8');
+  css = css.replace(/url\((['"]?)\/([^)'"]+)\1\)/g, (m, q, path) => {
+    return `url(${q}${relForFile(file, '/' + path)}${q})`;
+  });
+  writeFileSync(file, css);
+}
+console.log(`✓ ${cssFiles.length} CSS réécrit(s) (url() relatifs)`);
+
 const htmlFiles = walk(DIST);
 for (const file of htmlFiles) {
   let html = readFileSync(file, 'utf8');
@@ -63,6 +75,8 @@ for (const file of htmlFiles) {
   // retirer les scripts modules et modulepreload (incompatibles file://)
   html = html.replace(/<script[^>]*type=["']module["'][^>]*><\/script>/g, '');
   html = html.replace(/<link[^>]*rel=["']modulepreload["'][^>]*>/g, '');
+  // retirer les preload de polices (inutiles + crossorigin échoue en file://)
+  html = html.replace(/<link[^>]*rel=["']preload["'][^>]*as=["']font["'][^>]*>/g, '');
 
   // réécrire href="/..." et src="/..."
   html = html.replace(/\b(href|src)=("|')(\/[^"']*)\2/g, (m, attr, q, val) => {

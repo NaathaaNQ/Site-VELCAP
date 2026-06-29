@@ -5,12 +5,12 @@ import Visual from './Visual.astro';
 <section class="tt" id="univers" data-parallax-scope>
   <div class="container tt__head">
     <div>
-      <p class="mono eyebrow" data-reveal>Directory — 07 univers</p>
+      <p class="mono eyebrow" data-reveal>Glisse · clique · explore</p>
       <h2 class="tt__title display" data-reveal data-delay="0.05">La plateforme<br />tournante</h2>
     </div>
     <p class="tt__lead" data-reveal data-delay="0.1">
-      Sept univers, un seul mouvement. Fais tourner les panneaux, ouvre celui qui
-      te ressemble.
+      Un seul mouvement, tous les univers. Fais tourner la plateforme et ouvre
+      celui qui te ressemble.
     </p>
   </div>
 
@@ -65,41 +65,65 @@ import Visual from './Visual.astro';
   .tt__lead { font-size: var(--fs-lead); color: #44444a; max-width: 38ch; }
 
   .tt__stage {
-    position: relative; height: clamp(440px, 62vh, 600px);
-    perspective: 1900px; touch-action: pan-y; cursor: grab;
+    position: relative; height: clamp(470px, 64vh, 640px);
+    perspective: 2000px; touch-action: pan-y; cursor: grab;
+    background: radial-gradient(130% 100% at 50% 14%, #191920 0%, #0c0c0f 55%, #070708 100%);
+    border: 1px solid #1b1b21; border-radius: 24px; overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 40px 90px -50px rgba(0,0,0,.7);
   }
   .tt__stage:active { cursor: grabbing; }
-  .tt__deck { position: absolute; inset: 0; transform-style: preserve-3d; }
+  /* halo rouge d'ambiance */
+  .tt__stage::before {
+    content: ""; position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+    width: 62%; height: 58%; z-index: 0; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(226,0,15,.30), transparent 72%);
+    filter: blur(26px);
+  }
+  /* grounding : ombre de sol */
+  .tt__stage::after {
+    content: ""; position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%);
+    width: 46%; height: 60px; z-index: 0; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent 75%);
+    filter: blur(8px);
+  }
+  .tt__deck { position: absolute; inset: 0; transform-style: preserve-3d; z-index: 1; }
 
   .tt-panel {
     position: absolute; top: 50%; left: 50%;
-    width: min(380px, 80vw); height: clamp(400px, 56vh, 540px);
+    width: min(388px, 78vw); height: clamp(410px, 56vh, 550px);
     transform: translate(-50%, -50%);
-    will-change: transform, opacity;
-    transition: opacity 0.4s var(--ease);
+    will-change: transform, opacity, filter;
   }
   .board {
     display: flex; flex-direction: column; height: 100%; color: var(--white);
-    background: var(--ink-2); border: 1px solid #232329; border-radius: 16px; overflow: hidden;
-    box-shadow: 0 30px 70px -34px rgba(0,0,0,.6);
-    transition: box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+    background: linear-gradient(168deg, #1b1b22 0%, #121217 48%, #0c0c10 100%);
+    border: 1px solid #2c2c34; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 34px 70px -34px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.05);
+    transition: box-shadow 0.45s var(--ease), border-color 0.45s var(--ease);
+  }
+  /* sheen diagonal subtil */
+  .board::before {
+    content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 38%);
   }
   .tt-panel.is-active .board {
-    border-color: var(--red); box-shadow: 0 44px 90px -34px rgba(226,0,15,.5);
+    border-color: var(--red);
+    box-shadow: 0 50px 100px -36px rgba(226,0,15,.55), 0 0 0 1px rgba(226,0,15,.6), inset 0 1px 0 rgba(255,255,255,.06);
   }
-  .board__visual { position: relative; height: 56%; border-bottom: 1px solid #232329; }
+  .board__visual { position: relative; height: 56%; border-bottom: 1px solid #26262d; }
   .board__visual::after {
-    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px;
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 2;
     background: linear-gradient(90deg, var(--red), var(--red-bright));
   }
-  .board__body { padding: 1.2rem 1.3rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+  .board__body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
   .board__row { display: flex; justify-content: space-between; }
   .board__idx { color: var(--red-bright); }
   .board__disc { color: #7a7a82; }
-  .board__name { font-size: clamp(1.6rem, 4.5vw, 2.2rem); }
-  .board__lead { color: #b9b9c0; font-size: 0.96rem; }
-  .board__cta { margin-top: auto; color: #fff; display: inline-flex; gap: 0.5rem; }
+  .board__name { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-top: 0.1rem; }
+  .board__lead { color: #b9b9c0; font-size: 0.98rem; }
+  .board__cta { margin-top: auto; color: #fff; display: inline-flex; gap: 0.5rem; align-items: center; }
   .board__cta .arrow { color: var(--red-bright); transition: transform 0.3s var(--ease); }
+  .tt-panel.is-active .board:hover { border-color: var(--red-bright); }
   .tt-panel.is-active .board:hover .board__cta .arrow { transform: translateX(5px); }
 
   .tt-arrow {

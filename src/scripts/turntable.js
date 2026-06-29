@@ -32,6 +32,10 @@ export function initTurntable({ reduced } = {}) {
         `translate(-50%, -50%) translateX(${tx}%) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
       panel.style.zIndex = String(100 - Math.round(abs * 10));
       panel.style.opacity = abs > 2.6 ? '0' : '1';
+      // profondeur de champ : flou + assombrissement progressif des panneaux latéraux
+      const blur = abs < 0.45 ? 0 : Math.min((abs - 0.45) * 2.4, 5);
+      const bright = abs < 0.45 ? 1 : Math.max(0.55, 1 - abs * 0.16);
+      panel.style.filter = `blur(${blur.toFixed(2)}px) brightness(${bright.toFixed(2)})`;
       const centered = abs < 0.5;
       panel.style.pointerEvents = centered ? 'auto' : 'none';
       panel.classList.toggle('is-active', centered);
@@ -102,22 +106,34 @@ export function initTurntable({ reduced } = {}) {
   stage.addEventListener('touchmove', (e) => move(e.touches[0].clientX), { passive: true });
   stage.addEventListener('touchend', up);
 
-  // Rotation auto
+  // Rotation auto — fiabilisée : retour visuel immédiat + pause au survol
   const apBtn = document.querySelector('[data-tt-auto]');
-  function tickAuto() { if (autoplay) next(); }
+  const AUTO_MS = 3600;
   let autoInterval = null;
+  let hovering = false;
+
+  function scheduleAuto() {
+    clearInterval(autoInterval);
+    if (autoplay && !hovering) autoInterval = setInterval(() => next(), AUTO_MS);
+  }
   function startAuto() {
     if (reduced) return;
-    autoplay = true; apBtn?.setAttribute('aria-pressed', 'true');
-    clearInterval(autoInterval); autoInterval = setInterval(tickAuto, 3800);
+    autoplay = true;
+    apBtn?.setAttribute('aria-pressed', 'true');
+    if (!hovering) next();        // feedback immédiat (ne plus attendre 3,6 s)
+    scheduleAuto();
   }
   function stopAuto() {
-    autoplay = false; apBtn?.setAttribute('aria-pressed', 'false');
+    if (!autoplay && !autoInterval) return;
+    autoplay = false;
+    apBtn?.setAttribute('aria-pressed', 'false');
     clearInterval(autoInterval);
+    autoInterval = null;
   }
   apBtn?.addEventListener('click', () => (autoplay ? stopAuto() : startAuto()));
-  stage.addEventListener('mouseenter', () => { if (autoplay) clearInterval(autoInterval); });
-  stage.addEventListener('mouseleave', () => { if (autoplay) startAuto(); });
+  // pause pendant qu'on survole la scène (pour lire), reprise ensuite
+  stage.addEventListener('mouseenter', () => { hovering = true; scheduleAuto(); });
+  stage.addEventListener('mouseleave', () => { hovering = false; scheduleAuto(); });
 
   render();
   updateUI();
