@@ -11,7 +11,7 @@ let lenis = null;
 
 function initSmoothScroll() {
   if (REDUCED) return;
-  lenis = new Lenis({ duration: 1.1, smoothWheel: true, wheelMultiplier: 1, lerp: 0.1 });
+  lenis = new Lenis({ duration: 1.0, smoothWheel: true, wheelMultiplier: 1.18, lerp: 0.11 });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -49,10 +49,10 @@ function initReveals() {
     });
   });
 
-  // Parallaxe douce
+  // Parallaxe douce (centrée : de -amt à +amt pour ne pas découvrir les bords)
   gsap.utils.toArray('[data-parallax]').forEach((el) => {
-    const amt = parseFloat(el.dataset.parallax || 12);
-    gsap.to(el, {
+    const amt = parseFloat(el.dataset.parallax || 10);
+    gsap.fromTo(el, { yPercent: -amt }, {
       yPercent: amt, ease: 'none',
       scrollTrigger: { trigger: el.closest('[data-parallax-scope]') || el, start: 'top bottom', end: 'bottom top', scrub: true },
     });

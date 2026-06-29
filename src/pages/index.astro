@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Turntable from '../components/Turntable.astro';
-import Visual from '../components/Visual.astro';
+import Photo from '../components/Photo.astro';
 import { univers } from '../data/univers.js';
 ---
 <Base title="VELCAP — Une structure, sept univers, un seul cap">
@@ -29,16 +29,11 @@ import { univers } from '../data/univers.js';
           </div>
         </div>
 
-        <nav class="hero__index" aria-label="Les univers" data-intro data-intro-order="4">
-          {univers.map((u) => (
-            <a class="hero__index-row" href={`/univers/${u.slug}`}>
-              <span class="hero__index-n mono">{u.index}</span>
-              <span class="hero__index-name display">{u.name}</span>
-              <span class="hero__index-disc mono">{u.discipline}</span>
-              <span class="hero__index-arrow" aria-hidden="true">→</span>
-            </a>
-          ))}
-        </nav>
+        <div class="hero__media" data-intro="clip" data-intro-order="4">
+          <Photo src="photo-hero.jpg" treatment="color" slug="club-ffa" parallax="8"
+                 alt="Athlète VELCAP" />
+          <span class="hero__media-tag mono">Les Rives du Doubs — Besançon</span>
+        </div>
       </div>
     </div>
   </section>
@@ -56,35 +51,41 @@ import { univers } from '../data/univers.js';
     </div>
   </div>
 
-  <!-- ============ MANIFESTE ============ -->
-  <section class="section manifesto">
-    <div class="container">
-      <p class="mono eyebrow" data-reveal>Le projet</p>
-      <p class="manifesto__statement display" data-reveal data-delay="0.05">
-        Une seule licence.<br />Toutes les façons<br />de <span class="accent">tenir le cap.</span>
-      </p>
-      <div class="manifesto__grid" data-reveal-group>
-        <div class="manifesto__col" data-reveal-item>
-          <span class="manifesto__n display">07</span>
-          <p class="mono">Univers</p>
-          <p>De l'association au coaching privé, chaque discipline a sa porte d'entrée.</p>
-        </div>
-        <div class="manifesto__col" data-reveal-item>
-          <span class="manifesto__n display">02</span>
-          <p class="mono">Fédérations</p>
-          <p>FFA pour l'athlétisme, FFC pour le cyclisme. Deux affiliations, un maillot.</p>
-        </div>
-        <div class="manifesto__col" data-reveal-item>
-          <span class="manifesto__n display accent">01</span>
-          <p class="mono">Exigence</p>
-          <p>Du loisir au podium, le même soin porté à chaque athlète.</p>
-        </div>
+  <!-- ============ MANIFESTE (condensé) ============ -->
+  <section class="section manifesto" data-parallax-scope>
+    <div class="container manifesto__grid">
+      <div class="manifesto__text">
+        <p class="mono eyebrow" data-reveal>Le projet</p>
+        <p class="manifesto__statement display" data-reveal data-delay="0.05">
+          Une seule licence.<br />Toutes les façons<br />de <span class="accent">tenir le cap.</span>
+        </p>
+        <ul class="manifesto__stats" data-reveal-group>
+          <li data-reveal-item><b class="display">07</b> <span class="mono">Univers</span></li>
+          <li data-reveal-item><b class="display">02</b> <span class="mono">Fédérations</span></li>
+          <li data-reveal-item><b class="display accent">1</b> <span class="mono">Exigence</span></li>
+        </ul>
+      </div>
+      <div class="manifesto__media" data-reveal>
+        <Photo src="photo-manifesto.jpg" treatment="bw" slug="club-ffc" parallax="9"
+               alt="Coureurs VELCAP" />
       </div>
     </div>
   </section>
 
   <!-- ============ PLATEFORME TOURNANTE ============ -->
   <Turntable />
+
+  <!-- ============ BANDEAU ÉMOTION ============ -->
+  <section class="photoband" data-parallax-scope aria-label="VELCAP, le collectif">
+    <Photo src="photo-band.jpg" treatment="color" slug="corrida" parallax="14"
+           alt="Arrivée VELCAP" class="photoband__media" />
+    <div class="photoband__overlay">
+      <p class="mono eyebrow" data-reveal>Le collectif</p>
+      <p class="photoband__line display" data-reveal data-delay="0.05">
+        On franchit<br />la ligne <span class="accent">ensemble.</span>
+      </p>
+    </div>
+  </section>
 
   <!-- ============ STATS / ROSTER (dark) ============ -->
   <section class="section section--dark roster" data-parallax-scope>
@@ -110,10 +111,16 @@ import { univers } from '../data/univers.js';
   <!-- ============ ENGAGER ============ -->
   <section class="section engager" id="engager">
     <div class="container engager__grid">
-      <div class="engager__head" data-reveal>
-        <p class="mono eyebrow">Rejoindre la structure</p>
-        <h2 class="engager__title display">On t'attend sur<br />la ligne de départ.</h2>
-        <p class="engager__lead">Licence, essai, bénévolat ou coaching — dis-nous ce qui t'amène, on s'occupe du reste.</p>
+      <div class="engager__head">
+        <div data-reveal>
+          <p class="mono eyebrow">Rejoindre la structure</p>
+          <h2 class="engager__title display">On t'attend sur<br />la ligne de départ.</h2>
+          <p class="engager__lead">Licence, essai, bénévolat ou coaching — dis-nous ce qui t'amène, on s'occupe du reste.</p>
+        </div>
+        <div class="engager__media" data-reveal data-delay="0.05">
+          <Photo src="photo-engage.jpg" treatment="bw" slug="association" parallax="7"
+                 alt="L'équipe VELCAP" />
+        </div>
       </div>
 
       <form class="engager__form" data-engage-form data-reveal data-delay="0.1" novalidate>
@@ -153,22 +160,13 @@ import { univers } from '../data/univers.js';
   .hero__lead strong { color: var(--ink); font-weight: 700; }
   .hero__cta { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
 
-  /* index des univers (remplit l'espace, sert de navigation) */
-  .hero__index { display: grid; }
-  .hero__index-row {
-    display: grid; grid-template-columns: 2.4rem 1fr auto 1.4rem; align-items: center; gap: 1rem;
-    padding: clamp(0.5rem, 1.1vw, 0.85rem) 0; border-bottom: 1px solid var(--hairline);
-    position: relative; transition: padding-left 0.35s var(--ease), color 0.3s var(--ease);
+  /* photo du hero (remplace le sommaire) */
+  .hero__media { position: relative; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .hero__media-tag {
+    position: absolute; left: 0.9rem; bottom: 0.9rem; z-index: 3;
+    color: rgba(255,255,255,.85); background: rgba(10,10,11,.45); backdrop-filter: blur(3px);
+    padding: 0.3rem 0.65rem; border-radius: 5px;
   }
-  .hero__index-row:first-child { border-top: 1px solid var(--hairline); }
-  .hero__index-n { color: var(--smoke); }
-  .hero__index-name { font-size: clamp(1.3rem, 2.3vw, 1.9rem); line-height: 1; transition: color 0.3s var(--ease); }
-  .hero__index-disc { color: var(--smoke); justify-self: end; }
-  .hero__index-arrow { color: var(--red); opacity: 0; transform: translateX(-6px); transition: all 0.3s var(--ease); justify-self: end; }
-  .hero__index-row:hover { padding-left: 0.8rem; }
-  .hero__index-row:hover .hero__index-name { color: var(--red); }
-  .hero__index-row:hover .hero__index-arrow { opacity: 1; transform: translateX(0); }
-  .hero__index-row:hover .hero__index-disc { opacity: 0; }
 
   /* — Marquee — */
   .marquee { background: var(--ink); color: var(--white); padding-block: 1.1rem; overflow: hidden; border-block: 1px solid var(--ink); }
@@ -179,13 +177,26 @@ import { univers } from '../data/univers.js';
   @keyframes marquee { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 
-  /* — Manifeste — */
-  .manifesto__statement { font-size: var(--fs-h2); margin: 0.8rem 0 clamp(2.5rem, 6vw, 5rem); }
+  /* — Manifeste (condensé : texte + photo) — */
+  .manifesto__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .manifesto__statement { font-size: clamp(2.2rem, 1.4rem + 4vw, 5rem); margin: 0.7rem 0 1.6rem; }
   .manifesto__statement .accent { color: var(--red); }
-  .manifesto__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 3rem); border-top: 1px solid var(--hairline); padding-top: 2.4rem; }
-  .manifesto__n { font-size: clamp(3rem, 7vw, 6rem); line-height: 1; display: block; }
-  .manifesto__col .mono { margin: 0.6rem 0 0.5rem; color: var(--ink); }
-  .manifesto__col p:last-child { color: #4a4a50; max-width: 30ch; }
+  .manifesto__stats { display: flex; gap: clamp(1.4rem, 3vw, 2.6rem); flex-wrap: wrap; }
+  .manifesto__stats li { display: flex; align-items: baseline; gap: 0.5rem; }
+  .manifesto__stats b { font-size: clamp(2rem, 4vw, 3rem); line-height: 1; }
+  .manifesto__media { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+
+  /* — Bandeau émotion — */
+  .photoband { position: relative; height: clamp(360px, 60vh, 620px); overflow: hidden; }
+  .photoband__media { position: absolute; inset: 0; }
+  .photoband__overlay {
+    position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: clamp(1.5rem, 5vw, 4rem); color: #fff;
+    background: linear-gradient(to top, rgba(8,8,10,.72), rgba(8,8,10,.1) 55%, transparent);
+  }
+  .photoband__overlay .eyebrow { color: #fff; }
+  .photoband__line { font-size: clamp(2.2rem, 6vw, 5.5rem); }
+  .photoband__line .accent { color: var(--red-bright); }
 
   /* — Roster (dark) — */
   .roster__grid { margin-top: 1.5rem; }
@@ -196,6 +207,8 @@ import { univers } from '../data/univers.js';
 
   /* — Engager — */
   .engager__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .engager__head { display: flex; flex-direction: column; gap: clamp(1.4rem, 3vw, 2.2rem); }
+  .engager__media { aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
   .engager__title { font-size: var(--fs-h2); margin: 0.8rem 0 1rem; }
   .engager__lead { font-size: var(--fs-lead); color: #4a4a50; max-width: 36ch; }
   .engager__form { display: grid; gap: 1rem; background: var(--ink); color: #fff; padding: clamp(1.5rem, 3vw, 2.4rem); border-radius: 16px; }
@@ -211,7 +224,7 @@ import { univers } from '../data/univers.js';
 
   @media (max-width: 860px) {
     .hero__bottom { grid-template-columns: 1fr; align-items: start; }
-    .hero__visual { max-width: 360px; }
+    .hero__media { aspect-ratio: 16 / 10; }
     .manifesto__grid { grid-template-columns: 1fr; gap: 2rem; }
     .roster__row { grid-template-columns: 1fr; gap: 0.4rem; }
     .engager__grid { grid-template-columns: 1fr; }

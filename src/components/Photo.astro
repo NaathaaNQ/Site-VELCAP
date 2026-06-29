@@ -1,0 +1,41 @@
+---
+import fs from 'node:fs';
+import Visual from './Visual.astro';
+
+// Photo : affiche la vraie image si elle existe dans /public/img/photos/,
+// sinon un placeholder propre indiquant le nom de fichier attendu.
+const {
+  src,                 // ex. "photo-hero.jpg"
+  treatment = 'bw',    // 'bw' | 'color'
+  alt = '',
+  slug = 'team-elite', // variante du placeholder duotone
+  parallax = 0,        // amplitude de parallaxe (0 = aucune)
+  class: cls = '',
+} = Astro.props;
+
+const exists = src ? fs.existsSync(`public/img/photos/${src}`) : false;
+const pAttr = parallax ? { 'data-parallax': String(parallax) } : {};
+---
+<div class={`ph ph--${treatment} ${cls}`} data-parallax-scope>
+  {exists ? (
+    <img class="ph__img" src={`/img/photos/${src}`} alt={alt} loading="lazy" {...pAttr} />
+  ) : (
+    <div class="ph__ph">
+      <Visual slug={slug} tone="red" />
+      <span class="ph__hint mono">photo : {src}</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .ph { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0c0c0f; }
+  .ph__img { position: absolute; inset: -18% 0; width: 100%; height: 136%; object-fit: cover; display: block; will-change: transform; }
+  .ph--bw .ph__img { filter: grayscale(1) contrast(1.06) brightness(0.98); }
+  .ph--color .ph__img { filter: saturate(1.06) contrast(1.04); }
+  .ph__ph { position: absolute; inset: 0; }
+  .ph__hint {
+    position: absolute; left: 0.85rem; bottom: 0.8rem; z-index: 3;
+    color: rgba(255, 255, 255, 0.62); background: rgba(0, 0, 0, 0.3);
+    padding: 0.25rem 0.55rem; border-radius: 4px; backdrop-filter: blur(2px);
+  }
+</style>
