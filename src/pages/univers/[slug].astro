@@ -68,6 +68,16 @@ const FORMS = {
   },
 };
 const form = FORMS[u.slug];
+
+// Mini-galerie par univers (photos supplémentaires, N&B)
+const GALLERY = {
+  'team-loisirs': ['gal-team-loisirs-1.jpg', 'gal-team-loisirs-2.jpg', 'gal-team-loisirs-3.jpg'],
+  'team-elite': ['gal-team-elite-1.jpg', 'gal-team-elite-2.jpg', 'gal-team-elite-3.jpg'],
+  'club-ffa': ['gal-club-ffa-1.jpg', 'gal-club-ffa-2.jpg', 'gal-club-ffa-3.jpg'],
+  coaching: ['gal-coaching-1.jpg', 'gal-coaching-2.jpg', 'gal-coaching-3.jpg'],
+  evenements: ['gal-evenements-1.jpg', 'gal-evenements-2.jpg', 'gal-evenements-3.jpg'],
+};
+const gallery = GALLERY[u.slug];
 ---
 <Base title={`${u.name} — VELCAP`} description={u.intro}>
   <!-- HERO -->
@@ -223,6 +233,21 @@ const form = FORMS[u.slug];
         <p class="mono eyebrow" data-reveal>Passer à l'action</p>
         <p class="ucta__line display" data-reveal data-delay="0.05">Rejoins <span class="accent">{u.name}.</span></p>
         <button type="button" class="btn btn--red btn--lg" data-open-form data-magnetic>{u.cta} <span class="arrow">→</span></button>
+      </div>
+    </section>
+  )}
+
+  {gallery && (
+    <section class="section ugallery">
+      <div class="container">
+        <p class="mono eyebrow" data-reveal>En images</p>
+        <div class="ugallery__grid" data-reveal-group>
+          {gallery.map((src, i) => (
+            <div class={`ugallery__item ugallery__item--${i}`} data-reveal-item data-parallax-scope>
+              <Photo src={src} treatment="bw" slug={u.slug} parallax="6" alt={`${u.name} — photo ${i + 1}`} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )}
@@ -383,8 +408,15 @@ const form = FORMS[u.slug];
   .umodal__submit { justify-content: center; margin-top: 0.3rem; }
   .umodal__feedback { color: var(--red); min-height: 1.1em; text-transform: none; letter-spacing: 0; }
 
+  /* galerie */
+  .ugallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: 1.4rem; }
+  .ugallery__item { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; }
+  .ugallery__item--1 { margin-top: clamp(1.2rem, 4vw, 3.5rem); }
+
   @media (max-width: 760px) {
     .umodal__form { grid-template-columns: 1fr; }
+    .ugallery__grid { grid-template-columns: 1fr 1fr; }
+    .ugallery__item--1 { margin-top: 0; }
     .uhero__top { grid-template-columns: 1fr; }
     .points { grid-template-columns: 1fr; }
     .point { padding-right: 0; }
