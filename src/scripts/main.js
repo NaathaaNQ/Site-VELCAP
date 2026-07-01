@@ -151,7 +151,7 @@ function initForm() {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
     const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('name')} — demande « ${data.get('interest')} » reçue. On te recontacte très vite.`;
+    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')} — demande « ${data.get('interest')} » reçue. On te recontacte très vite.`;
     form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
   });
 }
@@ -190,7 +190,7 @@ function initUniversModal() {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
     const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('name')} — demande reçue. On te recontacte très vite.`;
+    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')} — demande reçue. On te recontacte très vite.`;
     form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
   });
 }

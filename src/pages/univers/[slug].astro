@@ -20,6 +20,7 @@ const formHref = `/?u=${u.slug}#engager`;
 
 // Formulaire sur-mesure par univers (Club FFC = pas de formulaire)
 const FIELD = {
+  firstname: { name: 'firstname', label: 'Prénom', type: 'text', required: true },
   name: { name: 'name', label: 'Nom', type: 'text', required: true },
   email: { name: 'email', label: 'E-mail', type: 'email', required: true },
   phone: { name: 'phone', label: 'Téléphone', type: 'tel' },
@@ -28,21 +29,21 @@ const FIELD = {
 const FORMS = {
   'team-loisirs': {
     title: 'Adhérer au Team Loisirs',
-    fields: [FIELD.name, FIELD.email, FIELD.phone,
+    fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'tier', label: 'Formule', type: 'select', required: true,
         options: ['Adhésion Communauté — 180 €', 'Adhésion Performance — 250 €'] },
       FIELD.message],
   },
   'team-elite': {
     title: 'Candidater à la Team Élite',
-    fields: [FIELD.name, FIELD.email, FIELD.phone,
+    fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'background', label: 'Parcours sportif', type: 'textarea', required: true },
       { name: 'motivation', label: 'Ta motivation', type: 'textarea', required: true },
       FIELD.message],
   },
   'club-ffa': {
     title: 'Licence & inscription — Club FFA',
-    fields: [FIELD.name, FIELD.email, FIELD.phone,
+    fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'age', label: 'Âge', type: 'number' },
       { name: 'level', label: 'Niveau actuel', type: 'select',
         options: ['Débutant', 'Intermédiaire', 'Confirmé', 'Compétiteur'] },
@@ -50,7 +51,7 @@ const FORMS = {
   },
   coaching: {
     title: 'Demander un coaching',
-    fields: [FIELD.name, FIELD.email, FIELD.phone,
+    fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'discipline', label: 'Discipline', type: 'select', required: true,
         options: ['Course à pied', 'Trail', 'Route', 'Cross', 'Piste', 'Vélo'] },
       { name: 'tier', label: 'Formule', type: 'select',
@@ -60,7 +61,7 @@ const FORMS = {
   },
   evenements: {
     title: 'Nous envoyer une demande',
-    fields: [FIELD.name, FIELD.email,
+    fields: [FIELD.firstname, FIELD.name, FIELD.email,
       { name: 'eventtype', label: 'Type de demande', type: 'select', required: true,
         options: ['Participer à un événement', 'Proposer une intervention', 'Partenariat', 'Autre'] },
       FIELD.message],
