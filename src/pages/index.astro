@@ -4,18 +4,18 @@ import Turntable from '../components/Turntable.astro';
 import Photo from '../components/Photo.astro';
 import { univers } from '../data/univers.js';
 ---
-<Base title="VELCAP — Une structure, sept univers, un seul cap">
+<Base title="VELCAP — Une structure, six univers, un seul cap">
   <!-- ============ HERO ============ -->
   <section class="hero" data-parallax-scope>
     <div class="container hero__inner">
-      <p class="hero__kicker mono eyebrow" data-intro data-intro-order="1">Une structure. Sept univers. Un seul cap.</p>
+      <p class="hero__kicker mono eyebrow" data-intro data-intro-order="1">Une structure. Six univers. Un seul cap.</p>
 
       <img class="hero__logo" src="/img/velcap-logo.svg" alt="VELCAP" width="447" height="140" data-intro="clip" data-intro-order="2" />
 
       <div class="hero__bottom">
         <div class="hero__pitch" data-intro data-intro-order="3">
           <p class="hero__lead">
-            Athlétisme, cyclisme, haut niveau, événement, terrain, coaching.
+            Loisir, haut niveau, athlétisme, cyclisme, événements, coaching.
             VELCAP rassemble toutes les manières de se dépasser sous une même bannière —
             <strong>et te laisse choisir la tienne.</strong>
           </p>
@@ -60,7 +60,7 @@ import { univers } from '../data/univers.js';
           Une seule licence.<br />Toutes les façons<br />de <span class="accent">tenir le cap.</span>
         </p>
         <ul class="manifesto__stats" data-reveal-group>
-          <li data-reveal-item><b class="display">07</b> <span class="mono">Univers</span></li>
+          <li data-reveal-item><b class="display">06</b> <span class="mono">Univers</span></li>
           <li data-reveal-item><b class="display">02</b> <span class="mono">Fédérations</span></li>
           <li data-reveal-item><b class="display accent">1</b> <span class="mono">Exigence</span></li>
         </ul>
@@ -136,7 +136,7 @@ import { univers } from '../data/univers.js';
           <label class="mono" for="f-interest">Je veux</label>
           <select id="f-interest" name="interest" required>
             <option value="" disabled selected>Choisir…</option>
-            {univers.map((u) => <option>{u.cta}</option>)}
+            {univers.map((u) => <option data-slug={u.slug}>{u.cta}</option>)}
           </select>
         </div>
         <button type="submit" class="btn btn--red">Envoyer ma demande <span class="arrow" aria-hidden="true">→</span></button>

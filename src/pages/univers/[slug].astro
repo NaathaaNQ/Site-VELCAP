@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Visual from '../../components/Visual.astro';
+import Photo from '../../components/Photo.astro';
 import { univers } from '../../data/univers.js';
 
 export function getStaticPaths() {
@@ -15,13 +15,16 @@ export function getStaticPaths() {
 }
 
 const { u, prev, next } = Astro.props;
+const total = String(univers.length).padStart(2, '0');
+const formHref = `/?u=${u.slug}#engager`;
 ---
 <Base title={`${u.name} — VELCAP`} description={u.intro}>
   <!-- HERO -->
   <section class="uhero" data-parallax-scope>
     <div class="container">
       <nav class="uhero__crumb mono" aria-label="Fil d'ariane" data-intro data-intro-order="0">
-        <a href="/">VELCAP</a> <span>/</span> <a href="/#univers">Univers</a> <span>/</span> <span class="accent">{u.index}</span>
+        <a href="/">VELCAP</a> <span>/</span> <a href="/#univers">Univers</a> <span>/</span>
+        <span class="accent">{u.index}</span> <span>—</span> {total}
       </nav>
 
       <div class="uhero__top">
@@ -35,37 +38,143 @@ const { u, prev, next } = Astro.props;
     </div>
 
     <div class="container uhero__visual" data-intro data-intro-order="4">
-      <Visual slug={u.slug} tone="red" label={`VELCAP / ${u.index} — ${u.discipline}`} />
+      <Photo src={`univers-${u.slug}.jpg`} treatment="bw" slug={u.slug} parallax="8" alt={u.name} />
     </div>
   </section>
 
-  <!-- INTRO + POINTS -->
+  <!-- INTRO -->
   <section class="section udetail">
-    <div class="container udetail__grid">
+    <div class="container">
       <p class="udetail__intro" data-reveal>{u.intro}</p>
+      {u.note && <p class="udetail__note mono" data-reveal data-delay="0.05">{u.note}</p>}
+    </div>
+  </section>
 
-      <div class="udetail__points" data-reveal-group>
-        {u.points.map((p, i) => (
-          <div class="point" data-reveal-item>
-            <span class="point__n mono">{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3 class="point__k display">{p.k}</h3>
-              <p class="point__v">{p.v}</p>
-            </div>
-          </div>
-        ))}
+  {u.comingSoon && (
+    <section class="section soon">
+      <div class="container soon__inner" data-reveal>
+        <p class="soon__tag mono">En préparation</p>
+        <p class="soon__line display">Le projet<br />arrive <span class="accent">bientôt.</span></p>
+        <a class="btn btn--red btn--lg" href={formHref} data-magnetic>{u.cta} <span class="arrow">→</span></a>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- STAT BAND -->
-  <section class="ustat section--dark">
-    <div class="container ustat__inner">
-      <span class="ustat__n display">{u.stat.n}</span>
-      <p class="ustat__label">{u.stat.label}</p>
-      <a class="btn btn--red ustat__cta" href="/#engager">{u.cta} <span class="arrow" aria-hidden="true">→</span></a>
-    </div>
-  </section>
+  {u.points && (
+    <section class="section">
+      <div class="container">
+        <p class="mono eyebrow" data-reveal>Ce qu'on met en place</p>
+        <div class="points" data-reveal-group>
+          {u.points.map((p, i) => (
+            <div class="point" data-reveal-item>
+              <span class="point__n mono">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="point__k display">{p.k}</h3>
+                <p class="point__v">{p.v}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {u.schedule && (
+    <section class="section schedule">
+      <div class="container schedule__grid">
+        <div data-reveal>
+          <p class="mono eyebrow">Créneaux</p>
+          <ul class="schedule__list">
+            {u.schedule.map((s) => <li class="display">{s}</li>)}
+          </ul>
+        </div>
+        {u.price && (
+          <div class="schedule__price" data-reveal data-delay="0.1">
+            <p class="mono">Tarif</p>
+            <span class="schedule__q display">{u.price}</span>
+            <p class="schedule__note mono">à confirmer</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {u.tiers && (
+    <section class="section tiers">
+      <div class="container">
+        <p class="mono eyebrow" data-reveal>{u.tiers.length === 2 ? 'Deux adhésions' : 'Trois formules'}</p>
+        <div class={`tiers__grid tiers__grid--${u.tiers.length}`} data-reveal-group>
+          {u.tiers.map((t) => (
+            <article class={`tier ${t.highlight ? 'tier--hl' : ''}`} data-reveal-item>
+              {t.highlight && <span class="tier__badge mono">Le + complet</span>}
+              <h3 class="tier__name display">{t.name}</h3>
+              {t.price ? <p class="tier__price display">{t.price}</p>
+                       : <p class="tier__price tier__price--soft mono">Sur devis</p>}
+              {t.tagline && <p class="tier__tagline">{t.tagline}</p>}
+              {t.features && t.features.length > 0 ? (
+                <ul class="tier__features">
+                  {t.features.map((f) => <li>{f}</li>)}
+                </ul>
+              ) : (
+                <p class="tier__soon mono">Détails à venir</p>
+              )}
+              <a class="btn btn--dark tier__cta" href={formHref} data-magnetic>{u.cta} <span class="arrow">→</span></a>
+            </article>
+          ))}
+        </div>
+        {u.tiersNote && <p class="tiers__note mono" data-reveal>{u.tiersNote}</p>}
+      </div>
+    </section>
+  )}
+
+  {u.criteria && (
+    <section class="section criteria">
+      <div class="container criteria__grid">
+        <div data-reveal>
+          <p class="mono eyebrow">Critères de sélection</p>
+          <ul class="criteria__list">
+            {u.criteria.map((c, i) => (
+              <li><span class="mono">{String(i + 1).padStart(2, '0')}</span> <span class="display">{c}</span></li>
+            ))}
+          </ul>
+        </div>
+        {u.aside && (
+          <aside class="callout" data-reveal data-delay="0.1">
+            <p class="mono eyebrow">{u.aside.title}</p>
+            <p class="callout__text">{u.aside.text}</p>
+          </aside>
+        )}
+      </div>
+    </section>
+  )}
+
+  {u.events && (
+    <section class="section events">
+      <div class="container">
+        <p class="mono eyebrow" data-reveal>Le calendrier</p>
+        <ol class="events__list" data-reveal-group>
+          {u.events.map((e, i) => (
+            <li class="event" data-reveal-item>
+              <span class="event__n mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="event__name display">{e}</span>
+              <span class="event__line" aria-hidden="true"></span>
+            </li>
+          ))}
+        </ol>
+        {u.request && <p class="events__request" data-reveal>{u.request}</p>}
+      </div>
+    </section>
+  )}
+
+  {!u.comingSoon && !u.tiers && (
+    <section class="ucta section--dark">
+      <div class="container ucta__inner">
+        <p class="mono eyebrow" data-reveal>Passer à l'action</p>
+        <p class="ucta__line display" data-reveal data-delay="0.05">Rejoins <span class="accent">{u.name}.</span></p>
+        <a class="btn btn--red btn--lg" href={formHref} data-magnetic>{u.cta} <span class="arrow">→</span></a>
+      </div>
+    </section>
+  )}
 
   <!-- PREV / NEXT -->
   <nav class="unav" aria-label="Autres univers">
@@ -81,33 +190,84 @@ const { u, prev, next } = Astro.props;
 </Base>
 
 <style>
-  .uhero { padding-block: clamp(7rem, 12vw, 11rem) 0; }
-  .uhero__crumb { display: flex; gap: 0.6rem; align-items: center; margin-bottom: clamp(2rem, 5vw, 4rem); }
+  .uhero { padding-block: clamp(6.5rem, 11vw, 10rem) 0; }
+  .uhero__crumb { display: flex; gap: 0.5rem; align-items: center; margin-bottom: clamp(1.6rem, 4vw, 3rem); flex-wrap: wrap; }
   .uhero__crumb a:hover { color: var(--ink); }
   .uhero__crumb .accent { color: var(--red); }
   .uhero__top { display: grid; grid-template-columns: auto 1fr; gap: clamp(1rem, 4vw, 3rem); align-items: start; }
-  .uhero__index { font-size: clamp(4rem, 16vw, 13rem); line-height: 0.8; color: var(--red); }
-  .uhero__name { font-size: var(--fs-h2); margin: 0.5rem 0 1rem; }
+  .uhero__index { font-size: clamp(4rem, 15vw, 12rem); line-height: 0.8; color: var(--red); }
+  .uhero__name { font-size: var(--fs-h2); margin: 0.4rem 0 0.9rem; }
   .uhero__lead { font-size: var(--fs-lead); color: #3a3a40; max-width: 30ch; }
-  .uhero__visual { margin-top: clamp(2.5rem, 6vw, 5rem); }
-  .uhero__visual :global(.visual) { aspect-ratio: 21 / 9; border-radius: 16px; overflow: hidden; }
+  .uhero__visual { margin-top: clamp(2rem, 5vw, 4rem); }
+  .uhero__visual :global(.ph) { aspect-ratio: 21 / 9; border-radius: 16px; }
 
-  .udetail__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-  .udetail__intro { font-size: clamp(1.3rem, 1rem + 1.4vw, 2rem); line-height: 1.4; color: var(--ink); font-family: var(--font-display); font-weight: 500; }
-  .udetail__points { display: grid; gap: 0.4rem; }
-  .point { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding-block: 1.4rem; border-top: 1px solid var(--hairline); }
-  .point__n { color: var(--red); padding-top: 0.4rem; }
+  .udetail { padding-block: clamp(2.5rem, 5vw, 4rem); }
+  .udetail__intro { font-size: clamp(1.3rem, 1rem + 1.4vw, 2rem); line-height: 1.4; color: var(--ink); font-family: var(--font-display); font-weight: 500; max-width: 60ch; }
+  .udetail__note { margin-top: 1.2rem; color: var(--smoke); max-width: 60ch; letter-spacing: 0.06em; }
+
+  .points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .point { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: clamp(1.2rem, 2.5vw, 1.8rem) 1.5rem clamp(1.2rem, 2.5vw, 1.8rem) 0; border-top: 1px solid var(--hairline); }
+  .point__n { color: var(--red); padding-top: 0.35rem; }
   .point__k { font-size: var(--fs-h3); margin-bottom: 0.3rem; }
   .point__v { color: #4a4a50; }
 
-  .ustat { background: var(--ink); color: #fff; padding-block: clamp(3.5rem, 8vw, 7rem); }
-  .ustat__inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.6rem; }
-  .ustat__n { font-size: clamp(5rem, 18vw, 14rem); line-height: 0.85; color: #fff; }
-  .ustat__label { color: #9a9aa0; font-size: var(--fs-lead); max-width: 24ch; }
-  .ustat__cta { margin-top: 1.6rem; }
+  .schedule__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; border-top: 1px solid var(--hairline); padding-top: clamp(1.5rem, 3vw, 2.5rem); }
+  .schedule__list { display: grid; gap: 0.6rem; margin-top: 1rem; }
+  .schedule__list li { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+  .schedule__price { justify-self: end; text-align: right; }
+  .schedule__q { font-size: clamp(3rem, 8vw, 6rem); color: var(--red); line-height: 1; }
+  .schedule__note { margin-top: 0.3rem; }
 
-  .unav { display: grid; grid-template-columns: 1fr 1fr; }
-  .unav__link { padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); display: grid; gap: 0.6rem; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
+  .tiers__grid { display: grid; gap: clamp(1rem, 2vw, 1.5rem); margin-top: 1.5rem; }
+  .tiers__grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .tiers__grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .tier {
+    position: relative; display: flex; flex-direction: column; gap: 0.7rem;
+    background: var(--white); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+  }
+  .tier--hl { border-color: var(--ink); box-shadow: var(--shadow); }
+  .tier__badge { position: absolute; top: -0.7rem; left: 1.4rem; background: var(--red); color: #fff; padding: 0.25rem 0.7rem; border-radius: 999px; }
+  .tier__name { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .tier__price { font-size: clamp(2rem, 4vw, 3rem); color: var(--red); line-height: 1; }
+  .tier__price--soft { color: var(--smoke); font-size: 0.9rem; }
+  .tier__tagline { color: #4a4a50; }
+  .tier__features { display: grid; gap: 0.5rem; margin: 0.4rem 0 1rem; }
+  .tier__features li { position: relative; padding-left: 1.4rem; color: #2a2a2e; font-size: 0.98rem; }
+  .tier__features li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  .tier__soon { color: var(--smoke); margin: 0.6rem 0 1rem; }
+  .tier__cta { margin-top: auto; justify-content: center; }
+  .tiers__note { margin-top: 1.4rem; color: var(--smoke); }
+
+  .criteria__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .criteria__list { display: grid; gap: 0.2rem; margin-top: 1rem; }
+  .criteria__list li { display: grid; grid-template-columns: 2.5rem 1fr; align-items: center; gap: 1rem; padding: clamp(0.7rem, 1.6vw, 1.1rem) 0; border-top: 1px solid var(--hairline); }
+  .criteria__list .mono { color: var(--red); }
+  .criteria__list .display { font-size: clamp(1.2rem, 2.4vw, 1.8rem); }
+  .callout { background: var(--ink); color: #fff; border-radius: 16px; padding: clamp(1.5rem, 3vw, 2.2rem); }
+  .callout .eyebrow { color: var(--red-bright); margin-bottom: 0.8rem; }
+  .callout__text { color: #c8c8cf; }
+
+  .events__list { margin-top: 1.5rem; }
+  .event { display: grid; grid-template-columns: 3rem auto 1fr; align-items: center; gap: 1.2rem; padding: clamp(0.8rem, 2vw, 1.3rem) 0; border-top: 1px solid var(--hairline); transition: padding-left 0.3s var(--ease); }
+  .event:last-child { border-bottom: 1px solid var(--hairline); }
+  .event__n { color: var(--smoke); }
+  .event__name { font-size: clamp(1.3rem, 3vw, 2.2rem); white-space: nowrap; }
+  .event__line { height: 1px; background: var(--hairline); }
+  .event:hover { padding-left: 0.8rem; }
+  .event:hover .event__name { color: var(--red); }
+  .events__request { margin-top: 1.6rem; font-size: var(--fs-lead); color: #3a3a40; max-width: 44ch; }
+
+  .soon__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
+  .soon__tag { color: var(--smoke); }
+  .soon__line { font-size: var(--fs-h2); }
+
+  .ucta { background: var(--ink); color: #fff; padding-block: clamp(3rem, 7vw, 6rem); text-align: center; }
+  .ucta__inner { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+  .ucta__line { font-size: var(--fs-h2); }
+
+  .unav { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--hairline); }
+  .unav__link { padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); display: grid; gap: 0.5rem; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
   .unav__link--prev { border-right: 1px solid var(--hairline); }
   .unav__link--next { text-align: right; }
   .unav__name { font-size: clamp(1.6rem, 4vw, 2.6rem); }
@@ -116,7 +276,13 @@ const { u, prev, next } = Astro.props;
 
   @media (max-width: 760px) {
     .uhero__top { grid-template-columns: 1fr; }
-    .udetail__grid { grid-template-columns: 1fr; }
+    .points { grid-template-columns: 1fr; }
+    .point { padding-right: 0; }
+    .schedule__grid, .criteria__grid { grid-template-columns: 1fr; }
+    .schedule__price { justify-self: start; text-align: left; }
+    .tiers__grid--2, .tiers__grid--3 { grid-template-columns: 1fr; }
+    .event { grid-template-columns: 2.4rem 1fr; }
+    .event__line { display: none; }
     .unav { grid-template-columns: 1fr; }
     .unav__link--next { text-align: left; }
     .unav__link--prev { border-right: 0; border-bottom: 1px solid var(--hairline); }

@@ -140,6 +140,13 @@ function initForm() {
   const form = document.querySelector('[data-engage-form]');
   if (!form) return;
   const out = form.querySelector('[data-engage-feedback]');
+
+  // pré-sélection depuis ?u=<slug> (lien "demande" d'une page univers)
+  const pre = new URLSearchParams(location.search).get('u');
+  if (pre) {
+    const opt = form.querySelector(`option[data-slug="${pre}"]`);
+    if (opt) opt.selected = true;
+  }
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }

@@ -1,6 +1,7 @@
 ---
 import { univers } from '../data/univers.js';
 import Visual from './Visual.astro';
+const total = String(univers.length).padStart(2, '0');
 ---
 <section class="tt" id="univers" data-parallax-scope>
   <div class="container tt__head">
@@ -24,7 +25,7 @@ import Visual from './Visual.astro';
             </div>
             <div class="board__body">
               <div class="board__row">
-                <span class="board__idx mono">{u.index} / 07</span>
+                <span class="board__idx mono">{u.index} / {total}</span>
                 <span class="board__disc mono">{u.discipline}</span>
               </div>
               <h3 class="board__name display">{u.name}</h3>
@@ -50,7 +51,7 @@ import Visual from './Visual.astro';
       ))}
     </div>
     <p class="tt__counter mono">
-      <span data-tt-now>01</span><i>/</i>07 — <span data-tt-name>Association</span>
+      <span data-tt-now>01</span><i>/</i>{total} — <span data-tt-name>{univers[0].name}</span>
     </p>
   </div>
 </section>
