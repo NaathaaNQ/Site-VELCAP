@@ -55,7 +55,7 @@ export const univers = [
       { k: 'Santé', v: 'Des créneaux rapides chez le kiné.' },
       { k: 'Logistique & financier', v: 'Un soutien sur les déplacements et la logistique.' },
       { k: 'Visibilité', v: 'Vos performances relayées sur nos réseaux.' },
-      { k: 'En équipe', v: 'Les lièvres des Rives du Doubs, les Boucles Vauban, l’Éliden…' },
+      { k: 'En équipe', v: 'Les lièvres des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
     ],
     aside: {
       title: 'Team Accession',

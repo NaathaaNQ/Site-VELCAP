@@ -156,6 +156,45 @@ function initForm() {
   });
 }
 
+function initUniversModal() {
+  const modal = document.querySelector('[data-univers-modal]');
+  if (!modal) return;
+  const tierSel = modal.querySelector('select[name="tier"]');
+
+  const open = (tier) => {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+    lenis?.stop();
+    if (tier && tierSel) {
+      const o = [...tierSel.options].find((x) => x.value.includes(tier));
+      if (o) o.selected = true;
+    }
+    setTimeout(() => modal.querySelector('input, select, textarea')?.focus(), 60);
+  };
+  const close = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
+    lenis?.start();
+  };
+
+  document.querySelectorAll('[data-open-form]').forEach((b) =>
+    b.addEventListener('click', () => open(b.dataset.tier)));
+  modal.querySelectorAll('[data-modal-close]').forEach((x) => x.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+
+  const form = modal.querySelector('[data-univers-form]');
+  const out = modal.querySelector('[data-univers-feedback]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const data = new FormData(form);
+    if (out) out.textContent = `Merci ${data.get('name')} — demande reçue. On te recontacte très vite.`;
+    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+  });
+}
+
 export function initSite() {
   initSmoothScroll();
   initIntro();
@@ -163,6 +202,7 @@ export function initSite() {
   initHeader();
   initMenu();
   initForm();
+  initUniversModal();
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });
   // Recalcule après chargement des polices

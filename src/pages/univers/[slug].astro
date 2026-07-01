@@ -17,6 +17,56 @@ export function getStaticPaths() {
 const { u, prev, next } = Astro.props;
 const total = String(univers.length).padStart(2, '0');
 const formHref = `/?u=${u.slug}#engager`;
+
+// Formulaire sur-mesure par univers (Club FFC = pas de formulaire)
+const FIELD = {
+  name: { name: 'name', label: 'Nom', type: 'text', required: true },
+  email: { name: 'email', label: 'E-mail', type: 'email', required: true },
+  phone: { name: 'phone', label: 'Téléphone', type: 'tel' },
+  message: { name: 'message', label: 'Message', type: 'textarea' },
+};
+const FORMS = {
+  'team-loisirs': {
+    title: 'Adhérer au Team Loisirs',
+    fields: [FIELD.name, FIELD.email, FIELD.phone,
+      { name: 'tier', label: 'Formule', type: 'select', required: true,
+        options: ['Adhésion Communauté — 180 €', 'Adhésion Performance — 250 €'] },
+      FIELD.message],
+  },
+  'team-elite': {
+    title: 'Candidater à la Team Élite',
+    fields: [FIELD.name, FIELD.email, FIELD.phone,
+      { name: 'background', label: 'Parcours sportif', type: 'textarea', required: true },
+      { name: 'motivation', label: 'Ta motivation', type: 'textarea', required: true },
+      FIELD.message],
+  },
+  'club-ffa': {
+    title: 'Licence & inscription — Club FFA',
+    fields: [FIELD.name, FIELD.email, FIELD.phone,
+      { name: 'age', label: 'Âge', type: 'number' },
+      { name: 'level', label: 'Niveau actuel', type: 'select',
+        options: ['Débutant', 'Intermédiaire', 'Confirmé', 'Compétiteur'] },
+      FIELD.message],
+  },
+  coaching: {
+    title: 'Demander un coaching',
+    fields: [FIELD.name, FIELD.email, FIELD.phone,
+      { name: 'discipline', label: 'Discipline', type: 'select', required: true,
+        options: ['Course à pied', 'Trail', 'Route', 'Cross', 'Piste', 'Vélo'] },
+      { name: 'tier', label: 'Formule', type: 'select',
+        options: ['Basique', 'Médium', 'Premium'] },
+      { name: 'goals', label: 'Tes objectifs', type: 'textarea' },
+      FIELD.message],
+  },
+  evenements: {
+    title: 'Nous envoyer une demande',
+    fields: [FIELD.name, FIELD.email,
+      { name: 'eventtype', label: 'Type de demande', type: 'select', required: true,
+        options: ['Participer à un événement', 'Proposer une intervention', 'Partenariat', 'Autre'] },
+      FIELD.message],
+  },
+};
+const form = FORMS[u.slug];
 ---
 <Base title={`${u.name} — VELCAP`} description={u.intro}>
   <!-- HERO -->
@@ -118,7 +168,7 @@ const formHref = `/?u=${u.slug}#engager`;
               ) : (
                 <p class="tier__soon mono">Détails à venir</p>
               )}
-              <a class="btn btn--dark tier__cta" href={formHref} data-magnetic>{u.cta} <span class="arrow">→</span></a>
+              <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
             </article>
           ))}
         </div>
@@ -171,7 +221,7 @@ const formHref = `/?u=${u.slug}#engager`;
       <div class="container ucta__inner">
         <p class="mono eyebrow" data-reveal>Passer à l'action</p>
         <p class="ucta__line display" data-reveal data-delay="0.05">Rejoins <span class="accent">{u.name}.</span></p>
-        <a class="btn btn--red btn--lg" href={formHref} data-magnetic>{u.cta} <span class="arrow">→</span></a>
+        <button type="button" class="btn btn--red btn--lg" data-open-form data-magnetic>{u.cta} <span class="arrow">→</span></button>
       </div>
     </section>
   )}
@@ -187,6 +237,36 @@ const formHref = `/?u=${u.slug}#engager`;
       <span class="unav__name display">{next.name}</span>
     </a>
   </nav>
+
+  {form && (
+    <div class="umodal" data-univers-modal aria-hidden="true">
+      <div class="umodal__backdrop" data-modal-close></div>
+      <div class="umodal__panel" role="dialog" aria-modal="true" aria-label={form.title}>
+        <button type="button" class="umodal__x" data-modal-close aria-label="Fermer">✕</button>
+        <p class="mono eyebrow">{u.name}</p>
+        <h2 class="umodal__title display">{form.title}</h2>
+        <form class="umodal__form" data-univers-form novalidate>
+          {form.fields.map((f) => (
+            <div class={`field ${f.type === 'textarea' ? 'field--full' : ''}`}>
+              <label class="mono" for={`m-${f.name}`}>{f.label}{f.required ? ' *' : ''}</label>
+              {f.type === 'textarea' ? (
+                <textarea id={`m-${f.name}`} name={f.name} rows="3" required={f.required}></textarea>
+              ) : f.type === 'select' ? (
+                <select id={`m-${f.name}`} name={f.name} required={f.required}>
+                  <option value="" disabled selected>Choisir…</option>
+                  {f.options.map((o) => <option>{o}</option>)}
+                </select>
+              ) : (
+                <input id={`m-${f.name}`} name={f.name} type={f.type} required={f.required} />
+              )}
+            </div>
+          ))}
+          <button type="submit" class="btn btn--red umodal__submit">Envoyer ma demande <span class="arrow">→</span></button>
+          <p class="umodal__feedback mono" data-univers-feedback role="status"></p>
+        </form>
+      </div>
+    </div>
+  )}
 </Base>
 
 <style>
@@ -274,7 +354,36 @@ const formHref = `/?u=${u.slug}#engager`;
   .unav__link:hover { background: var(--ink); color: #fff; }
   .unav__link:hover .mono { color: var(--red-bright); }
 
+  /* modale formulaire */
+  .umodal { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: 1.2rem;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s var(--ease), visibility 0.3s; }
+  .umodal.is-open { opacity: 1; visibility: visible; }
+  .umodal__backdrop { position: absolute; inset: 0; background: rgba(6,6,8,.6); backdrop-filter: blur(4px); }
+  .umodal__panel {
+    position: relative; z-index: 1; width: min(560px, 100%); max-height: 90vh; overflow-y: auto;
+    background: var(--white); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem);
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,.5);
+    transform: translateY(16px) scale(0.98); transition: transform 0.4s var(--ease-out);
+  }
+  .umodal.is-open .umodal__panel { transform: none; }
+  .umodal__x { position: absolute; top: 1rem; right: 1rem; width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--ink); background: transparent; cursor: pointer; font-size: 0.9rem; }
+  .umodal__x:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .umodal__title { font-size: clamp(1.6rem, 4vw, 2.4rem); margin: 0.3rem 0 1.2rem; }
+  .umodal__form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .umodal__form .field { display: grid; gap: 0.35rem; }
+  .umodal__form .field--full, .umodal__form .umodal__submit, .umodal__form .umodal__feedback { grid-column: 1 / -1; }
+  .umodal__form label { color: var(--smoke); }
+  .umodal__form input, .umodal__form select, .umodal__form textarea {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 9px; padding: 0.75rem 0.9rem;
+    color: var(--ink); font-family: var(--font-body); width: 100%; }
+  .umodal__form input:focus, .umodal__form select:focus, .umodal__form textarea:focus {
+    outline: 2px solid var(--red); border-color: var(--red); }
+  .umodal__submit { justify-content: center; margin-top: 0.3rem; }
+  .umodal__feedback { color: var(--red); min-height: 1.1em; text-transform: none; letter-spacing: 0; }
+
   @media (max-width: 760px) {
+    .umodal__form { grid-template-columns: 1fr; }
     .uhero__top { grid-template-columns: 1fr; }
     .points { grid-template-columns: 1fr; }
     .point { padding-right: 0; }

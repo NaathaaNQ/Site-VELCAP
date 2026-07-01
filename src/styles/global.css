@@ -158,7 +158,7 @@ html.lenis, html.lenis body { height: auto; }
 [data-magnetic] { will-change: transform; }
 
 /* — Sections — */
-.section { padding-block: clamp(2.8rem, 6vw, 6rem); position: relative; }
+.section { padding-block: clamp(2rem, 4vw, 4rem); position: relative; }
 .section--dark { background: var(--ink); color: var(--white); }
 .section--dark .mono { color: #6f6f77; }
 .section-rule { height: 1px; background: var(--hairline); border: 0; }
