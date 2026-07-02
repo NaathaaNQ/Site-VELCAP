@@ -10,6 +10,7 @@ const {
   alt = '',
   slug = 'team-elite', // variante du placeholder duotone
   parallax = 0,        // amplitude de parallaxe (0 = aucune)
+  hint = true,         // affiche le nom de fichier attendu (repère de dev)
   class: cls = '',
 } = Astro.props;
 
@@ -22,7 +23,7 @@ const pAttr = parallax ? { 'data-parallax': String(parallax) } : {};
   ) : (
     <div class="ph__ph">
       <Visual slug={slug} tone="red" />
-      <span class="ph__hint mono">photo : {src}</span>
+      {hint && <span class="ph__hint mono">photo : {src}</span>}
     </div>
   )}
 </div>

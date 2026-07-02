@@ -21,27 +21,30 @@ export function initTurntable({ reduced } = {}) {
   const wrap = (x) => { let o = ((x % N) + N) % N; if (o > N / 2) o -= N; return o; };
 
   function render() {
-    panels.forEach((panel, i) => {
+    for (let i = 0; i < N; i++) {
+      const panel = panels[i];
       const off = wrap(i - state.pos);
       const abs = Math.abs(off);
       const tx = off * 52;
       const tz = -abs * 250;
       const ry = off * -40;
       const scale = Math.max(0.7, 1 - Math.min(abs, 3) * 0.07);
+      // Transform uniquement (composité GPU) — pas de filter par frame : c'est ce
+      // qui rendait le mouvement saccadé sur beaucoup d'appareils.
       panel.style.transform =
-        `translate(-50%, -50%) translateX(${tx}%) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
+        `translate3d(-50%, -50%, 0) translateX(${tx}%) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
       panel.style.zIndex = String(100 - Math.round(abs * 10));
       panel.style.opacity = abs > 2.6 ? '0' : '1';
-      // profondeur de champ : flou + assombrissement progressif des panneaux latéraux
-      const blur = abs < 0.45 ? 0 : Math.min((abs - 0.45) * 2.4, 5);
-      const bright = abs < 0.45 ? 1 : Math.max(0.55, 1 - abs * 0.16);
-      panel.style.filter = `blur(${blur.toFixed(2)}px) brightness(${bright.toFixed(2)})`;
+      // profondeur de champ : assombrissement progressif via un simple voile CSS
+      // (opacity d'un calque composité = fluide, contrairement à filter: blur).
+      const dim = abs < 0.5 ? 0 : Math.min(0.14 + (abs - 0.5) * 0.2, 0.6);
+      panel.style.setProperty('--dim', dim.toFixed(3));
       const centered = abs < 0.5;
       panel.style.pointerEvents = centered ? 'auto' : 'none';
       panel.classList.toggle('is-active', centered);
       panel.setAttribute('aria-hidden', centered ? 'false' : 'true');
       panel.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', centered ? '0' : '-1'));
-    });
+    }
   }
 
   function updateUI() {
@@ -61,11 +64,14 @@ export function initTurntable({ reduced } = {}) {
     if (delta > N / 2) delta -= N;
     const dest = state.pos + delta;
     if (reduced) { state.pos = dest; render(); settle(target); return; }
+    // Un seul tween à la fois : on tue le précédent et on force overwrite pour
+    // éviter que des clics rapides n'empilent des tweens concurrents (saccades).
     autoTween?.kill();
-    gsap.to(state, {
-      pos: dest, duration: 0.9, ease: 'power3.inOut',
+    settle(target); // dots / compteur réagissent immédiatement
+    autoTween = gsap.to(state, {
+      pos: dest, duration: 0.72, ease: 'power2.inOut', overwrite: true,
       onUpdate: render,
-      onComplete: () => { state.pos = ((dest % N) + N) % N; render(); settle(target); },
+      onComplete: () => { state.pos = ((dest % N) + N) % N; render(); },
     });
   }
 

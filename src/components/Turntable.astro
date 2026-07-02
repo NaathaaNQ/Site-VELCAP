@@ -1,6 +1,6 @@
 ---
 import { univers } from '../data/univers.js';
-import Visual from './Visual.astro';
+import Photo from './Photo.astro';
 const total = String(univers.length).padStart(2, '0');
 ---
 <section class="tt" id="univers" data-parallax-scope>
@@ -21,7 +21,7 @@ const total = String(univers.length).padStart(2, '0');
         <article class="tt-panel" data-panel data-name={u.name} aria-hidden="true">
           <a class="board" href={`/univers/${u.slug}`}>
             <div class="board__visual">
-              <Visual slug={u.slug} tone={Number(u.index) % 2 ? 'red' : 'ink'} label={`VELCAP / ${u.index}`} />
+              <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} alt={u.name} hint={false} />
             </div>
             <div class="board__body">
               <div class="board__row">
@@ -93,9 +93,10 @@ const total = String(univers.length).padStart(2, '0');
     position: absolute; top: 50%; left: 50%;
     width: min(388px, 78vw); height: clamp(410px, 56vh, 550px);
     transform: translate(-50%, -50%);
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
   }
   .board {
+    position: relative;
     display: flex; flex-direction: column; height: 100%; color: var(--white);
     background: linear-gradient(168deg, #1b1b22 0%, #121217 48%, #0c0c10 100%);
     border: 1px solid #2c2c34; border-radius: 18px; overflow: hidden;
@@ -106,6 +107,13 @@ const total = String(univers.length).padStart(2, '0');
   .board::before {
     content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
     background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 38%);
+  }
+  /* voile de profondeur : assombrit les panneaux latéraux (piloté par --dim en JS,
+     opacity composité = fluide, aucun repaint coûteux) */
+  .board::after {
+    content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none;
+    background: #07070a; opacity: var(--dim, 0);
+    transition: opacity 0.25s linear;
   }
   .tt-panel.is-active .board {
     border-color: var(--red);
