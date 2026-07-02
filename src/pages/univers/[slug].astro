@@ -287,6 +287,30 @@ const gallery = GALLERY[u.slug];
               )}
             </div>
           ))}
+
+          {u.slug === 'club-ffa' && (
+            <label class="consent field--full">
+              <input type="checkbox" name="minor_auth" />
+              <span>Pour l'adhésion d'un·e mineur·e, je suis le représentant légal et fournirai l'autorisation parentale.</span>
+            </label>
+          )}
+          {u.slug !== 'evenements' && (
+            <label class="consent field--full">
+              <input type="checkbox" name="medical" required />
+              <span>Je m'engage à fournir un certificat médical de non contre-indication à la pratique sportive. *</span>
+            </label>
+          )}
+          <label class="consent field--full">
+            <input type="checkbox" name="rgpd" required />
+            <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
+          </label>
+          {u.slug !== 'evenements' && (
+            <label class="consent field--full">
+              <input type="checkbox" name="image" />
+              <span>J'autorise VELCAP à utiliser mon image (photos / vidéos) dans le cadre de sa communication. (facultatif)</span>
+            </label>
+          )}
+
           <button type="submit" class="btn btn--red umodal__submit">Envoyer ma demande <span class="arrow">→</span></button>
           <p class="umodal__feedback mono" data-univers-feedback role="status"></p>
         </form>
@@ -407,6 +431,9 @@ const gallery = GALLERY[u.slug];
     outline: 2px solid var(--red); border-color: var(--red); }
   .umodal__submit { justify-content: center; margin-top: 0.3rem; }
   .umodal__feedback { color: var(--red); min-height: 1.1em; text-transform: none; letter-spacing: 0; }
+  .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #44444a; line-height: 1.4; cursor: pointer; }
+  .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
+  .consent a { color: var(--red); text-decoration: underline; }
 
   /* galerie */
   .ugallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: 1.4rem; }

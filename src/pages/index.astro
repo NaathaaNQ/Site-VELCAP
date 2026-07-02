@@ -143,6 +143,10 @@ import { univers } from '../data/univers.js';
             {univers.map((u) => <option data-slug={u.slug}>{u.cta}</option>)}
           </select>
         </div>
+        <label class="consent">
+          <input type="checkbox" name="rgpd" required />
+          <span>J'accepte que mes données soient utilisées pour traiter ma demande (voir la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>). *</span>
+        </label>
         <button type="submit" class="btn btn--red">Envoyer ma demande <span class="arrow" aria-hidden="true">→</span></button>
         <p class="engager__feedback mono" data-engage-feedback role="status"></p>
       </form>
@@ -225,6 +229,9 @@ import { univers } from '../data/univers.js';
   .field input:focus, .field select:focus { outline: 2px solid var(--red); border-color: var(--red); }
   .engager__form .btn { justify-content: center; margin-top: 0.4rem; }
   .engager__feedback { color: var(--red-bright); min-height: 1.2em; text-transform: none; letter-spacing: 0; }
+  .engager__form .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #b9b9c0; line-height: 1.4; cursor: pointer; }
+  .engager__form .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
+  .engager__form .consent a { color: var(--red-bright); text-decoration: underline; }
 
   @media (max-width: 860px) {
     .hero__bottom { grid-template-columns: 1fr; align-items: start; }
