@@ -173,6 +173,12 @@ const total = String(univers.length).padStart(2, '0');
   .tt__counter i { color: var(--smoke); margin: 0 0.2rem; font-style: normal; }
   .tt__counter [data-tt-now] { color: var(--red); }
 
+  /* desktop : plateforme plus large et panneaux un peu plus grands */
+  @media (min-width: 1101px) {
+    .tt__stage { height: clamp(500px, 66vh, 680px); }
+    .tt-panel { width: min(420px, 40vw); height: clamp(430px, 58vh, 580px); }
+  }
+
   @media (max-width: 760px) {
     .tt__head { grid-template-columns: 1fr; align-items: start; }
     .tt-arrow { width: 44px; height: 44px; font-size: 1.4rem; }

@@ -20,14 +20,24 @@ export function initTurntable({ reduced } = {}) {
   const pad = (n) => String(n + 1).padStart(2, '0');
   const wrap = (x) => { let o = ((x % N) + N) % N; if (o > N / 2) o -= N; return o; };
 
+  // Géométrie responsive : plus large et aérée sur desktop, inchangée sur mobile
+  // (où trop d'écartement sortirait les panneaux de l'écran).
+  function metrics() {
+    const w = window.innerWidth;
+    if (w <= 760) return { spread: 52, depth: 250, rot: 40 };   // mobile : identique
+    if (w <= 1100) return { spread: 64, depth: 280, rot: 37 };  // tablette
+    return { spread: 78, depth: 305, rot: 34 };                 // desktop : élargi
+  }
+  let M = metrics();
+
   function render() {
     for (let i = 0; i < N; i++) {
       const panel = panels[i];
       const off = wrap(i - state.pos);
       const abs = Math.abs(off);
-      const tx = off * 52;
-      const tz = -abs * 250;
-      const ry = off * -40;
+      const tx = off * M.spread;
+      const tz = -abs * M.depth;
+      const ry = off * -M.rot;
       const scale = Math.max(0.7, 1 - Math.min(abs, 3) * 0.07);
       // Transform uniquement (composité GPU) — pas de filter par frame : c'est ce
       // qui rendait le mouvement saccadé sur beaucoup d'appareils.
@@ -140,6 +150,13 @@ export function initTurntable({ reduced } = {}) {
   // pause pendant qu'on survole la scène (pour lire), reprise ensuite
   stage.addEventListener('mouseenter', () => { hovering = true; scheduleAuto(); });
   stage.addEventListener('mouseleave', () => { hovering = false; scheduleAuto(); });
+
+  // Recalcule l'écartement quand on redimensionne / tourne l'écran
+  let resizeT;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => { M = metrics(); render(); }, 120);
+  });
 
   render();
   updateUI();
