@@ -24,8 +24,12 @@ const year = new Date().getFullYear();
 
   <div class="site-footer__meta">
     <img class="footer-logo" src="/img/velcap-logo-white.svg" alt="VELCAP" width="447" height="140" />
-    <span class="mono">© {year} — Tous droits réservés</span>
-    <span class="mono">Rouge · Noir · Blanc — YR{String(year).slice(2)}</span>
+    <span class="mono">© {year} VELCAP — Tous droits réservés</span>
+    <nav class="site-footer__legal mono" aria-label="Informations légales">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cgv">CGV</a>
+    </nav>
   </div>
 </footer>
 
@@ -51,7 +55,10 @@ const year = new Date().getFullYear();
   .site-footer__rule { border: 0; height: 1px; background: var(--hairline-d); margin-block: clamp(2.5rem, 5vw, 4rem); }
   .site-footer__meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
   .footer-logo { width: clamp(180px, 34vw, 360px); height: auto; }
-  .site-footer__meta .mono { color: #6f6f77; }
+  .site-footer__meta > .mono { color: #6f6f77; }
+  .site-footer__legal { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+  .site-footer__legal a { color: #9a9aa0; transition: color 0.25s var(--ease); }
+  .site-footer__legal a:hover { color: var(--red-bright); }
 
   @media (max-width: 760px) {
     .site-footer__top { grid-template-columns: 1fr; }

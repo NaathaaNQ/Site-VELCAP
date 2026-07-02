@@ -184,3 +184,19 @@ html:not(.no-js) [data-intro] { opacity: 0; }
   html:not(.no-js) [data-reveal],
   html:not(.no-js) [data-intro] { opacity: 1 !important; transform: none !important; }
 }
+
+/* — Pages légales (prose lisible) — */
+.legal { padding-block: clamp(6.5rem, 11vw, 9rem) clamp(3rem, 6vw, 5rem); }
+.legal__head { margin-bottom: clamp(1.8rem, 4vw, 3rem); }
+.legal__title { font-size: var(--fs-h2); margin-top: 0.6rem; }
+.legal__updated { margin-top: 0.7rem; }
+.legal__prose { max-width: 74ch; }
+.legal__prose h2 { font-family: var(--font-display); text-transform: uppercase; font-weight: 700; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1; margin: 2.4rem 0 0.8rem; }
+.legal__prose h3 { font-weight: 700; margin: 1.4rem 0 0.3rem; font-size: 1.05rem; color: var(--ink); }
+.legal__prose p, .legal__prose li { color: #33333a; line-height: 1.65; }
+.legal__prose p { margin-bottom: 0.9rem; }
+.legal__prose ul { list-style: disc; padding-left: 1.3rem; margin-bottom: 0.9rem; display: grid; gap: 0.35rem; }
+.legal__prose a { color: var(--red); text-decoration: underline; }
+.legal__prose strong { color: var(--ink); }
+.todo { background: #ffe35c; color: #5a4a00; padding: 0.02em 0.4em; border-radius: 4px; font-weight: 600; }
+.legal__back { margin-top: 2.6rem; }
