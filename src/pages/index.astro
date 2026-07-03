@@ -16,29 +16,27 @@ const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre
 
       <img class="hero__logo" src="/img/velcap-logo.svg" alt="VELCAP" width="447" height="140" data-intro="clip" data-intro-order="2" />
 
-      <div class="hero__bottom">
-        <div class="hero__pitch" data-intro data-intro-order="3">
-          <p class="hero__lead">
-            Loisir, haut niveau, athlétisme, cyclisme, événements, coaching.
-            VELCAP rassemble toutes les manières de se dépasser sous une même bannière,
-            <strong>et te laisse choisir la tienne.</strong>
-          </p>
-          <div class="hero__cta">
-            <a class="btn btn--red btn--lg" href="#univers" data-magnetic>
-              Explorer les univers <span class="arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="btn btn--dark btn--lg" href="#engager" data-magnetic>
-              S'engager <span class="arrow" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="hero__media" data-intro="clip" data-intro-order="4">
-          <Photo src="photo-hero.jpg" treatment="color" slug="club-ffa" parallax="8"
-                 alt="Athlète VELCAP" />
-          <span class="hero__media-tag mono">Les Rives du Doubs, Besançon</span>
+      <div class="hero__pitch" data-intro data-intro-order="3">
+        <p class="hero__lead">
+          Loisir, haut niveau, athlétisme, cyclisme, événements, coaching.
+          VELCAP rassemble toutes les manières de se dépasser sous une même bannière,
+          <strong>et te laisse choisir la tienne.</strong>
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--red btn--lg" href="#univers" data-magnetic>
+            Explorer les univers <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--dark btn--lg" href="#engager" data-magnetic>
+            S'engager <span class="arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
+    </div>
+
+    <div class="hero__media" data-intro="clip" data-intro-order="4">
+      <Photo src="photo-hero.jpg" treatment="color" slug="club-ffa" parallax="6"
+             alt="Athlète VELCAP" pos="center 35%" />
+      <span class="hero__media-tag mono">Les Rives du Doubs, Besançon</span>
     </div>
   </section>
 
@@ -192,22 +190,24 @@ const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre
 
 <style>
   /* — Hero — */
-  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-block: 6rem 2.5rem; }
+  .hero { position: relative; padding-block: 6.5rem 0; }
   .hero__inner { width: 100%; }
   .hero__kicker { margin-bottom: 1rem; }
   .hero__logo { width: 100%; max-width: min(64vw, 880px); height: auto; margin-bottom: clamp(1.4rem, 3vw, 2.4rem); }
-  .hero__bottom {
-    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 5rem);
-    align-items: start; border-top: 1px solid var(--hairline); padding-top: clamp(1.4rem, 2.6vw, 2.2rem);
+  .hero__pitch {
+    display: grid; gap: 0; border-top: 1px solid var(--hairline); padding-top: clamp(1.4rem, 2.6vw, 2.2rem);
   }
-  .hero__lead { font-size: var(--fs-lead); max-width: 40ch; color: #2a2a2e; line-height: 1.45; }
+  .hero__lead { font-size: var(--fs-lead); max-width: 52ch; color: #2a2a2e; line-height: 1.45; }
   .hero__lead strong { color: var(--ink); font-weight: 700; }
   .hero__cta { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
 
-  /* photo du hero (remplace le sommaire) */
-  .hero__media { position: relative; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  /* photo du hero : bandeau pleine largeur (full-bleed, bord à bord) */
+  .hero__media {
+    position: relative; width: 100%; height: clamp(360px, 66vh, 760px);
+    margin-top: clamp(2rem, 5vw, 3.5rem); overflow: hidden;
+  }
   .hero__media-tag {
-    position: absolute; left: 0.9rem; bottom: 0.9rem; z-index: 3;
+    position: absolute; left: clamp(1rem, 4vw, 3.2rem); bottom: 0.9rem; z-index: 3;
     color: rgba(255,255,255,.85); background: rgba(10,10,11,.45); backdrop-filter: blur(3px);
     padding: 0.3rem 0.65rem; border-radius: 5px;
   }
@@ -294,8 +294,7 @@ const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre
   .engager__form .consent a { color: var(--red-bright); text-decoration: underline; }
 
   @media (max-width: 860px) {
-    .hero__bottom { grid-template-columns: 1fr; align-items: start; }
-    .hero__media { aspect-ratio: 16 / 10; }
+    .hero__media { height: clamp(300px, 52vh, 520px); }
     .manifesto__grid { grid-template-columns: 1fr; gap: 2rem; }
     .manifesto__media { aspect-ratio: 16 / 10; }
     .roster__row { grid-template-columns: 1fr; gap: 0.4rem; }
