@@ -3,8 +3,12 @@ import Base from '../layouts/Base.astro';
 import Turntable from '../components/Turntable.astro';
 import Photo from '../components/Photo.astro';
 import { univers } from '../data/univers.js';
+
+// Emplacements partenaires — remplacer le libellé par une vraie image de logo
+// dès qu'elle est fournie (public/img/partenaires/…).
+const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre logo'];
 ---
-<Base title="VELCAP — Une structure, six univers, un seul cap">
+<Base title="VELCAP · Une structure, six univers, un seul cap">
   <!-- ============ HERO ============ -->
   <section class="hero" data-parallax-scope>
     <div class="container hero__inner">
@@ -16,7 +20,7 @@ import { univers } from '../data/univers.js';
         <div class="hero__pitch" data-intro data-intro-order="3">
           <p class="hero__lead">
             Loisir, haut niveau, athlétisme, cyclisme, événements, coaching.
-            VELCAP rassemble toutes les manières de se dépasser sous une même bannière —
+            VELCAP rassemble toutes les manières de se dépasser sous une même bannière,
             <strong>et te laisse choisir la tienne.</strong>
           </p>
           <div class="hero__cta">
@@ -32,7 +36,7 @@ import { univers } from '../data/univers.js';
         <div class="hero__media" data-intro="clip" data-intro-order="4">
           <Photo src="photo-hero.jpg" treatment="color" slug="club-ffa" parallax="8"
                  alt="Athlète VELCAP" />
-          <span class="hero__media-tag mono">Les Rives du Doubs — Besançon</span>
+          <span class="hero__media-tag mono">Les Rives du Doubs, Besançon</span>
         </div>
       </div>
     </div>
@@ -51,7 +55,7 @@ import { univers } from '../data/univers.js';
     </div>
   </div>
 
-  <!-- ============ MANIFESTE (condensé) ============ -->
+  <!-- ============ MANIFESTE ============ -->
   <section class="section manifesto" data-parallax-scope>
     <div class="container manifesto__grid">
       <div class="manifesto__text">
@@ -59,11 +63,22 @@ import { univers } from '../data/univers.js';
         <p class="manifesto__statement display" data-reveal data-delay="0.05">
           Une seule licence.<br />Toutes les façons<br />de <span class="accent">tenir le cap.</span>
         </p>
-        <ul class="manifesto__stats" data-reveal-group>
-          <li data-reveal-item><b class="display">06</b> <span class="mono">Univers</span></li>
-          <li data-reveal-item><b class="display">02</b> <span class="mono">Fédérations</span></li>
-          <li data-reveal-item><b class="display accent">1</b> <span class="mono">Exigence</span></li>
-        </ul>
+        <p class="manifesto__copy" data-reveal data-delay="0.1">
+          Du premier dossard au podium, VELCAP réunit le loisir, le haut niveau,
+          l'athlétisme, le cyclisme, les événements et le coaching. Une même exigence :
+          progresser ensemble, sans jamais courir seul.
+        </p>
+        <div class="manifesto__facts" data-reveal-group>
+          <div class="manifesto__fact" data-reveal-item>
+            <b class="display">Six univers</b><span class="mono">Une seule structure</span>
+          </div>
+          <div class="manifesto__fact" data-reveal-item>
+            <b class="display">Deux fédérations</b><span class="mono">Athlétisme et cyclisme</span>
+          </div>
+          <div class="manifesto__fact" data-reveal-item>
+            <b class="display accent">Un cap</b><span class="mono">Le collectif</span>
+          </div>
+        </div>
       </div>
       <div class="manifesto__media" data-reveal>
         <Photo src="photo-manifesto.jpg" treatment="bw" slug="club-ffc" parallax="9"
@@ -75,15 +90,17 @@ import { univers } from '../data/univers.js';
   <!-- ============ PLATEFORME TOURNANTE ============ -->
   <Turntable />
 
-  <!-- ============ BANDEAU ÉMOTION ============ -->
+  <!-- ============ BANDEAU ÉMOTION (pleine largeur) ============ -->
   <section class="photoband" data-parallax-scope aria-label="VELCAP, le collectif">
-    <Photo src="photo-band.jpg" treatment="color" slug="corrida" parallax="14"
-           alt="Arrivée VELCAP" class="photoband__media" />
+    <Photo src="photo-band.jpg" treatment="color" slug="corrida" parallax="12"
+           alt="Deux athlètes VELCAP se prennent dans les bras à l'arrivée" class="photoband__media" />
     <div class="photoband__overlay">
-      <p class="mono eyebrow" data-reveal>Le collectif</p>
-      <p class="photoband__line display" data-reveal data-delay="0.05">
-        On franchit<br />la ligne <span class="accent">ensemble.</span>
-      </p>
+      <div class="container">
+        <p class="mono eyebrow" data-reveal>Le collectif</p>
+        <p class="photoband__line display" data-reveal data-delay="0.05">
+          On franchit<br />la ligne <span class="accent">ensemble.</span>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -108,6 +125,24 @@ import { univers } from '../data/univers.js';
     </div>
   </section>
 
+  <!-- ============ PARTENAIRES (bandeau défilant) ============ -->
+  <section class="section partners" aria-label="Nos partenaires">
+    <div class="container">
+      <p class="mono eyebrow" data-reveal>Ils nous soutiennent</p>
+    </div>
+    <div class="partners__viewport" data-reveal>
+      <div class="partners__track">
+        {Array.from({ length: 2 }).map(() => (
+          <div class="partners__set" aria-hidden="true">
+            {partners.map(() => (
+              <div class="partners__logo"><span class="mono">Votre logo</span></div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ENGAGER ============ -->
   <section class="section engager" id="engager">
     <div class="container engager__grid">
@@ -115,7 +150,8 @@ import { univers } from '../data/univers.js';
         <div data-reveal>
           <p class="mono eyebrow">Rejoindre la structure</p>
           <h2 class="engager__title display">On t'attend sur<br />la ligne de départ.</h2>
-          <p class="engager__lead">Licence, essai, bénévolat ou coaching — dis-nous ce qui t'amène, on s'occupe du reste.</p>
+          <p class="engager__lead">Licence, essai, bénévolat ou coaching : dis-nous ce qui t'amène, on s'occupe du reste.</p>
+          <p class="engager__alt mono">Tu préfères écrire ? <a href="/contact">Va sur la page contact →</a></p>
         </div>
         <div class="engager__media" data-reveal data-delay="0.05">
           <Photo src="photo-engage.jpg" treatment="bw" slug="association" parallax="7"
@@ -185,25 +221,27 @@ import { univers } from '../data/univers.js';
   @keyframes marquee { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 
-  /* — Manifeste (condensé : texte + photo) — */
-  .manifesto__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-  .manifesto__statement { font-size: clamp(2.2rem, 1.4rem + 4vw, 5rem); margin: 0.7rem 0 1.6rem; }
+  /* — Manifeste — */
+  .manifesto__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .manifesto__statement { font-size: clamp(2.2rem, 1.4rem + 4vw, 5rem); margin: 0.7rem 0 1.4rem; }
   .manifesto__statement .accent { color: var(--red); }
-  .manifesto__stats { display: flex; gap: clamp(1.4rem, 3vw, 2.6rem); flex-wrap: wrap; }
-  .manifesto__stats li { display: flex; align-items: baseline; gap: 0.5rem; }
-  .manifesto__stats b { font-size: clamp(2rem, 4vw, 3rem); line-height: 1; }
-  .manifesto__media { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .manifesto__copy { font-size: var(--fs-lead); color: #3a3a40; max-width: 46ch; line-height: 1.45; margin-bottom: clamp(1.6rem, 3vw, 2.4rem); }
+  .manifesto__facts { display: grid; grid-template-columns: repeat(3, auto); gap: clamp(1.4rem, 3vw, 2.6rem); justify-content: start; border-top: 1px solid var(--hairline); padding-top: 1.4rem; }
+  .manifesto__fact { display: grid; gap: 0.2rem; }
+  .manifesto__fact b { font-size: clamp(1.3rem, 2.6vw, 1.9rem); line-height: 1; }
+  .manifesto__fact .accent { color: var(--red); }
+  .manifesto__media { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
 
-  /* — Bandeau émotion — */
-  .photoband { position: relative; height: clamp(360px, 60vh, 620px); overflow: hidden; }
+  /* — Bandeau émotion (pleine largeur, ample) — */
+  .photoband { position: relative; height: clamp(440px, 74vh, 760px); overflow: hidden; }
   .photoband__media { position: absolute; inset: 0; }
   .photoband__overlay {
     position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end;
-    padding: clamp(1.5rem, 5vw, 4rem); color: #fff;
-    background: linear-gradient(to top, rgba(8,8,10,.72), rgba(8,8,10,.1) 55%, transparent);
+    padding-block: clamp(1.5rem, 5vw, 4rem); color: #fff;
+    background: linear-gradient(to top, rgba(8,8,10,.74), rgba(8,8,10,.12) 55%, transparent);
   }
   .photoband__overlay .eyebrow { color: #fff; }
-  .photoband__line { font-size: clamp(2.2rem, 6vw, 5.5rem); }
+  .photoband__line { font-size: clamp(2.4rem, 7vw, 6rem); }
   .photoband__line .accent { color: var(--red-bright); }
 
   /* — Roster (dark) — */
@@ -213,12 +251,34 @@ import { univers } from '../data/univers.js';
   .roster__k { color: var(--red-bright); }
   .roster__v { font-size: clamp(1.6rem, 4.5vw, 3.2rem); }
 
+  /* — Partenaires — */
+  .partners__viewport {
+    overflow: hidden; margin-top: 1.6rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+  .partners__track { display: flex; width: max-content; animation: partners 30s linear infinite; }
+  .partners__viewport:hover .partners__track { animation-play-state: paused; }
+  .partners__set { display: flex; align-items: center; }
+  .partners__logo {
+    flex: 0 0 auto; width: clamp(150px, 20vw, 210px); height: 96px; margin-inline: clamp(0.6rem, 1.4vw, 1.3rem);
+    display: grid; place-items: center; background: var(--white);
+    border: 1px solid var(--hairline); border-radius: 12px; color: var(--smoke);
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .partners__logo:hover { border-color: var(--red); color: var(--red); }
+  @keyframes partners { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .partners__track { animation: none; } }
+
   /* — Engager — */
   .engager__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .engager__head { display: flex; flex-direction: column; gap: clamp(1.4rem, 3vw, 2.2rem); }
   .engager__media { aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
   .engager__title { font-size: var(--fs-h2); margin: 0.8rem 0 1rem; }
   .engager__lead { font-size: var(--fs-lead); color: #4a4a50; max-width: 36ch; }
+  .engager__alt { margin-top: 1rem; color: var(--smoke); text-transform: none; letter-spacing: 0.04em; }
+  .engager__alt a { color: var(--red); }
+  .engager__alt a:hover { text-decoration: underline; }
   .engager__form { display: grid; gap: 1rem; background: var(--ink); color: #fff; padding: clamp(1.5rem, 3vw, 2.4rem); border-radius: 16px; }
   .field { display: grid; gap: 0.4rem; }
   .field label { color: #8a8a90; }
@@ -237,7 +297,11 @@ import { univers } from '../data/univers.js';
     .hero__bottom { grid-template-columns: 1fr; align-items: start; }
     .hero__media { aspect-ratio: 16 / 10; }
     .manifesto__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .manifesto__media { aspect-ratio: 16 / 10; }
     .roster__row { grid-template-columns: 1fr; gap: 0.4rem; }
     .engager__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .manifesto__facts { grid-template-columns: 1fr; gap: 1rem; }
   }
 </style>

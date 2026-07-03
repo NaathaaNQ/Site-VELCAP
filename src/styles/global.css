@@ -45,7 +45,10 @@
   --hairline:   #e1e1de;   /* filets */
   --hairline-d: #26262b;   /* filets sur fond sombre */
 
-  /* — Typo — */
+  /* — Typo — deux familles + un accent technique justifié —
+     display : titres / gros chiffres (uppercase)
+     body    : tout le texte courant
+     mono    : accent — labels, eyebrows, données (jamais de texte long) */
   --font-display: "Big Shoulders", "Arial Narrow", system-ui, sans-serif;
   --font-body:    "Outfit", system-ui, sans-serif;
   --font-mono:    "Geist Mono", ui-monospace, monospace;
@@ -67,6 +70,9 @@
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 0.6s;
+
+  /* — Ombres (cartes flottantes) — */
+  --shadow: 0 24px 60px -30px rgba(10, 10, 12, 0.28);
 }
 
 /* — Reset — */

@@ -99,6 +99,7 @@ function initMenu() {
     open ? lenis?.stop() : lenis?.start();
   });
   menu.querySelectorAll('[data-menu-link]').forEach((l) => l.addEventListener('click', closeMenu));
+  menu.querySelectorAll('[data-menu-close]').forEach((c) => c.addEventListener('click', closeMenu));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 }
 
@@ -151,7 +152,20 @@ function initForm() {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
     const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')} — demande « ${data.get('interest')} » reçue. On te recontacte très vite.`;
+    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')}, demande « ${data.get('interest')} » reçue. On te recontacte très vite.`;
+    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+  });
+}
+
+function initContactForm() {
+  const form = document.querySelector('[data-contact-form]');
+  if (!form) return;
+  const out = form.querySelector('[data-contact-feedback]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const data = new FormData(form);
+    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name') || ''}, ton message est bien parti. On te répond très vite.`;
     form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
   });
 }
@@ -190,7 +204,7 @@ function initUniversModal() {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
     const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')} — demande reçue. On te recontacte très vite.`;
+    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')}, demande reçue. On te recontacte très vite.`;
     form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
   });
 }
@@ -202,6 +216,7 @@ export function initSite() {
   initHeader();
   initMenu();
   initForm();
+  initContactForm();
   initUniversModal();
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });

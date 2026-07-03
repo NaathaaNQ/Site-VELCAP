@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { site } from '../data/site.js';
+---
+<Base title="Contact · VELCAP" description="Contacter VELCAP : formulaire, e-mail, téléphone et réseaux. On te répond vite.">
+  <section class="contact container">
+    <nav class="contact__crumb mono" aria-label="Fil d'ariane" data-reveal>
+      <a href="/">VELCAP</a> <span>/</span> <span class="accent">Contact</span>
+    </nav>
+
+    <div class="contact__grid">
+      <div class="contact__aside">
+        <p class="mono eyebrow" data-reveal>On t'écoute</p>
+        <h1 class="contact__title display" data-reveal data-delay="0.05">Parlons<br />de ton <span class="accent">projet.</span></h1>
+        <p class="contact__lead" data-reveal data-delay="0.1">
+          Une question, une envie de rejoindre la structure, un partenariat ou une
+          séance d'essai gratuite ? Écris-nous, on te répond très vite.
+        </p>
+
+        <ul class="contact__direct" data-reveal data-delay="0.15">
+          <li>
+            <span class="mono">E-mail</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          <li>
+            <span class="mono">Téléphone</span>
+            <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+          </li>
+          <li>
+            <span class="mono">Siège</span>
+            <span>{site.address}</span>
+          </li>
+        </ul>
+
+        <div class="contact__socials" data-reveal data-delay="0.2">
+          <span class="mono">Nous suivre</span>
+          <SocialLinks variant="labeled" />
+        </div>
+      </div>
+
+      <form class="contact__form" data-contact-form data-reveal data-delay="0.1" novalidate>
+        <div class="field">
+          <label class="mono" for="c-firstname">Prénom *</label>
+          <input id="c-firstname" name="firstname" type="text" autocomplete="given-name" required />
+        </div>
+        <div class="field">
+          <label class="mono" for="c-name">Nom *</label>
+          <input id="c-name" name="name" type="text" autocomplete="family-name" required />
+        </div>
+        <div class="field field--full">
+          <label class="mono" for="c-email">E-mail *</label>
+          <input id="c-email" name="email" type="email" autocomplete="email" placeholder="toi@exemple.fr" required />
+        </div>
+        <div class="field field--full">
+          <label class="mono" for="c-subject">Sujet *</label>
+          <select id="c-subject" name="subject" required>
+            <option value="" disabled selected>Choisir…</option>
+            <option>Rejoindre la structure</option>
+            <option>Séance d'essai gratuite</option>
+            <option>Coaching privé</option>
+            <option>Événement / partenariat</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field field--full">
+          <label class="mono" for="c-message">Message *</label>
+          <textarea id="c-message" name="message" rows="5" placeholder="Dis-nous tout…" required></textarea>
+        </div>
+        <label class="consent field--full">
+          <input type="checkbox" name="rgpd" required />
+          <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
+        </label>
+        <button type="submit" class="btn btn--red contact__submit">Envoyer mon message <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="contact__feedback mono" data-contact-feedback role="status"></p>
+      </form>
+    </div>
+
+    <a href="/" class="btn btn--ghost contact__back">← Retour à l'accueil</a>
+  </section>
+</Base>
+
+<style>
+  .contact { padding-block: clamp(6.5rem, 11vw, 9rem) clamp(3rem, 6vw, 5rem); }
+  .contact__crumb { display: flex; gap: 0.5rem; align-items: center; margin-bottom: clamp(1.6rem, 4vw, 2.6rem); }
+  .contact__crumb a:hover { color: var(--ink); }
+  .contact__crumb .accent { color: var(--red); }
+
+  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .contact__title { font-size: var(--fs-h2); margin: 0.6rem 0 1.2rem; }
+  .contact__title .accent { color: var(--red); }
+  .contact__lead { font-size: var(--fs-lead); color: #3a3a40; max-width: 40ch; }
+
+  .contact__direct { display: grid; gap: 1.1rem; margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--hairline); padding-top: 1.6rem; }
+  .contact__direct li { display: grid; gap: 0.2rem; }
+  .contact__direct .mono { color: var(--smoke); }
+  .contact__direct a, .contact__direct span:not(.mono) { font-size: 1.15rem; color: var(--ink); }
+  .contact__direct a:hover { color: var(--red); }
+
+  .contact__socials { margin-top: 1.8rem; display: grid; gap: 0.7rem; }
+  .contact__socials .mono { color: var(--smoke); }
+
+  .contact__form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: var(--ink); color: #fff; padding: clamp(1.6rem, 3vw, 2.6rem); border-radius: 18px; box-shadow: var(--shadow); }
+  .contact__form .field { display: grid; gap: 0.4rem; }
+  .contact__form .field--full, .contact__submit, .contact__feedback, .contact__form .consent { grid-column: 1 / -1; }
+  .contact__form label { color: #8a8a90; }
+  .contact__form input, .contact__form select, .contact__form textarea {
+    background: #15151a; border: 1px solid #2a2a31; border-radius: 9px; padding: 0.85rem 1rem;
+    color: #fff; font-family: var(--font-body); width: 100%; resize: vertical;
+  }
+  .contact__form input::placeholder, .contact__form textarea::placeholder { color: #6a6a72; }
+  .contact__form input:focus, .contact__form select:focus, .contact__form textarea:focus { outline: 2px solid var(--red); border-color: var(--red); }
+  .contact__submit { justify-content: center; margin-top: 0.3rem; }
+  .contact__feedback { color: var(--red-bright); min-height: 1.2em; text-transform: none; letter-spacing: 0; }
+  .contact__form .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #b9b9c0; line-height: 1.4; cursor: pointer; }
+  .contact__form .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
+  .contact__form .consent a { color: var(--red-bright); text-decoration: underline; }
+
+  .contact__back { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+
+  @media (max-width: 860px) {
+    .contact__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .contact__form { grid-template-columns: 1fr; }
+  }
+</style>

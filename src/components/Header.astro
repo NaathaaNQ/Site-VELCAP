@@ -1,13 +1,15 @@
 ---
 import { univers } from '../data/univers.js';
+import SocialLinks from './SocialLinks.astro';
 ---
 <header class="site-header" data-header>
   <div class="site-header__bar">
-    <a class="brand" href="/" aria-label="VELCAP — accueil">
+    <a class="brand" href="/" aria-label="VELCAP, retour à l'accueil">
       <img src="/img/velcap-logo.svg" alt="VELCAP" width="447" height="140" />
     </a>
 
     <div class="site-header__actions">
+      <SocialLinks class="site-header__social" />
       <a class="btn btn--red header-cta" href="/#engager">
         S'engager <span class="arrow" aria-hidden="true">↗</span>
       </a>
@@ -21,8 +23,24 @@ import { univers } from '../data/univers.js';
 
 <div class="navmenu" id="navmenu" data-menu aria-hidden="true">
   <div class="navmenu__inner">
-    <p class="mono navmenu__eyebrow">Index — 06 univers</p>
+    <div class="navmenu__top">
+      <a class="navmenu__brand" href="/" data-menu-link aria-label="VELCAP, retour à l'accueil">
+        <img src="/img/velcap-logo-white.svg" alt="VELCAP" width="447" height="140" />
+      </a>
+      <button class="navmenu__close" data-menu-close aria-label="Fermer le menu">
+        <span class="mono">Fermer</span>
+        <span class="navmenu__x" aria-hidden="true">✕</span>
+      </button>
+    </div>
+
     <ul class="navmenu__list">
+      <li class="navmenu__item navmenu__item--home">
+        <a href="/" data-menu-link>
+          <span class="navmenu__idx mono">↩</span>
+          <span class="navmenu__name display">Accueil</span>
+          <span class="navmenu__disc mono">Page principale</span>
+        </a>
+      </li>
       {univers.map((u) => (
         <li class="navmenu__item">
           <a href={`/univers/${u.slug}`} data-menu-link>
@@ -32,10 +50,18 @@ import { univers } from '../data/univers.js';
           </a>
         </li>
       ))}
+      <li class="navmenu__item navmenu__item--contact">
+        <a href="/contact" data-menu-link>
+          <span class="navmenu__idx mono">✎</span>
+          <span class="navmenu__name display">Contact</span>
+          <span class="navmenu__disc mono">Nous écrire</span>
+        </a>
+      </li>
     </ul>
+
     <div class="navmenu__foot">
-      <a href="/" data-menu-link class="mono">↩ Accueil</a>
-      <a href="/#engager" data-menu-link class="mono">S'engager →</a>
+      <SocialLinks variant="labeled" class="navmenu__social" />
+      <a href="/#engager" data-menu-link class="mono navmenu__engage">S'engager →</a>
     </div>
   </div>
 </div>
@@ -59,18 +85,11 @@ import { univers } from '../data/univers.js';
     padding: 0.85rem var(--gutter);
   }
   .brand img { height: 26px; width: auto; }
-  .site-header__nav { display: flex; gap: 1.6rem; margin-left: auto; }
-  .site-header__nav a {
-    font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--ink); position: relative; padding-block: 0.3rem;
-  }
-  .site-header__nav a::after {
-    content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1.5px;
-    background: var(--red); transition: right 0.3s var(--ease);
-  }
-  .site-header__nav a:hover::after { right: 0; }
 
   .site-header__actions { display: flex; align-items: center; gap: 0.9rem; margin-left: auto; }
+  .site-header__social { color: var(--ink); }
+  /* dans le header, icône plus discrète (pas de gros cercle) */
+  .site-header__social :global(.socials__ic) { width: 34px; height: 34px; padding: 7px; }
   .header-cta { padding: 0.7rem 1.1rem; }
 
   .menu-toggle {
@@ -88,16 +107,28 @@ import { univers } from '../data/univers.js';
     position: fixed; inset: 0; z-index: 95; background: var(--ink); color: var(--white);
     clip-path: inset(0 0 100% 0); pointer-events: none;
     transition: clip-path 0.7s var(--ease-out);
-    display: grid; align-items: center;
+    display: grid; align-items: start; overflow-y: auto;
   }
   .navmenu.is-open { clip-path: inset(0 0 0% 0); pointer-events: auto; }
-  .navmenu__inner { width: 100%; max-width: var(--container); margin-inline: auto; padding: 7rem var(--gutter) 3rem; }
-  .navmenu__eyebrow { color: #6f6f77; margin-bottom: 1.4rem; }
+  .navmenu__inner { width: 100%; max-width: var(--container); margin-inline: auto; padding: 1.6rem var(--gutter) 3rem; }
+
+  .navmenu__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: clamp(1.6rem, 4vw, 3rem); }
+  .navmenu__brand img { height: 30px; width: auto; }
+  .navmenu__close {
+    display: inline-flex; align-items: center; gap: 0.7rem; cursor: pointer;
+    background: transparent; border: 1.5px solid var(--hairline-d); border-radius: 999px;
+    padding: 0.55rem 1.1rem; color: var(--white);
+    transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .navmenu__close .mono { color: var(--white); }
+  .navmenu__x { font-size: 1.1rem; line-height: 1; }
+  .navmenu__close:hover { background: var(--red); border-color: var(--red); }
+
   .navmenu__list { border-top: 1px solid var(--hairline-d); }
   .navmenu__item { border-bottom: 1px solid var(--hairline-d); }
   .navmenu__item a {
     display: grid; grid-template-columns: 3rem 1fr auto; align-items: center; gap: 1.2rem;
-    padding: clamp(0.7rem, 1.8vw, 1.3rem) 0; color: var(--white);
+    padding: clamp(0.6rem, 1.6vw, 1.15rem) 0; color: var(--white);
     transition: padding-left 0.4s var(--ease), color 0.3s var(--ease);
   }
   .navmenu__item a:hover { padding-left: 1.4rem; color: var(--red-bright); }
@@ -105,13 +136,17 @@ import { univers } from '../data/univers.js';
   .navmenu__item a:hover .navmenu__idx { color: var(--red-bright); }
   .navmenu__name { font-size: clamp(1.7rem, 5vw, 3.4rem); }
   .navmenu__disc { color: #6f6f77; }
-  .navmenu__foot { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.2rem; }
-  .navmenu__foot a { color: #b9b9c0; }
-  .navmenu__foot a:hover { color: var(--white); }
+  /* Accueil et Contact : accents pour les rendre bien visibles */
+  .navmenu__item--home a, .navmenu__item--contact a { color: #fff; }
+  .navmenu__item--home .navmenu__idx, .navmenu__item--contact .navmenu__idx { color: var(--red-bright); }
+
+  .navmenu__foot { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem; margin-top: 2.2rem; flex-wrap: wrap; }
+  .navmenu__social { color: #c8c8cf; }
+  .navmenu__engage { color: #b9b9c0; }
+  .navmenu__engage:hover { color: var(--white); }
 
   @media (max-width: 860px) {
-    .site-header__nav { display: none; }
     .header-cta { display: none; }
-    .site-header__actions { margin-left: auto; }
+    .site-header__social { display: none; } /* Instagram reste visible dans le menu + footer */
   }
 </style>

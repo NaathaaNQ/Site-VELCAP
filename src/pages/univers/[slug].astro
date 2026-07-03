@@ -31,7 +31,7 @@ const FORMS = {
     title: 'Adhérer au Team Loisirs',
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'tier', label: 'Formule', type: 'select', required: true,
-        options: ['Adhésion Communauté — 180 €', 'Adhésion Performance — 250 €'] },
+        options: ['Adhésion Communauté · 180 €', 'Adhésion Performance · 250 €'] },
       FIELD.message],
   },
   'team-elite': {
@@ -42,7 +42,7 @@ const FORMS = {
       FIELD.message],
   },
   'club-ffa': {
-    title: 'Licence & inscription — Club FFA',
+    title: 'Licence et inscription · Club FFA',
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'age', label: 'Âge', type: 'number' },
       { name: 'level', label: 'Niveau actuel', type: 'select',
@@ -79,13 +79,13 @@ const GALLERY = {
 };
 const gallery = GALLERY[u.slug];
 ---
-<Base title={`${u.name} — VELCAP`} description={u.intro}>
+<Base title={`${u.name} · VELCAP`} description={u.intro}>
   <!-- HERO -->
   <section class="uhero" data-parallax-scope>
     <div class="container">
       <nav class="uhero__crumb mono" aria-label="Fil d'ariane" data-intro data-intro-order="0">
         <a href="/">VELCAP</a> <span>/</span> <a href="/#univers">Univers</a> <span>/</span>
-        <span class="accent">{u.index}</span> <span>—</span> {total}
+        <span class="accent">{u.index}</span> <span>·</span> {total}
       </nav>
 
       <div class="uhero__top">
@@ -110,6 +110,21 @@ const gallery = GALLERY[u.slug];
       {u.note && <p class="udetail__note mono" data-reveal data-delay="0.05">{u.note}</p>}
     </div>
   </section>
+
+  {u.freeTrial && (
+    <section class="section freetrial">
+      <div class="container freetrial__inner" data-reveal>
+        <div class="freetrial__copy">
+          <p class="mono eyebrow">Gratuit · sans engagement</p>
+          <p class="freetrial__title display">{u.freeTrial.title}</p>
+          <p class="freetrial__text">{u.freeTrial.text}</p>
+        </div>
+        <a class="btn btn--red btn--lg freetrial__cta" href="/contact" data-magnetic>
+          Réserver mon essai <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  )}
 
   {u.comingSoon && (
     <section class="section soon">
@@ -237,6 +252,32 @@ const gallery = GALLERY[u.slug];
     </section>
   )}
 
+  {u.coaches && (
+    <section class="section coaches">
+      <div class="container">
+        <div class="coaches__head" data-reveal>
+          <p class="mono eyebrow">L'encadrement</p>
+          <h2 class="coaches__title display">Les coachs</h2>
+          <p class="coaches__note mono">Cartes d'exemple, prêtes à recevoir les vrais profils.</p>
+        </div>
+        <div class="coaches__grid" data-reveal-group>
+          {u.coaches.map((c, i) => (
+            <article class="coach" data-reveal-item>
+              <div class="coach__photo">
+                <Photo src={`coach-${u.slug}-${i + 1}.jpg`} treatment="bw" slug={u.slug} alt={c.name} hint={false} />
+              </div>
+              <div class="coach__body">
+                <p class="coach__role mono">{c.role}</p>
+                <h3 class="coach__name display">{c.name}</h3>
+                <p class="coach__line">{c.line}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   {gallery && (
     <section class="section ugallery">
       <div class="container">
@@ -244,7 +285,7 @@ const gallery = GALLERY[u.slug];
         <div class="ugallery__grid" data-reveal-group>
           {gallery.map((src, i) => (
             <div class={`ugallery__item ugallery__item--${i}`} data-reveal-item data-parallax-scope>
-              <Photo src={src} treatment="bw" slug={u.slug} parallax="6" alt={`${u.name} — photo ${i + 1}`} />
+              <Photo src={src} treatment="bw" slug={u.slug} parallax="6" alt={`${u.name}, photo ${i + 1}`} />
             </div>
           ))}
         </div>
@@ -332,8 +373,33 @@ const gallery = GALLERY[u.slug];
   .uhero__visual :global(.ph) { aspect-ratio: 21 / 9; border-radius: 16px; }
 
   .udetail { padding-block: clamp(2.5rem, 5vw, 4rem); }
-  .udetail__intro { font-size: clamp(1.3rem, 1rem + 1.4vw, 2rem); line-height: 1.4; color: var(--ink); font-family: var(--font-display); font-weight: 500; max-width: 60ch; }
+  .udetail__intro { font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem); line-height: 1.45; color: var(--ink); font-family: var(--font-body); font-weight: 500; max-width: 60ch; }
   .udetail__note { margin-top: 1.2rem; color: var(--smoke); max-width: 60ch; letter-spacing: 0.06em; }
+
+  /* — Essai gratuit — */
+  .freetrial { padding-block: clamp(1rem, 2vw, 1.5rem); }
+  .freetrial__inner {
+    display: flex; align-items: center; justify-content: space-between; gap: clamp(1.4rem, 3vw, 2.5rem);
+    flex-wrap: wrap; background: var(--white); border: 1px solid var(--hairline); border-left: 5px solid var(--red);
+    border-radius: 16px; padding: clamp(1.5rem, 3vw, 2.4rem); box-shadow: var(--shadow);
+  }
+  .freetrial__copy .eyebrow { color: var(--red); }
+  .freetrial__title { font-size: clamp(1.6rem, 4vw, 2.6rem); margin: 0.5rem 0 0.5rem; }
+  .freetrial__text { color: #4a4a50; max-width: 52ch; }
+  .freetrial__cta { flex-shrink: 0; }
+
+  /* — Coachs — */
+  .coaches__head { margin-bottom: clamp(1.4rem, 3vw, 2rem); }
+  .coaches__title { font-size: var(--fs-h3); margin: 0.4rem 0 0.4rem; }
+  .coaches__note { color: var(--smoke); text-transform: none; letter-spacing: 0.04em; }
+  .coaches__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem); }
+  .coach { background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+  .coach:hover { transform: translateY(-4px); }
+  .coach__photo { position: relative; aspect-ratio: 4 / 5; }
+  .coach__body { padding: 1.1rem 1.2rem 1.4rem; }
+  .coach__role { color: var(--red); }
+  .coach__name { font-size: clamp(1.3rem, 2.4vw, 1.85rem); margin: 0.3rem 0 0.45rem; }
+  .coach__line { color: #4a4a50; font-size: 0.96rem; }
 
   .points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
   .point { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: clamp(1.2rem, 2.5vw, 1.8rem) 1.5rem clamp(1.2rem, 2.5vw, 1.8rem) 0; border-top: 1px solid var(--hairline); }
@@ -440,9 +506,15 @@ const gallery = GALLERY[u.slug];
   .ugallery__item { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; }
   .ugallery__item--1 { margin-top: clamp(1.2rem, 4vw, 3.5rem); }
 
+  @media (max-width: 860px) {
+    .coaches__grid { grid-template-columns: 1fr 1fr; }
+    .freetrial__inner { flex-direction: column; align-items: flex-start; }
+    .freetrial__cta { width: 100%; justify-content: center; }
+  }
   @media (max-width: 760px) {
     .umodal__form { grid-template-columns: 1fr; }
     .ugallery__grid { grid-template-columns: 1fr 1fr; }
+    .coaches__grid { grid-template-columns: 1fr; }
     .ugallery__item--1 { margin-top: 0; }
     .uhero__top { grid-template-columns: 1fr; }
     .points { grid-template-columns: 1fr; }

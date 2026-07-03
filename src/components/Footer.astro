@@ -1,5 +1,7 @@
 ---
 import { univers } from '../data/univers.js';
+import { site } from '../data/site.js';
+import SocialLinks from './SocialLinks.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -9,13 +11,20 @@ const year = new Date().getFullYear();
       <a href="/#engager" class="site-footer__cta display">
         Entre dans<br />la course <span class="arrow" aria-hidden="true">↗</span>
       </a>
+      <div class="site-footer__contact">
+        <a href={`mailto:${site.email}`} class="mono">{site.email}</a>
+        <a href={`tel:${site.phoneHref}`} class="mono">{site.phone}</a>
+        <span class="mono">{site.address}</span>
+      </div>
+      <SocialLinks variant="labeled" class="site-footer__social" />
     </div>
-    <nav class="site-footer__nav" aria-label="Univers">
+    <nav class="site-footer__nav" aria-label="Navigation">
       <p class="mono">Univers</p>
       <ul>
         {univers.map((u) => (
           <li><a href={`/univers/${u.slug}`}><span class="mono">{u.index}</span> {u.name}</a></li>
         ))}
+        <li><a href="/contact"><span class="mono">→</span> Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -23,9 +32,12 @@ const year = new Date().getFullYear();
   <hr class="site-footer__rule" />
 
   <div class="site-footer__meta">
-    <img class="footer-logo" src="/img/velcap-logo-white.svg" alt="VELCAP" width="447" height="140" />
-    <span class="mono">© {year} VELCAP — Tous droits réservés</span>
+    <a href="/" class="footer-logo-link" aria-label="VELCAP, retour à l'accueil">
+      <img class="footer-logo" src="/img/velcap-logo-white.svg" alt="VELCAP" width="447" height="140" />
+    </a>
+    <span class="mono">© {year} VELCAP, tous droits réservés</span>
     <nav class="site-footer__legal mono" aria-label="Informations légales">
+      <a href="/">Accueil</a>
       <a href="/mentions-legales">Mentions légales</a>
       <a href="/confidentialite">Confidentialité</a>
       <a href="/cgv">CGV</a>
@@ -45,6 +57,10 @@ const year = new Date().getFullYear();
   .site-footer__cta .arrow { color: var(--red-bright); display: inline-block; transition: transform 0.35s var(--ease); }
   .site-footer__cta:hover { color: var(--red-bright); }
   .site-footer__cta:hover .arrow { transform: translate(6px, -6px); }
+  .site-footer__contact { display: grid; gap: 0.35rem; margin-top: 1.6rem; }
+  .site-footer__contact a, .site-footer__contact span { color: #c8c8cf; letter-spacing: 0.08em; }
+  .site-footer__contact a:hover { color: var(--white); }
+  .site-footer__social { margin-top: 1.4rem; color: #c8c8cf; }
 
   .site-footer__nav p { color: #6f6f77; margin-bottom: 1rem; }
   .site-footer__nav ul { display: grid; gap: 0.5rem; }
@@ -55,6 +71,7 @@ const year = new Date().getFullYear();
   .site-footer__rule { border: 0; height: 1px; background: var(--hairline-d); margin-block: clamp(2.5rem, 5vw, 4rem); }
   .site-footer__meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
   .footer-logo { width: clamp(180px, 34vw, 360px); height: auto; }
+  .footer-logo-link { display: inline-block; }
   .site-footer__meta > .mono { color: #6f6f77; }
   .site-footer__legal { display: flex; flex-wrap: wrap; gap: 1.2rem; }
   .site-footer__legal a { color: #9a9aa0; transition: color 0.25s var(--ease); }
