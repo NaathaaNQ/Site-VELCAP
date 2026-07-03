@@ -78,6 +78,14 @@ const GALLERY = {
   evenements: ['gal-evenements-1.jpg', 'gal-evenements-2.jpg', 'gal-evenements-3.jpg'],
 };
 const gallery = GALLERY[u.slug];
+
+// Recadrages sur-mesure (object-position / dézoom), sans déformer l'image.
+// Club FFA : on remonte le cadrage du hero pour révéler les visages des coureurs.
+const HERO_FRAME = { 'club-ffa': { pos: 'center 22%' } };
+// Team Élite : la 3e photo (droite) est dézoomée pour montrer les athlètes coupés.
+const GAL_FRAME = { 'team-elite': { 2: { wide: true, flat: true, parallax: 0 } } };
+const heroFrame = HERO_FRAME[u.slug] || {};
+const galFrame = GAL_FRAME[u.slug] || {};
 ---
 <Base title={`${u.name} · VELCAP`} description={u.intro}>
   <!-- HERO -->
@@ -99,7 +107,7 @@ const gallery = GALLERY[u.slug];
     </div>
 
     <div class="container uhero__visual" data-intro data-intro-order="4">
-      <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax="8" alt={u.name} />
+      <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax="8" alt={u.name} pos={heroFrame.pos || ''} />
     </div>
   </section>
 
@@ -283,11 +291,14 @@ const gallery = GALLERY[u.slug];
       <div class="container">
         <p class="mono eyebrow" data-reveal>En images</p>
         <div class="ugallery__grid" data-reveal-group>
-          {gallery.map((src, i) => (
-            <div class={`ugallery__item ugallery__item--${i}`} data-reveal-item data-parallax-scope>
-              <Photo src={src} treatment="bw" slug={u.slug} parallax="6" alt={`${u.name}, photo ${i + 1}`} />
-            </div>
-          ))}
+          {gallery.map((src, i) => {
+            const gf = galFrame[i] || {};
+            return (
+              <div class={`ugallery__item ugallery__item--${i} ${gf.wide ? 'ugallery__item--wide' : ''}`} data-reveal-item data-parallax-scope>
+                <Photo src={src} treatment="bw" slug={u.slug} parallax={gf.parallax ?? 6} flat={gf.flat || false} alt={`${u.name}, photo ${i + 1}`} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -505,6 +516,8 @@ const gallery = GALLERY[u.slug];
   .ugallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: 1.4rem; }
   .ugallery__item { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; }
   .ugallery__item--1 { margin-top: clamp(1.2rem, 4vw, 3.5rem); }
+  /* cellule dézoomée (paysage) : révèle tout le groupe, cadrage cover intact */
+  .ugallery__item--wide { aspect-ratio: 4 / 3; align-self: center; }
 
   @media (max-width: 860px) {
     .coaches__grid { grid-template-columns: 1fr 1fr; }

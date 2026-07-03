@@ -11,15 +11,17 @@ const {
   slug = 'team-elite', // variante du placeholder duotone
   parallax = 0,        // amplitude de parallaxe (0 = aucune)
   hint = true,         // affiche le nom de fichier attendu (repère de dev)
+  pos = '',            // object-position (ex. "center 25%") pour recadrer sans déformer
+  flat = false,        // désactive le sur-zoom de parallaxe (montre plus de l'image)
   class: cls = '',
 } = Astro.props;
 
 const exists = src ? fs.existsSync(`public/img/photos/${src}`) : false;
 const pAttr = parallax ? { 'data-parallax': String(parallax) } : {};
 ---
-<div class={`ph ph--${treatment} ${cls}`} data-parallax-scope>
+<div class={`ph ph--${treatment} ${flat ? 'ph--flat' : ''} ${cls}`} data-parallax-scope>
   {exists ? (
-    <img class="ph__img" src={`/img/photos/${src}`} alt={alt} loading="lazy" {...pAttr} />
+    <img class="ph__img" src={`/img/photos/${src}`} alt={alt} loading="lazy" style={pos ? `object-position:${pos}` : undefined} {...pAttr} />
   ) : (
     <div class="ph__ph">
       <Visual slug={slug} tone="red" />
@@ -31,6 +33,8 @@ const pAttr = parallax ? { 'data-parallax': String(parallax) } : {};
 <style>
   .ph { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0c0c0f; }
   .ph__img { position: absolute; inset: -18% 0; width: 100%; height: 136%; object-fit: cover; display: block; will-change: transform; }
+  /* mode "flat" : pas de sur-zoom (utile pour dézoomer et révéler tout le sujet) */
+  .ph--flat .ph__img { inset: 0; height: 100%; }
   .ph--bw .ph__img { filter: grayscale(1) contrast(1.06) brightness(0.98); }
   .ph--color .ph__img { filter: saturate(1.06) contrast(1.04); }
   .ph__ph { position: absolute; inset: 0; }
