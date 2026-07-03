@@ -106,7 +106,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
       </div>
     </div>
 
-    <div class="container uhero__visual" data-intro data-intro-order="4">
+    <div class="uhero__visual" data-intro data-intro-order="4">
       <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax="8" alt={u.name} pos={heroFrame.pos || ''} />
     </div>
   </section>
@@ -380,8 +380,9 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .uhero__index { font-size: clamp(4rem, 15vw, 12rem); line-height: 0.8; color: var(--red); }
   .uhero__name { font-size: var(--fs-h2); margin: 0.4rem 0 0.9rem; }
   .uhero__lead { font-size: var(--fs-lead); color: #3a3a40; max-width: 30ch; }
-  .uhero__visual { margin-top: clamp(2rem, 5vw, 4rem); }
-  .uhero__visual :global(.ph) { aspect-ratio: 21 / 9; border-radius: 16px; }
+  /* hero pleine largeur (full-bleed, bord à bord) */
+  .uhero__visual { margin-top: clamp(2rem, 5vw, 4rem); width: 100%; height: clamp(340px, 62vh, 720px); }
+  .uhero__visual :global(.ph) { height: 100%; }
 
   .udetail { padding-block: clamp(2.5rem, 5vw, 4rem); }
   .udetail__intro { font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem); line-height: 1.45; color: var(--ink); font-family: var(--font-body); font-weight: 500; max-width: 60ch; }
