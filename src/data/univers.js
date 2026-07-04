@@ -158,9 +158,9 @@ export const univers = [
     ],
     tiersNote: 'Trois formules, du basique au premium. Contenu et tarifs à définir prochainement.',
     coaches: [
-      { name: 'Prénom Nom', role: 'Coach performance', line: 'Plans personnalisés route et piste, du 5 km au marathon.' },
-      { name: 'Prénom Nom', role: 'Coach trail', line: 'Préparation aux courses nature et aux formats longue distance.' },
-      { name: 'Prénom Nom', role: 'Coach vélo', line: 'Accompagnement cyclisme et travail foncier à la puissance.' },
+      { name: 'Prénom Nom', role: 'Coach', line: 'Accompagnement individualisé, construit autour de ton objectif.' },
+      { name: 'Prénom Nom', role: 'Coach', line: 'Suivi régulier, plan d’entraînement et ajustements en continu.' },
+      { name: 'Prénom Nom', role: 'Coach', line: 'De la reprise à la performance, à ton rythme.' },
     ],
     cta: 'Demander un coaching',
     ctaKind: 'Sur devis',
