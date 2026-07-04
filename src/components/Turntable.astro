@@ -36,8 +36,12 @@ const total = String(univers.length).padStart(2, '0');
       ))}
     </div>
 
-    <button class="tt-arrow tt-arrow--prev" data-tt-prev aria-label="Univers précédent">‹</button>
-    <button class="tt-arrow tt-arrow--next" data-tt-next aria-label="Univers suivant">›</button>
+    <button class="tt-arrow tt-arrow--prev" data-tt-prev aria-label="Univers précédent">
+      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7" /></svg>
+    </button>
+    <button class="tt-arrow tt-arrow--next" data-tt-next aria-label="Univers suivant">
+      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7" /></svg>
+    </button>
   </div>
 
   <div class="container tt__controls">
@@ -134,17 +138,30 @@ const total = String(univers.length).padStart(2, '0');
   .tt-panel.is-active .board:hover { border-color: var(--red-bright); }
   .tt-panel.is-active .board:hover .board__cta .arrow { transform: translateX(5px); }
 
+  /* flèches premium : verre dépoli sur la scène sombre, liseré fin, halo rouge au survol */
   .tt-arrow {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 50;
-    width: 54px; height: 54px; border-radius: 50%; cursor: pointer;
-    background: var(--white); color: var(--ink); border: 1.5px solid var(--ink);
-    font-size: 1.7rem; line-height: 0; display: grid; place-items: center;
-    transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
-    box-shadow: 0 14px 30px -14px rgba(0,0,0,.4);
+    width: 60px; height: 60px; border-radius: 50%; cursor: pointer;
+    display: grid; place-items: center; color: #fff;
+    background: rgba(18, 18, 22, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    -webkit-backdrop-filter: blur(10px) saturate(1.25);
+    backdrop-filter: blur(10px) saturate(1.25);
+    box-shadow: 0 12px 34px -14px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease),
+                transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease);
   }
-  .tt-arrow:hover { background: var(--red); color: #fff; border-color: var(--red); }
-  .tt-arrow--prev { left: clamp(0.5rem, 4vw, 3rem); }
-  .tt-arrow--next { right: clamp(0.5rem, 4vw, 3rem); }
+  .tt-arrow svg { transition: transform 0.4s var(--ease-out); }
+  .tt-arrow:hover {
+    background: var(--red); border-color: var(--red);
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 18px 42px -12px rgba(226, 0, 15, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+  .tt-arrow:active { transform: translateY(-50%) scale(0.95); }
+  .tt-arrow--prev:hover svg { transform: translateX(-3px); }
+  .tt-arrow--next:hover svg { transform: translateX(3px); }
+  .tt-arrow--prev { left: clamp(0.6rem, 3vw, 2.4rem); }
+  .tt-arrow--next { right: clamp(0.6rem, 3vw, 2.4rem); }
 
   .tt__controls {
     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
@@ -180,7 +197,8 @@ const total = String(univers.length).padStart(2, '0');
 
   @media (max-width: 760px) {
     .tt__head { grid-template-columns: 1fr; align-items: start; }
-    .tt-arrow { width: 44px; height: 44px; font-size: 1.4rem; }
+    .tt-arrow { width: 50px; height: 50px; }
+    .tt-arrow svg { width: 18px; height: 18px; }
     .tt__controls { justify-content: center; }
   }
 </style>

@@ -83,7 +83,9 @@ const gallery = GALLERY[u.slug];
 // flat = pas de sur-zoom de parallaxe : on voit davantage du sujet (dézoom).
 // Club FFA : hero remonté (visages) + dézoomé. Team Loisirs : hero dézoomé.
 const HERO_FRAME = {
-  'club-ffa': { pos: 'center 32%', flat: true },
+  // photo portrait dans un bandeau large : on dézoome en agrandissant le bandeau
+  // (on révèle plus de la scène) et on remonte le cadrage sur les visages.
+  'club-ffa': { pos: 'center 38%', flat: true, h: 'clamp(460px, 88vh, 940px)' },
   'team-loisirs': { flat: true },
 };
 // Team Élite : la 3e photo (droite) est dézoomée pour montrer les athlètes coupés.
@@ -110,7 +112,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
       </div>
     </div>
 
-    <div class="uhero__visual" data-intro data-intro-order="4">
+    <div class="uhero__visual" data-intro data-intro-order="4" style={heroFrame.h ? `height:${heroFrame.h}` : undefined}>
       <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax={heroFrame.flat ? 0 : 8} flat={heroFrame.flat || false} alt={u.name} pos={heroFrame.pos || ''} />
     </div>
   </section>

@@ -92,8 +92,11 @@ export function initTurntable({ reduced } = {}) {
   document.querySelector('[data-tt-next]')?.addEventListener('click', () => { stopAuto(); next(); });
   document.querySelector('[data-tt-prev]')?.addEventListener('click', () => { stopAuto(); prev(); });
   dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); animateTo(i); }));
+  // Clic sur une carte : si c'était un glissement/swipe on ne navigue pas ;
+  // une carte latérale se recentre ; la carte centrale laisse le lien s'ouvrir.
   panels.forEach((p, i) => p.addEventListener('click', (e) => {
-    if (!p.classList.contains('is-active') && !e.target.closest('a')) { e.preventDefault(); stopAuto(); animateTo(i); }
+    if (moved) { e.preventDefault(); return; }
+    if (!p.classList.contains('is-active')) { e.preventDefault(); stopAuto(); animateTo(i); }
   }));
 
   // Clavier (quand visible)
@@ -104,23 +107,65 @@ export function initTurntable({ reduced } = {}) {
     if (e.key === 'ArrowLeft') { stopAuto(); prev(); }
   });
 
-  // Drag / swipe
-  let dragging = false, startX = 0, startPos = 0, moved = false;
-  const down = (x) => { dragging = true; moved = false; startX = x; startPos = state.pos; autoTween?.kill(); stopAuto(); };
+  // Drag / swipe (souris + tactile). Seuil confortable pour ne pas confondre
+  // un clic avec un glissement (c'est ce qui empêchait la navigation 1 fois sur 2).
+  const DRAG_THRESH = 8;
+  let dragging = false, startX = 0, startPos = 0, moved = false, downPanel = null;
+  const panelIndexFrom = (target) => {
+    const el = target && target.closest ? target.closest('[data-panel]') : null;
+    return el ? panels.indexOf(el) : null;
+  };
+  const down = (x, target) => {
+    dragging = true; moved = false; startX = x; startPos = state.pos;
+    downPanel = panelIndexFrom(target);
+    autoTween?.kill(); stopAuto();
+  };
   const move = (x) => {
     if (!dragging) return;
     const dx = x - startX;
-    if (Math.abs(dx) > 4) moved = true;
+    if (Math.abs(dx) > DRAG_THRESH) moved = true;
+    if (!moved) return;                 // sous le seuil : on ne bouge pas -> le clic reste un clic
     state.pos = startPos - dx / (stage.clientWidth / 2.2);
     render();
   };
-  const up = () => { if (!dragging) return; dragging = false; if (moved) animateTo(Math.round(state.pos)); };
-  stage.addEventListener('mousedown', (e) => down(e.clientX));
+  // Relâchement : un glissement recentre ; un tap net sur la carte centrale ouvre
+  // sa page (navigation explicite, fiable même si le navigateur annule le clic).
+  const up = () => {
+    if (!dragging) return;
+    dragging = false;
+    if (moved) { animateTo(Math.round(state.pos)); moved = false; return; }
+    if (downPanel != null && panels[downPanel] && panels[downPanel].classList.contains('is-active')) {
+      const link = panels[downPanel].querySelector('a.board');
+      if (link) { window.location.href = link.getAttribute('href'); return; }
+    }
+    moved = false;
+  };
+  stage.addEventListener('mousedown', (e) => down(e.clientX, e.target));
   window.addEventListener('mousemove', (e) => move(e.clientX));
   window.addEventListener('mouseup', up);
-  stage.addEventListener('touchstart', (e) => down(e.touches[0].clientX), { passive: true });
+  stage.addEventListener('touchstart', (e) => down(e.touches[0].clientX, e.target), { passive: true });
   stage.addEventListener('touchmove', (e) => move(e.touches[0].clientX), { passive: true });
   stage.addEventListener('touchend', up);
+  // Empêche le glisser-déposer natif des images (qui avalait le clic 1 fois sur 2).
+  stage.addEventListener('dragstart', (e) => e.preventDefault());
+
+  // Molette / trackpad : un balayage horizontal fait tourner la plateforme.
+  // Le scroll vertical (molette classique) reste libre pour faire défiler la page.
+  let wheelAccum = 0, wheelLock = false, wheelReset;
+  stage.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; // intention verticale : on laisse passer
+    e.preventDefault();
+    stopAuto();
+    wheelAccum += e.deltaX;
+    clearTimeout(wheelReset);
+    wheelReset = setTimeout(() => { wheelAccum = 0; }, 180);
+    if (!wheelLock && Math.abs(wheelAccum) > 28) {
+      wheelLock = true;
+      (wheelAccum > 0 ? next : prev)();
+      wheelAccum = 0;
+      setTimeout(() => { wheelLock = false; }, 260);
+    }
+  }, { passive: false });
 
   // Rotation auto — fiabilisée : retour visuel immédiat + pause au survol
   const apBtn = document.querySelector('[data-tt-auto]');
