@@ -92,11 +92,12 @@ export function initTurntable({ reduced } = {}) {
   document.querySelector('[data-tt-next]')?.addEventListener('click', () => { stopAuto(); next(); });
   document.querySelector('[data-tt-prev]')?.addEventListener('click', () => { stopAuto(); prev(); });
   dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); animateTo(i); }));
-  // Clic sur une carte : si c'était un glissement/swipe on ne navigue pas ;
-  // une carte latérale se recentre ; la carte centrale laisse le lien s'ouvrir.
-  panels.forEach((p, i) => p.addEventListener('click', (e) => {
-    if (moved) { e.preventDefault(); return; }
-    if (!p.classList.contains('is-active')) { e.preventDefault(); stopAuto(); animateTo(i); }
+  // Navigation gérée au relâchement (voir up()) pour être fiable même si le
+  // navigateur annule le clic natif. On neutralise ici le clic souris/tactile
+  // (detail !== 0) pour éviter toute double navigation, tout en laissant passer
+  // l'activation clavier (Entrée -> click detail 0) sur le lien de la carte.
+  panels.forEach((p) => p.addEventListener('click', (e) => {
+    if (e.detail !== 0) e.preventDefault();
   }));
 
   // Clavier (quand visible)
@@ -134,7 +135,10 @@ export function initTurntable({ reduced } = {}) {
     if (!dragging) return;
     dragging = false;
     if (moved) { animateTo(Math.round(state.pos)); moved = false; return; }
-    if (downPanel != null && panels[downPanel] && panels[downPanel].classList.contains('is-active')) {
+    // Tap net (déplacement < seuil) : on ouvre la carte visée. Seule la carte
+    // centrale reçoit les événements (les autres sont en pointer-events:none),
+    // donc downPanel correspond toujours à la carte réellement cliquée.
+    if (downPanel != null && panels[downPanel]) {
       const link = panels[downPanel].querySelector('a.board');
       if (link) { window.location.href = link.getAttribute('href'); return; }
     }
@@ -149,21 +153,25 @@ export function initTurntable({ reduced } = {}) {
   // Empêche le glisser-déposer natif des images (qui avalait le clic 1 fois sur 2).
   stage.addEventListener('dragstart', (e) => e.preventDefault());
 
-  // Molette / trackpad : un balayage horizontal fait tourner la plateforme.
-  // Le scroll vertical (molette classique) reste libre pour faire défiler la page.
-  let wheelAccum = 0, wheelLock = false, wheelReset;
+  // Molette / trackpad : un balayage horizontal fait tourner la plateforme, une
+  // carte à la fois. Le scroll vertical (molette classique) reste libre pour la page.
+  // Anti-saut : tant qu'une rotation est en cours, on ignore les deltas (la lancée
+  // du trackpad ne peut donc pas empiler plusieurs pas). Après l'animation, il faut
+  // ré-accumuler un seuil complet -> vitesse indépendante de l'intensité du geste.
+  const WHEEL_STEP = 60;
+  let wheelAccum = 0, wheelIdle;
   stage.addEventListener('wheel', (e) => {
     if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; // intention verticale : on laisse passer
     e.preventDefault();
-    stopAuto();
+    clearTimeout(wheelIdle);
+    wheelIdle = setTimeout(() => { wheelAccum = 0; }, 140); // fin du geste -> on repart de zéro
+    if (gsap.isTweening(state)) { wheelAccum = 0; return; } // rotation en cours : aucun nouveau pas
     wheelAccum += e.deltaX;
-    clearTimeout(wheelReset);
-    wheelReset = setTimeout(() => { wheelAccum = 0; }, 180);
-    if (!wheelLock && Math.abs(wheelAccum) > 28) {
-      wheelLock = true;
-      (wheelAccum > 0 ? next : prev)();
+    if (Math.abs(wheelAccum) >= WHEEL_STEP) {
+      const dir = wheelAccum > 0 ? 1 : -1;
       wheelAccum = 0;
-      setTimeout(() => { wheelLock = false; }, 260);
+      stopAuto();
+      dir > 0 ? next() : prev();
     }
   }, { passive: false });
 
