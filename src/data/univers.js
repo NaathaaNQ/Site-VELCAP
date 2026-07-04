@@ -12,6 +12,7 @@ export const univers = [
       "Le Team Loisirs, c'est l'association loi 1901 de VELCAP : démocratiser l'accès à un entraînement encadré, du débutant au confirmé, et faire vivre une communauté forte. Séances encadrées, sorties festives et événements qui rassemblent.",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: ['Mardi · 19h00 à 20h30', 'Jeudi · 19h00 à 20h30'],
+    places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
     freeTrial: {
       title: "Viens tester une séance, c'est gratuit",
       text: "Pas encore décidé ? Rejoins-nous un mardi ou un jeudi soir pour un entraînement d'essai, sans aucun engagement.",
@@ -95,6 +96,7 @@ export const univers = [
       { k: 'Licence FFA', v: 'Ouvert à toute personne désireuse de faire de la compétition.' },
     ],
     schedule: ['Lundi · dès 18h30', 'Mercredi · dès 18h30', 'Samedi · créneau à venir'],
+    places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…), la piste Léo Lagrange ou le STAPS.',
     price: '?',
     freeTrial: {
       title: "Viens tester une séance, c'est gratuit",
