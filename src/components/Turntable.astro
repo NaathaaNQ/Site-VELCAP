@@ -5,13 +5,8 @@ const total = String(univers.length).padStart(2, '0');
 ---
 <section class="tt" id="univers" data-parallax-scope>
   <div class="container tt__head">
-    <div>
-      <p class="mono eyebrow" data-reveal>Glisse · clique · explore</p>
-      <h2 class="tt__title display" data-reveal data-delay="0.05">La plateforme<br />tournante</h2>
-    </div>
-    <p class="tt__lead" data-reveal data-delay="0.1">
-      Fais tourner, ouvre l'univers qui te ressemble.
-    </p>
+    <p class="mono eyebrow" data-reveal>Glisse · clique · explore</p>
+    <h2 class="tt__title display" data-reveal data-delay="0.05">Nos univers</h2>
   </div>
 
   <div class="tt__stage" data-turntable role="group" aria-roledescription="carrousel" aria-label="Les univers VELCAP">
@@ -61,12 +56,8 @@ const total = String(univers.length).padStart(2, '0');
 
 <style>
   .tt { padding-block: clamp(2.5rem, 5vw, 5rem); background: var(--paper); overflow: hidden; }
-  .tt__head {
-    display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: end;
-    margin-bottom: clamp(2rem, 5vw, 4rem);
-  }
+  .tt__head { margin-bottom: clamp(2rem, 5vw, 4rem); }
   .tt__title { font-size: var(--fs-h2); margin-top: 0.8rem; }
-  .tt__lead { font-size: var(--fs-lead); color: #44444a; max-width: 38ch; }
 
   .tt__stage {
     position: relative; height: clamp(470px, 64vh, 640px);
@@ -196,7 +187,6 @@ const total = String(univers.length).padStart(2, '0');
   }
 
   @media (max-width: 760px) {
-    .tt__head { grid-template-columns: 1fr; align-items: start; }
     .tt-arrow { width: 50px; height: 50px; }
     .tt-arrow svg { width: 18px; height: 18px; }
     .tt__controls { justify-content: center; }
