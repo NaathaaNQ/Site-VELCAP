@@ -357,7 +357,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
   {form && (
     <div class="umodal" data-univers-modal aria-hidden="true">
       <div class="umodal__backdrop" data-modal-close></div>
-      <div class="umodal__panel" role="dialog" aria-modal="true" aria-label={form.title}>
+      <div class="umodal__panel" data-lenis-prevent role="dialog" aria-modal="true" aria-label={form.title}>
         <button type="button" class="umodal__x" data-modal-close aria-label="Fermer">✕</button>
         <p class="mono eyebrow">{u.name}</p>
         <h2 class="umodal__title display">{form.title}</h2>
@@ -387,21 +387,9 @@ const galFrame = GAL_FRAME[u.slug] || {};
           {u.slug !== 'evenements' && (
             <label class="consent field--full">
               <input type="checkbox" name="pps" required />
-              <span>Aucun certificat médical n'est demandé. Je m'engage à compléter le PPS (Parcours de Prévention Santé), obligatoire. *</span>
+              <span>Je m'engage à compléter le PPS (Parcours de Prévention Santé), obligatoire. *</span>
             </label>
           )}
-          <details class="policy field--full">
-            <summary>Lire la politique de confidentialité</summary>
-            <div class="policy__body">
-              <p>Le responsable du traitement est l'association <strong>VELCAP</strong> (15 rue de la Combe, 25750 Désandans), joignable à <strong>velcapteam@gmail.com</strong>.</p>
-              <p><strong>Données collectées :</strong> prénom, nom, e-mail, téléphone le cas échéant, ainsi que les informations liées à ta demande (univers ou formule, niveau, objectifs, message).</p>
-              <p><strong>Finalités :</strong> répondre à ta demande et te recontacter, gérer les adhésions, inscriptions et le suivi des membres, respecter nos obligations légales. Bases légales : ton consentement, l'exécution du contrat d'adhésion et nos obligations légales.</p>
-              <p><strong>Destinataires :</strong> les membres habilités de l'association et nos prestataires techniques (hébergeur Netlify, et le cas échéant la solution de paiement). Tes données ne sont jamais vendues.</p>
-              <p><strong>Conservation :</strong> le temps du traitement de ta demande, puis 3 ans maximum à compter du dernier contact, sauf obligation légale plus longue.</p>
-              <p><strong>Tes droits :</strong> accès, rectification, effacement, limitation, opposition et portabilité, en écrivant à velcapteam@gmail.com. Tu peux aussi saisir la CNIL.</p>
-              <p>Version complète sur la page <a href="/confidentialite" target="_blank" rel="noopener">Politique de confidentialité</a>.</p>
-            </div>
-          </details>
           <label class="consent field--full">
             <input type="checkbox" name="rgpd" required />
             <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
@@ -423,7 +411,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
   {u.events && (
     <div class="umodal" data-event-modal aria-hidden="true">
       <div class="umodal__backdrop" data-event-close></div>
-      <div class="umodal__panel" role="dialog" aria-modal="true" aria-label="Détail de l'événement">
+      <div class="umodal__panel" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Détail de l'événement">
         <button type="button" class="umodal__x" data-event-close aria-label="Fermer">✕</button>
         <p class="mono eyebrow">Événement</p>
         <h2 class="umodal__title display" data-event-name></h2>
@@ -575,6 +563,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .umodal__backdrop { position: absolute; inset: 0; background: rgba(6,6,8,.6); backdrop-filter: blur(4px); }
   .umodal__panel {
     position: relative; z-index: 1; width: min(560px, 100%); max-height: 90vh; overflow-y: auto;
+    overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
     background: var(--white); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem);
     box-shadow: 0 40px 90px -30px rgba(0,0,0,.5);
     transform: translateY(16px) scale(0.98); transition: transform 0.4s var(--ease-out);
@@ -598,17 +587,6 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #44444a; line-height: 1.4; cursor: pointer; }
   .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
   .consent a { color: var(--red); text-decoration: underline; }
-
-  /* accordéon déroulable : politique de confidentialité lisible dans le formulaire */
-  .policy { border: 1px solid var(--hairline); border-radius: 10px; background: var(--paper); overflow: hidden; }
-  .policy > summary { cursor: pointer; list-style: none; padding: 0.75rem 0.95rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
-  .policy > summary::-webkit-details-marker { display: none; }
-  .policy > summary::after { content: "+"; color: var(--red); font-size: 1.1rem; line-height: 1; }
-  .policy[open] > summary::after { content: "–"; }
-  .policy__body { max-height: 210px; overflow-y: auto; padding: 0 0.95rem 0.9rem; font-size: 0.82rem; line-height: 1.55; color: #44444a; -webkit-overflow-scrolling: touch; }
-  .policy__body p { margin-bottom: 0.6rem; }
-  .policy__body strong { color: var(--ink); }
-  .policy__body a { color: var(--red); text-decoration: underline; }
 
   /* modale détail événement (réutilise .umodal) */
   .emeta { display: grid; margin: 0.2rem 0 1.2rem; }
