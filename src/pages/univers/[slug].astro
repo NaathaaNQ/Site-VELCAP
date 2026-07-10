@@ -55,7 +55,7 @@ const FORMS = {
       { name: 'discipline', label: 'Discipline', type: 'select', required: true,
         options: ['Course à pied', 'Trail', 'Route', 'Cross', 'Piste', 'Vélo'] },
       { name: 'tier', label: 'Formule', type: 'select',
-        options: ['Basique', 'Médium', 'Premium'] },
+        options: ['Basique', 'Medium', 'Premium'] },
       { name: 'goals', label: 'Tes objectifs', type: 'textarea' },
       FIELD.message],
   },
@@ -171,24 +171,27 @@ const galFrame = GAL_FRAME[u.slug] || {};
 
   {u.schedule && (
     <section class="section schedule">
-      <div class="container schedule__grid">
-        <div data-reveal>
-          <p class="mono eyebrow">Créneaux</p>
-          <ul class="schedule__list">
-            {u.schedule.map((s) => <li class="display">{s}</li>)}
-          </ul>
+      <div class="container">
+        <div class="schedule__grid">
+          <div class="schedule__col" data-reveal>
+            <p class="mono eyebrow">Créneaux</p>
+            <ul class="schedule__list">
+              {u.schedule.map((s) => <li class="display">{s}</li>)}
+            </ul>
+          </div>
           {u.places && (
-            <div class="schedule__places">
+            <div class="schedule__col schedule__loc" data-reveal data-delay="0.05">
               <p class="mono eyebrow">Lieux d'entraînement</p>
               <p class="schedule__places-text">{u.places}</p>
+              {u.placesNote && <p class="schedule__places-note mono">{u.placesNote}</p>}
             </div>
           )}
         </div>
         {u.price && (
-          <div class="schedule__price" data-reveal data-delay="0.1">
+          <div class="schedule__tarif" data-reveal data-delay="0.1">
             <p class="mono">Tarif</p>
             <span class="schedule__q display">{u.price}</span>
-            <p class="schedule__note mono">à confirmer</p>
+            {u.priceNote && <p class="schedule__note mono">{u.priceNote}</p>}
           </div>
         )}
       </div>
@@ -204,8 +207,11 @@ const galFrame = GAL_FRAME[u.slug] || {};
             <article class={`tier ${t.highlight ? 'tier--hl' : ''}`} data-reveal-item>
               {t.highlight && <span class="tier__badge mono">Le + complet</span>}
               <h3 class="tier__name display">{t.name}</h3>
-              {t.price ? <p class="tier__price display">{t.price}</p>
-                       : <p class="tier__price tier__price--soft mono">Sur devis</p>}
+              {t.price ? (
+                <p class="tier__price display">{t.price}{t.per && <span class="tier__per mono">{t.per}</span>}{t.asterisk && <span class="tier__ast" aria-hidden="true">*</span>}</p>
+              ) : (
+                <p class="tier__price tier__price--soft mono">Sur devis</p>
+              )}
               {t.tagline && <p class="tier__tagline">{t.tagline}</p>}
               {t.features && t.features.length > 0 ? (
                 <ul class="tier__features">
@@ -219,6 +225,22 @@ const galFrame = GAL_FRAME[u.slug] || {};
           ))}
         </div>
         {u.tiersNote && <p class="tiers__note mono" data-reveal>{u.tiersNote}</p>}
+      </div>
+    </section>
+  )}
+
+  {u.enterprise && (
+    <section class="section entreprise">
+      <div class="container entreprise__inner" data-reveal>
+        <div class="entreprise__copy">
+          <p class="mono eyebrow">Aussi pour les entreprises</p>
+          <p class="entreprise__title display">{u.enterprise.title}</p>
+          <p class="entreprise__text">{u.enterprise.text}</p>
+        </div>
+        <div class="entreprise__price">
+          <span class="entreprise__amount display">{u.enterprise.price}</span>
+          <span class="entreprise__per mono">{u.enterprise.per}</span>
+        </div>
       </div>
     </section>
   )}
@@ -250,10 +272,14 @@ const galFrame = GAL_FRAME[u.slug] || {};
         <p class="mono eyebrow" data-reveal>Le calendrier</p>
         <ol class="events__list" data-reveal-group>
           {u.events.map((e, i) => (
-            <li class="event" data-reveal-item>
-              <span class="event__n mono">{String(i + 1).padStart(2, '0')}</span>
-              <span class="event__name display">{e}</span>
-              <span class="event__line" aria-hidden="true"></span>
+            <li data-reveal-item>
+              <button type="button" class="event" data-open-event
+                data-name={e.name} data-date={e.date} data-place={e.place} data-desc={e.desc}>
+                <span class="event__n mono">{String(i + 1).padStart(2, '0')}</span>
+                <span class="event__name display">{e.name}</span>
+                <span class="event__meta mono">{e.date} · {e.place}</span>
+                <span class="event__arrow mono" aria-hidden="true">→</span>
+              </button>
             </li>
           ))}
         </ol>
@@ -360,10 +386,22 @@ const galFrame = GAL_FRAME[u.slug] || {};
           )}
           {u.slug !== 'evenements' && (
             <label class="consent field--full">
-              <input type="checkbox" name="medical" required />
-              <span>Je m'engage à fournir un certificat médical de non contre-indication à la pratique sportive. *</span>
+              <input type="checkbox" name="pps" required />
+              <span>Aucun certificat médical n'est demandé. Je m'engage à compléter le PPS (Parcours de Prévention Santé), obligatoire. *</span>
             </label>
           )}
+          <details class="policy field--full">
+            <summary>Lire la politique de confidentialité</summary>
+            <div class="policy__body">
+              <p>Le responsable du traitement est l'association <strong>VELCAP</strong> (15 rue de la Combe, 25750 Désandans), joignable à <strong>velcapteam@gmail.com</strong>.</p>
+              <p><strong>Données collectées :</strong> prénom, nom, e-mail, téléphone le cas échéant, ainsi que les informations liées à ta demande (univers ou formule, niveau, objectifs, message).</p>
+              <p><strong>Finalités :</strong> répondre à ta demande et te recontacter, gérer les adhésions, inscriptions et le suivi des membres, respecter nos obligations légales. Bases légales : ton consentement, l'exécution du contrat d'adhésion et nos obligations légales.</p>
+              <p><strong>Destinataires :</strong> les membres habilités de l'association et nos prestataires techniques (hébergeur Netlify, et le cas échéant la solution de paiement). Tes données ne sont jamais vendues.</p>
+              <p><strong>Conservation :</strong> le temps du traitement de ta demande, puis 3 ans maximum à compter du dernier contact, sauf obligation légale plus longue.</p>
+              <p><strong>Tes droits :</strong> accès, rectification, effacement, limitation, opposition et portabilité, en écrivant à velcapteam@gmail.com. Tu peux aussi saisir la CNIL.</p>
+              <p>Version complète sur la page <a href="/confidentialite" target="_blank" rel="noopener">Politique de confidentialité</a>.</p>
+            </div>
+          </details>
           <label class="consent field--full">
             <input type="checkbox" name="rgpd" required />
             <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
@@ -378,6 +416,25 @@ const galFrame = GAL_FRAME[u.slug] || {};
           <button type="submit" class="btn btn--red umodal__submit">Envoyer ma demande <span class="arrow">→</span></button>
           <p class="umodal__feedback mono" data-univers-feedback role="status"></p>
         </form>
+      </div>
+    </div>
+  )}
+
+  {u.events && (
+    <div class="umodal" data-event-modal aria-hidden="true">
+      <div class="umodal__backdrop" data-event-close></div>
+      <div class="umodal__panel" role="dialog" aria-modal="true" aria-label="Détail de l'événement">
+        <button type="button" class="umodal__x" data-event-close aria-label="Fermer">✕</button>
+        <p class="mono eyebrow">Événement</p>
+        <h2 class="umodal__title display" data-event-name></h2>
+        <ul class="emeta">
+          <li><span class="mono">Quand</span><span data-event-date></span></li>
+          <li><span class="mono">Où</span><span data-event-place></span></li>
+        </ul>
+        <p class="emodal__desc" data-event-desc></p>
+        <button type="button" class="btn btn--red emodal__cta" data-event-close data-open-form>
+          Faire une demande <span class="arrow" aria-hidden="true">→</span>
+        </button>
       </div>
     </div>
   )}
@@ -431,15 +488,16 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .point__k { font-size: var(--fs-h3); margin-bottom: 0.3rem; }
   .point__v { color: #4a4a50; }
 
-  .schedule__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: start; border-top: 1px solid var(--hairline); padding-top: clamp(1.5rem, 3vw, 2.5rem); }
+  /* horaires à gauche, lieux à droite, alignés sur la même ligne */
+  .schedule__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 3.5rem); align-items: start; border-top: 1px solid var(--hairline); padding-top: clamp(1.5rem, 3vw, 2.5rem); }
   .schedule__list { display: grid; gap: 0.6rem; margin-top: 1rem; }
   .schedule__list li { font-size: clamp(1.4rem, 3vw, 2.2rem); }
-  .schedule__places { margin-top: clamp(1.5rem, 3vw, 2.2rem); }
-  .schedule__places .eyebrow { margin-bottom: 0.55rem; }
-  .schedule__places-text { color: #3a3a40; font-size: var(--fs-body); line-height: 1.55; max-width: 52ch; }
-  .schedule__price { justify-self: end; text-align: right; }
-  .schedule__q { font-size: clamp(3rem, 8vw, 6rem); color: var(--red); line-height: 1; }
-  .schedule__note { margin-top: 0.3rem; }
+  .schedule__places-text { color: #2a2a2e; font-size: clamp(1.05rem, 0.98rem + 0.5vw, 1.35rem); line-height: 1.5; margin-top: 1rem; max-width: 42ch; }
+  .schedule__places-note { color: var(--red); text-transform: none; letter-spacing: 0.04em; margin-top: 0.9rem; }
+  .schedule__tarif { display: flex; align-items: baseline; gap: 0.6rem 1.4rem; flex-wrap: wrap; margin-top: clamp(1.8rem, 3.5vw, 2.6rem); padding-top: clamp(1.4rem, 3vw, 2rem); border-top: 1px solid var(--hairline); }
+  .schedule__tarif > .mono { color: var(--smoke); }
+  .schedule__q { font-size: clamp(2.6rem, 7vw, 5rem); color: var(--red); line-height: 1; }
+  .schedule__note { color: var(--smoke); align-self: center; }
 
   .tiers__grid { display: grid; gap: clamp(1rem, 2vw, 1.5rem); margin-top: 1.5rem; }
   .tiers__grid--2 { grid-template-columns: repeat(2, 1fr); }
@@ -453,6 +511,8 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .tier__badge { position: absolute; top: -0.7rem; left: 1.4rem; background: var(--red); color: #fff; padding: 0.25rem 0.7rem; border-radius: 999px; }
   .tier__name { font-size: clamp(1.5rem, 3vw, 2rem); }
   .tier__price { font-size: clamp(2rem, 4vw, 3rem); color: var(--red); line-height: 1; }
+  .tier__per { font-size: 0.4em; color: var(--smoke); letter-spacing: 0.04em; margin-left: 0.25em; }
+  .tier__ast { color: var(--red); font-size: 0.5em; vertical-align: super; margin-left: 0.1em; }
   .tier__price--soft { color: var(--smoke); font-size: 0.9rem; }
   .tier__tagline { color: #4a4a50; }
   .tier__features { display: grid; gap: 0.5rem; margin: 0.4rem 0 1rem; }
@@ -471,15 +531,26 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .callout .eyebrow { color: var(--red-bright); margin-bottom: 0.8rem; }
   .callout__text { color: #c8c8cf; }
 
-  .events__list { margin-top: 1.5rem; }
-  .event { display: grid; grid-template-columns: 3rem auto 1fr; align-items: center; gap: 1.2rem; padding: clamp(0.8rem, 2vw, 1.3rem) 0; border-top: 1px solid var(--hairline); transition: padding-left 0.3s var(--ease); }
-  .event:last-child { border-bottom: 1px solid var(--hairline); }
+  /* — Événements (cliquables) — */
+  .events__list { margin-top: 1.5rem; border-bottom: 1px solid var(--hairline); list-style: none; }
+  .event { width: 100%; display: grid; grid-template-columns: 3rem 1fr auto auto; align-items: center; gap: 0.4rem 1.3rem; padding: clamp(0.9rem, 2vw, 1.4rem) 0; border: 0; border-top: 1px solid var(--hairline); background: transparent; text-align: left; cursor: pointer; color: var(--ink); transition: padding-left 0.3s var(--ease), color 0.3s var(--ease); }
   .event__n { color: var(--smoke); }
-  .event__name { font-size: clamp(1.3rem, 3vw, 2.2rem); white-space: nowrap; }
-  .event__line { height: 1px; background: var(--hairline); }
+  .event__name { font-size: clamp(1.3rem, 3vw, 2.2rem); }
+  .event__meta { color: var(--smoke); justify-self: end; text-align: right; }
+  .event__arrow { color: var(--red); justify-self: end; transition: transform 0.3s var(--ease); }
   .event:hover { padding-left: 0.8rem; }
   .event:hover .event__name { color: var(--red); }
+  .event:hover .event__arrow { transform: translateX(5px); }
   .events__request { margin-top: 1.6rem; font-size: var(--fs-lead); color: #3a3a40; max-width: 44ch; }
+
+  /* — Coaching entreprise — */
+  .entreprise__inner { display: flex; align-items: center; justify-content: space-between; gap: clamp(1.4rem, 3vw, 2.5rem); flex-wrap: wrap; background: var(--ink); color: #fff; border-radius: 16px; padding: clamp(1.6rem, 3vw, 2.6rem); box-shadow: var(--shadow); }
+  .entreprise__inner .eyebrow { color: var(--red-bright); }
+  .entreprise__title { font-size: clamp(1.6rem, 4vw, 2.6rem); margin: 0.5rem 0 0.6rem; }
+  .entreprise__text { color: #c8c8cf; max-width: 56ch; }
+  .entreprise__price { display: flex; align-items: baseline; gap: 0.3rem; flex-shrink: 0; }
+  .entreprise__amount { font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--red-bright); line-height: 1; }
+  .entreprise__per { color: #9a9aa0; }
 
   .soon__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
   .soon__tag { color: var(--smoke); }
@@ -528,6 +599,25 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
   .consent a { color: var(--red); text-decoration: underline; }
 
+  /* accordéon déroulable : politique de confidentialité lisible dans le formulaire */
+  .policy { border: 1px solid var(--hairline); border-radius: 10px; background: var(--paper); overflow: hidden; }
+  .policy > summary { cursor: pointer; list-style: none; padding: 0.75rem 0.95rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+  .policy > summary::-webkit-details-marker { display: none; }
+  .policy > summary::after { content: "+"; color: var(--red); font-size: 1.1rem; line-height: 1; }
+  .policy[open] > summary::after { content: "–"; }
+  .policy__body { max-height: 210px; overflow-y: auto; padding: 0 0.95rem 0.9rem; font-size: 0.82rem; line-height: 1.55; color: #44444a; -webkit-overflow-scrolling: touch; }
+  .policy__body p { margin-bottom: 0.6rem; }
+  .policy__body strong { color: var(--ink); }
+  .policy__body a { color: var(--red); text-decoration: underline; }
+
+  /* modale détail événement (réutilise .umodal) */
+  .emeta { display: grid; margin: 0.2rem 0 1.2rem; }
+  .emeta li { display: grid; grid-template-columns: 6rem 1fr; gap: 0.9rem; align-items: baseline; padding: 0.7rem 0; border-top: 1px solid var(--hairline); }
+  .emeta li:last-child { border-bottom: 1px solid var(--hairline); }
+  .emeta .mono { color: var(--red); }
+  .emodal__desc { color: #3a3a40; line-height: 1.6; margin-bottom: 1.4rem; }
+  .emodal__cta { justify-content: center; width: 100%; }
+
   /* galerie */
   .ugallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: 1.4rem; }
   .ugallery__item { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; }
@@ -539,6 +629,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
     .coaches__grid { grid-template-columns: 1fr 1fr; }
     .freetrial__inner { flex-direction: column; align-items: flex-start; }
     .freetrial__cta { width: 100%; justify-content: center; }
+    .entreprise__inner { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 760px) {
     .umodal__form { grid-template-columns: 1fr; }
@@ -549,10 +640,10 @@ const galFrame = GAL_FRAME[u.slug] || {};
     .points { grid-template-columns: 1fr; }
     .point { padding-right: 0; }
     .schedule__grid, .criteria__grid { grid-template-columns: 1fr; }
-    .schedule__price { justify-self: start; text-align: left; }
+    .schedule__loc { margin-top: 1.4rem; }
     .tiers__grid--2, .tiers__grid--3 { grid-template-columns: 1fr; }
-    .event { grid-template-columns: 2.4rem 1fr; }
-    .event__line { display: none; }
+    .event { grid-template-columns: 2.2rem 1fr auto; column-gap: 0.9rem; }
+    .event__meta { grid-column: 2 / -1; justify-self: start; text-align: left; margin-top: 0.15rem; }
     .unav { grid-template-columns: 1fr; }
     .unav__link--next { text-align: left; }
     .unav__link--prev { border-right: 0; border-bottom: 1px solid var(--hairline); }

@@ -209,6 +209,33 @@ function initUniversModal() {
   });
 }
 
+// Panneau de détail d'un événement — même pattern d'ouverture/fermeture et
+// d'animation que la modale d'adhésion (.umodal).
+function initEventModal() {
+  const modal = document.querySelector('[data-event-modal]');
+  if (!modal) return;
+  const fill = (sel, val) => { const el = modal.querySelector(sel); if (el) el.textContent = val || ''; };
+  const open = (btn) => {
+    fill('[data-event-name]', btn.dataset.name);
+    fill('[data-event-date]', btn.dataset.date);
+    fill('[data-event-place]', btn.dataset.place);
+    fill('[data-event-desc]', btn.dataset.desc);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+    lenis?.stop();
+  };
+  const close = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
+    lenis?.start();
+  };
+  document.querySelectorAll('[data-open-event]').forEach((b) => b.addEventListener('click', () => open(b)));
+  modal.querySelectorAll('[data-event-close]').forEach((x) => x.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+}
+
 export function initSite() {
   initSmoothScroll();
   initIntro();
@@ -218,6 +245,7 @@ export function initSite() {
   initForm();
   initContactForm();
   initUniversModal();
+  initEventModal();
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });
   // Recalcule après chargement des polices
