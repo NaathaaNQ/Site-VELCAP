@@ -224,7 +224,12 @@ const galFrame = GAL_FRAME[u.slug] || {};
             </article>
           ))}
         </div>
-        {u.tiersNote && <p class="tiers__note mono" data-reveal>{u.tiersNote}</p>}
+        {u.tiersNote && (
+          <p class="tiers__note" data-reveal>
+            <span class="tiers__note-star" aria-hidden="true">*</span>
+            <span>{u.tiersNote.replace(/^\*\s*/, '')}</span>
+          </p>
+        )}
       </div>
     </section>
   )}
@@ -508,7 +513,18 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .tier__features li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
   .tier__soon { color: var(--smoke); margin: 0.6rem 0 1rem; }
   .tier__cta { margin-top: auto; justify-content: center; }
-  .tiers__note { margin-top: 1.4rem; color: var(--smoke); }
+  .tiers__note {
+    margin-top: clamp(1.6rem, 3vw, 2.4rem);
+    display: flex; align-items: center; gap: 0.9rem;
+    width: fit-content; max-width: 100%;
+    background: var(--white); border: 1px solid var(--hairline); border-left: 5px solid var(--red);
+    border-radius: 12px; padding: 0.95rem 1.35rem; box-shadow: var(--shadow);
+    color: var(--ink); font-size: clamp(1rem, 0.92rem + 0.3vw, 1.18rem); font-weight: 500; line-height: 1.4;
+  }
+  .tiers__note-star {
+    flex-shrink: 0; display: grid; place-items: center; width: 1.9rem; height: 1.9rem;
+    border-radius: 50%; background: var(--red); color: #fff; font-weight: 700; font-size: 1.15rem; line-height: 1;
+  }
 
   .criteria__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .criteria__list { display: grid; gap: 0.2rem; margin-top: 1rem; }
