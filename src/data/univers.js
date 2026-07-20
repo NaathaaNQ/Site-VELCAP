@@ -34,10 +34,9 @@ export const univers = [
         ],
       },
       {
-        name: 'Adhésion Performance',
+        name: 'Adhésion Communauté Plus',
         price: '250 €',
         sub: 'soit 20,80 € par mois',
-        highlight: true,
         features: [
           "Toute l'offre Communauté, et en plus :",
           '1 séance de renforcement par semaine',
@@ -163,7 +162,7 @@ export const univers = [
       "Du débutant à l'élite, on t'accompagne dans tes objectifs : course à pied, trail, route, cross, piste et vélo. Un coaching individualisé, construit pour toi.",
     tiers: [
       {
-        name: 'Basique', price: '70 €', per: '/mois', asterisk: true,
+        name: 'Suivi Découverte', price: '80 €', per: '/mois', asterisk: true,
         features: [
           'Appel bilan de 30 min à 1 h',
           'Plan 100 % individualisé, adapté à ton niveau, tes contraintes et tes objectifs',
@@ -174,7 +173,7 @@ export const univers = [
         ],
       },
       {
-        name: 'Medium', price: '100 €', per: '/mois', asterisk: true,
+        name: 'Suivi Performance', price: '100 €', per: '/mois', highlight: true, asterisk: true,
         features: [
           'Appel bilan de 30 min à 1 h',
           'Plan 100 % individualisé, adapté à ton niveau, tes contraintes, tes objectifs et ton évolution',
@@ -188,9 +187,9 @@ export const univers = [
         ],
       },
       {
-        name: 'Premium', price: '135 €', per: '/mois', highlight: true, asterisk: true,
+        name: 'Suivi Premium', price: '120 €', per: '/mois', asterisk: true,
         features: [
-          'Tout le contenu de l’offre Medium, plus :',
+          'Tout le contenu de l’offre Suivi Performance, plus :',
           'Adaptation quotidienne de l’entraînement selon les analyses et retours de séances',
           'Retours approfondis sur les séances clés',
           'Conseils stratégie de course (pacing, nutrition, hydratation)',

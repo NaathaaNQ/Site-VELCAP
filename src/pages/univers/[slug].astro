@@ -31,7 +31,7 @@ const FORMS = {
     title: 'Adhérer au Team Loisirs',
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'tier', label: 'Formule', type: 'select', required: true,
-        options: ['Adhésion Communauté · 180 €', 'Adhésion Performance · 250 €'] },
+        options: ['Adhésion Communauté · 180 €', 'Adhésion Communauté Plus · 250 €'] },
       FIELD.message],
   },
   'team-elite': {
@@ -55,7 +55,7 @@ const FORMS = {
       { name: 'discipline', label: 'Discipline', type: 'select', required: true,
         options: ['Course à pied', 'Trail', 'Route', 'Cross', 'Piste', 'Vélo'] },
       { name: 'tier', label: 'Formule', type: 'select',
-        options: ['Basique', 'Medium', 'Premium'] },
+        options: ['Suivi Découverte', 'Suivi Performance', 'Suivi Premium'] },
       { name: 'goals', label: 'Tes objectifs', type: 'textarea' },
       FIELD.message],
   },
