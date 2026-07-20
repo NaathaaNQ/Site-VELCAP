@@ -7,9 +7,9 @@ export const univers = [
     index: '01',
     name: 'Team Loisirs',
     discipline: 'Communauté · loisir',
-    lead: 'Courir encadré, progresser ensemble.',
+    lead: 'Courir et progresser avec des coureur(e)s motivé(e)s !',
     intro:
-      "Le Team Loisirs, c'est l'association loi 1901 de VELCAP : démocratiser l'accès à un entraînement encadré, du débutant au confirmé, et faire vivre une communauté forte. Séances encadrées, sorties festives et événements qui rassemblent.",
+      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré pour tous, courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: ['Mardi · 19h00 à 20h30', 'Jeudi · 19h00 à 20h30'],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
@@ -22,8 +22,10 @@ export const univers = [
       {
         name: 'Adhésion Communauté',
         price: '180 €',
+        sub: 'soit 15 € par mois',
         features: [
           '2 entraînements encadrés / semaine (mardi et jeudi, 19h à 20h30)',
+          'Accès à une communauté WhatsApp',
           'Jeux concours exclusifs',
           '1 social run festif par mois',
           'Participation à tous nos événements',
@@ -34,10 +36,11 @@ export const univers = [
       {
         name: 'Adhésion Performance',
         price: '250 €',
+        sub: 'soit 20,80 € par mois',
         highlight: true,
         features: [
           "Toute l'offre Communauté, et en plus :",
-          '1 séance de prépa physique',
+          '1 séance de renforcement par semaine',
           'Accès prioritaire chez le kiné',
           'Des séminaires nutrition',
           "2 semaines / an d'accompagnement complet avant une compétition",
@@ -68,10 +71,6 @@ export const univers = [
       { k: 'Visibilité', v: 'Vos performances relayées sur nos réseaux.' },
       { k: 'En équipe', v: 'Les lièvres des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
     ],
-    aside: {
-      title: 'Team Accession',
-      text: "Le Team Élite est épaulé par un Team Accession : celles et ceux qui ambitionnent de le rejoindre s'y préparent et progressent avec le collectif.",
-    },
     criteria: [
       'La motivation à porter le projet',
       'Un esprit d’équipe fort',
@@ -87,16 +86,16 @@ export const univers = [
     index: '03',
     name: 'Club FFA',
     discipline: 'Athlétisme · jeunes et compétition',
-    lead: 'Former les jeunes, ouvrir la compétition à tous.',
+    lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
     intro:
-      "Démocratiser la formation des jeunes en trail, sur route et sur piste. Un encadrement structuré dès le plus jeune âge pour exploiter tout le potentiel de demain, avec l'accès à la licence FFA et à la compétition pour toutes et tous.",
+      "Tu désires faire de la compétition ? Participer à des championnats fédéraux ? Tu es jeune et tu cherches à progresser ? Rejoins le club FFA afin de progresser avec un collectif soudé et motivé !!!",
     points: [
-      { k: 'Deux créneaux / semaine', v: 'Lundi et mercredi dès 18h30, un créneau du samedi à venir.' },
+      { k: 'Trois créneaux / semaine', v: 'Lundi et mercredi dès 18h30, samedi de 9h à 12h.' },
       { k: 'Objectifs forts', v: 'Les compétitions fédérales, jusqu’aux Championnats de France.' },
       { k: 'Les jeunes d’abord', v: 'Un accompagnement structuré dès le plus jeune âge.' },
       { k: 'Licence FFA', v: 'Ouvert à toute personne désireuse de faire de la compétition.' },
     ],
-    schedule: ['Lundi · dès 18h30', 'Mercredi · dès 18h30', 'Samedi · créneau à venir'],
+    schedule: ['Lundi · dès 18h30', 'Mercredi · dès 18h30', 'Samedi · 9h à 12h'],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…), la piste Léo Lagrange ou le STAPS.',
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
     price: '200 €',
@@ -133,16 +132,22 @@ export const univers = [
     lead: 'Le calendrier qui rassemble la communauté.',
     intro:
       "Toute l'année, VELCAP anime le territoire : courses, social runs, fan zones, social rides et stages. Les rendez-vous où l'on se retrouve, où l'on partage, où l'on fait la fête.",
-    events: [
-      { name: 'Corrida de Salins', date: 'Décembre', place: 'Salins-les-Bains', desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête." },
-      { name: 'Social Run Décathlon', date: 'Chaque mois', place: 'Décathlon Besançon', desc: "Un rendez-vous décontracté au départ du magasin : on court ensemble, tous niveaux, puis on partage un moment." },
-      { name: 'Les lièvres, Rives du Doubs', date: 'Juin', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres accompagnent les coureurs sur les allures cibles, le long du Doubs, pour t'aider à tenir ton objectif." },
-      { name: 'Les Boucles Vauban', date: 'Septembre', place: 'Besançon', desc: 'Une boucle urbaine autour des fortifications Vauban, à vivre en équipe et en soutien les uns des autres.' },
-      { name: 'Fan zone, Trail des Forts', date: 'Mai', place: 'Forts de Besançon', desc: 'On installe la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.' },
-      { name: 'Fan zone, Trail Volodalen', date: 'Été', place: 'Massif jurassien', desc: 'VELCAP pose sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.' },
-      { name: 'Social ride, pros du sport et assos', date: 'Printemps', place: 'Besançon et alentours', desc: "Une sortie vélo qui réunit pros du sport et associations locales autour d'un moment de partage." },
-      { name: 'Stages', date: 'Plusieurs dates dans l’année', place: 'Franche-Comté', desc: 'Des stages pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.' },
-    ],
+    events: {
+      // à venir : du plus proche au plus lointain
+      upcoming: [
+        { name: 'Social Run avec Décathlon', date: 'Tous les vendredis', place: 'Décathlon Besançon', desc: "Un rendez-vous hebdomadaire décontracté au départ du magasin : on court ensemble, tous niveaux, puis on partage un moment." },
+        { name: 'Social Ride avec ASSOS x PRODUSPORT', date: '12/09/2026', place: 'Besançon et alentours', desc: "Une sortie vélo qui réunit ASSOS, PRODUSPORT et la communauté VELCAP autour d'un moment de partage." },
+        { name: 'Lièvres Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon', desc: 'Nos lièvres t’emmènent sur la Boucle Vauban, en toute régularité, sur le semi et le 10 km.' },
+        { name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains', desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête." },
+      ],
+      // passés : du plus récent au plus ancien
+      past: [
+        { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.' },
+        { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.' },
+        { name: 'Stage en Ardèche', date: '4 au 11 avril 2026', place: 'Ardèche', desc: 'Une semaine de stage pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.' },
+        { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs." },
+      ],
+    },
     request:
       "Envie qu'on intervienne sur ton événement, ou de participer à l'un des nôtres ? Écris-nous.",
     cta: 'Nous envoyer une demande',
@@ -153,7 +158,7 @@ export const univers = [
     index: '06',
     name: 'Coaching privé',
     discipline: 'Sur-mesure',
-    lead: 'Un accompagnement individualisé, à ton objectif.',
+    lead: 'Un accompagnement individualisé à ton objectif.',
     intro:
       "Du débutant à l'élite, on t'accompagne dans tes objectifs : course à pied, trail, route, cross, piste et vélo. Un coaching individualisé, construit pour toi.",
     tiers: [
@@ -204,6 +209,12 @@ export const univers = [
       { name: 'Prénom Nom', role: 'Coach', line: 'Accompagnement individualisé, construit autour de ton objectif.' },
       { name: 'Prénom Nom', role: 'Coach', line: 'Suivi régulier, plan d’entraînement et ajustements en continu.' },
       { name: 'Prénom Nom', role: 'Coach', line: 'De la reprise à la performance, à ton rythme.' },
+    ],
+    // Témoignages : structure prête, à remplacer par les vrais retours des coachés.
+    testimonials: [
+      { name: 'Marie L.', meta: 'Trail · premier ultra', quote: "Grâce au plan sur-mesure, j'ai bouclé mon premier ultra sans blessure. Le suivi chaque semaine change vraiment tout." },
+      { name: 'Thomas B.', meta: '10 km · record personnel', quote: "En quatre mois, j'ai gagné plus de trois minutes sur 10 km. Les retours de séance sont précis et motivants." },
+      { name: 'Julie R.', meta: 'Route · reprise après blessure', quote: "Reprise en douceur et remise en confiance : je cours à nouveau avec plaisir et sans appréhension." },
     ],
     cta: 'Demander un coaching',
     ctaKind: 'Sur devis',
