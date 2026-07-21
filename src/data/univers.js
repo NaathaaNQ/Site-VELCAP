@@ -162,7 +162,7 @@ export const univers = [
       "Du débutant à l'élite, on t'accompagne dans tes objectifs : course à pied, trail, route, cross, piste et vélo. Un coaching individualisé, construit pour toi.",
     tiers: [
       {
-        name: 'Suivi Découverte', price: '80 €', per: '/mois', asterisk: true,
+        name: 'Suivi Découverte', price: '80 €', per: '/mois', shortPrice: '90 €', asterisk: true,
         features: [
           'Appel bilan de 30 min à 1 h',
           'Plan 100 % individualisé, adapté à ton niveau, tes contraintes et tes objectifs',
@@ -173,7 +173,7 @@ export const univers = [
         ],
       },
       {
-        name: 'Suivi Performance', price: '100 €', per: '/mois', highlight: true, asterisk: true,
+        name: 'Suivi Performance', price: '100 €', per: '/mois', shortPrice: '110 €', highlight: true, asterisk: true,
         features: [
           'Appel bilan de 30 min à 1 h',
           'Plan 100 % individualisé, adapté à ton niveau, tes contraintes, tes objectifs et ton évolution',
@@ -187,7 +187,7 @@ export const univers = [
         ],
       },
       {
-        name: 'Suivi Premium', price: '120 €', per: '/mois', asterisk: true,
+        name: 'Suivi Premium', price: '120 €', per: '/mois', shortPrice: '130 €', asterisk: true,
         features: [
           'Tout le contenu de l’offre Suivi Performance, plus :',
           'Adaptation quotidienne de l’entraînement selon les analyses et retours de séances',
@@ -198,6 +198,14 @@ export const univers = [
       },
     ],
     tiersNote: '* 25 € de frais d’inscription, maillot VELCAP inclus.',
+    engagement: {
+      title: "Conditions d'engagement",
+      items: [
+        'Contrats de 6 mois renouvelables.',
+        "2 semaines d'essai sans engagement au démarrage de chaque contrat.",
+        'Pour une préparation de moins de 6 mois : majoration de 10 € par mois sur l’offre choisie (soit 90 € / 110 € / 130 € par mois).',
+      ],
+    },
     enterprise: {
       title: 'Coaching entreprise',
       price: '100 €',

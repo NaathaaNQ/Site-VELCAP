@@ -213,6 +213,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
                 <p class="tier__price tier__price--soft mono">Sur devis</p>
               )}
               {t.sub && <p class="tier__sub mono">{t.sub}</p>}
+              {t.shortPrice && <p class="tier__short">Prépa de moins de 6 mois : <strong>{t.shortPrice}/mois</strong></p>}
               {t.tagline && <p class="tier__tagline">{t.tagline}</p>}
               {t.features && t.features.length > 0 ? (
                 <ul class="tier__features">
@@ -225,6 +226,14 @@ const galFrame = GAL_FRAME[u.slug] || {};
             </article>
           ))}
         </div>
+        {u.engagement && (
+          <div class="engage-cond" data-reveal>
+            <p class="engage-cond__title mono">{u.engagement.title}</p>
+            <ul class="engage-cond__list">
+              {u.engagement.items.map((it) => <li>{it}</li>)}
+            </ul>
+          </div>
+        )}
         {u.tiersNote && (
           <p class="tiers__note" data-reveal>
             <span class="tiers__note-star" aria-hidden="true">*</span>
@@ -595,6 +604,8 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .tier__per { font-size: 0.4em; color: var(--smoke); letter-spacing: 0.04em; margin-left: 0.25em; }
   .tier__ast { color: var(--red); font-size: 0.5em; vertical-align: super; margin-left: 0.1em; }
   .tier__sub { color: var(--smoke); text-transform: none; letter-spacing: 0.03em; margin-top: -0.2rem; }
+  .tier__short { color: #4a4a50; font-size: 0.85rem; margin-top: 0.15rem; }
+  .tier__short strong { color: var(--ink); font-weight: 600; }
   .tier__price--soft { color: var(--smoke); font-size: 0.9rem; }
   .tier__tagline { color: #4a4a50; }
   .tier__features { display: grid; gap: 0.5rem; margin: 0.4rem 0 1rem; }
@@ -614,6 +625,16 @@ const galFrame = GAL_FRAME[u.slug] || {};
     flex-shrink: 0; display: grid; place-items: center; width: 1.9rem; height: 1.9rem;
     border-radius: 50%; background: var(--red); color: #fff; font-weight: 700; font-size: 1.15rem; line-height: 1;
   }
+  /* conditions d'engagement (coaching) */
+  .engage-cond {
+    margin-top: clamp(1.6rem, 3vw, 2.4rem);
+    background: var(--white); border: 1px solid var(--hairline); border-left: 5px solid var(--ink);
+    border-radius: 14px; padding: clamp(1.2rem, 2.5vw, 1.8rem) clamp(1.4rem, 3vw, 2rem); box-shadow: var(--shadow);
+  }
+  .engage-cond__title { color: var(--ink); font-size: 0.82rem; margin-bottom: 0.85rem; }
+  .engage-cond__list { display: grid; gap: 0.6rem; }
+  .engage-cond__list li { position: relative; padding-left: 1.5rem; color: #33333a; line-height: 1.45; }
+  .engage-cond__list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 8px; height: 8px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
 
   .criteria__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .criteria__grid--solo { grid-template-columns: 1fr; }
