@@ -92,6 +92,18 @@ const HERO_FRAME = {
 const GAL_FRAME = { 'team-elite': { 2: { wide: true, flat: true, parallax: 0 } } };
 const heroFrame = HERO_FRAME[u.slug] || {};
 const galFrame = GAL_FRAME[u.slug] || {};
+
+// Icônes fines (line, courant) pour la section « Sport en entreprise ».
+const SE_ICON = {
+  pulse: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+  bolt: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  team: '<circle cx="9" cy="7" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.2a3.2 3.2 0 0 1 0 6.1"/><path d="M17.5 14.4A6.5 6.5 0 0 1 21.5 20"/>',
+  down: '<path d="M22 17 13.5 8.5l-4 4L2 5"/><path d="M16 17h6v-6"/>',
+  chart: '<path d="M22 7 13.5 15.5l-4-4L2 19"/><path d="M16 7h6v6"/>',
+  badge: '<circle cx="12" cy="8" r="5.2"/><path d="M8.7 12.4 7.5 21l4.5-2.7L16.5 21l-1.2-8.6"/>',
+};
+const se = u.sportEntreprise;
 ---
 <Base title={`${u.name} · VELCAP`} description={u.intro}>
   <!-- HERO -->
@@ -260,42 +272,60 @@ const galFrame = GAL_FRAME[u.slug] || {};
     </section>
   )}
 
-  {u.sportEntreprise && (
-    <section class="section sportentr" id="sport-entreprise">
+  {se && (
+    <section class="section se" id="sport-entreprise">
       <div class="container">
-        <div class="sportentr__head" data-reveal>
-          <p class="mono eyebrow">{u.sportEntreprise.eyebrow}</p>
-          <h2 class="sportentr__title display">{u.sportEntreprise.title}</h2>
-          {u.sportEntreprise.intro && <p class="sportentr__intro">{u.sportEntreprise.intro}</p>}
-        </div>
-
-        <div class="sportentr__benefits" data-reveal-group>
-          {u.sportEntreprise.benefits.map((b) => (
-            <article class="benefit" data-reveal-item>
-              <h3 class="benefit__audience display">{b.audience}</h3>
-              <ul class="benefit__list">
-                {b.items.map((it) => <li>{it}</li>)}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <div class="sportentr__fiscal" data-reveal>
-          <h3 class="fiscal__title display">{u.sportEntreprise.fiscal.title}</h3>
-          <div class="fiscal__grid">
-            {u.sportEntreprise.fiscal.items.map((f) => (
-              <div class="fiscal__item">
-                <p class="fiscal__k mono">{f.k}</p>
-                <p class="fiscal__v">{f.v}</p>
-              </div>
-            ))}
+        <div class="se__head" data-reveal>
+          <div class="se__headline">
+            <p class="mono eyebrow">{se.eyebrow}</p>
+            <h2 class="se__title display">{se.title}</h2>
           </div>
-          <p class="fiscal__note">{u.sportEntreprise.fiscal.note}</p>
+          {se.intro && <p class="se__intro">{se.intro}</p>}
         </div>
 
-        <div class="sportentr__cta" data-reveal>
-          <a class="btn btn--red btn--lg" href={u.sportEntreprise.cta.href} data-magnetic>
-            {u.sportEntreprise.cta.label} <span class="arrow" aria-hidden="true">→</span>
+        <div class="se__panels">
+          <!-- Volet 1 : bénéfices (clair, orienté humain) -->
+          <div class="se-ben" data-reveal>
+            <p class="se-ben__tag mono"><span aria-hidden="true">01</span> Les bénéfices</p>
+            <div class="se-ben__cols">
+              {se.benefits.map((b, gi) => (
+                <div class={`se-aud ${gi === 1 ? 'se-aud--alt' : ''}`}>
+                  <h3 class="se-aud__title display">{b.audience}</h3>
+                  <ul class="se-aud__list" data-reveal-group>
+                    {b.items.map((it) => (
+                      <li class="se-item" data-reveal-item>
+                        <span class="se-item__ic">
+                          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={SE_ICON[it.icon]} />
+                        </span>
+                        <span class="se-item__txt">{it.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Volet 2 : avantages fiscaux (sombre, orienté chiffres) -->
+          <aside class="se-fisc" data-reveal data-delay="0.08">
+            <p class="se-fisc__tag mono"><span aria-hidden="true">02</span> Avantages fiscaux</p>
+            <div class="se-fisc__figure">
+              <span class="se-fisc__amount display">{se.fiscal.figure}</span>
+              <span class="se-fisc__unit mono">{se.fiscal.figureLabel}</span>
+            </div>
+            <p class="se-fisc__lead">{se.fiscal.lead}</p>
+            <ul class="se-fisc__cond">
+              {se.fiscal.conditions.map((c) => <li>{c}</li>)}
+            </ul>
+            <p class="se-fisc__example">{se.fiscal.example}</p>
+            <p class="se-fisc__deduct">{se.fiscal.deductible}</p>
+            <p class="se-fisc__note">{se.fiscal.note}</p>
+          </aside>
+        </div>
+
+        <div class="se__cta" data-reveal>
+          <a class="btn btn--red btn--lg" href={se.cta.href} data-magnetic>
+            {se.cta.label} <span class="arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -672,25 +702,43 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .entreprise__amount { font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--red-bright); line-height: 1; }
   .entreprise__per { color: #9a9aa0; }
 
-  /* — Sport en entreprise — */
-  .sportentr__head { max-width: 62ch; margin-bottom: clamp(1.8rem, 4vw, 2.8rem); }
-  .sportentr__title { font-size: var(--fs-h3); margin: 0.4rem 0 0.9rem; }
-  .sportentr__intro { font-size: var(--fs-lead); color: #3a3a40; line-height: 1.45; }
+  /* — Sport en entreprise (refonte) — */
+  .se__head { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(1rem, 3vw, 3rem); align-items: end; margin-bottom: clamp(1.8rem, 4vw, 2.8rem); }
+  .se__title { font-size: var(--fs-h2); margin-top: 0.5rem; }
+  .se__intro { font-size: var(--fs-lead); color: #3a3a40; line-height: 1.45; max-width: 40ch; padding-bottom: 0.3rem; }
 
-  .sportentr__benefits { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.6rem); }
-  .benefit { background: var(--white); border: 1px solid var(--hairline); border-top: 4px solid var(--red); border-radius: 16px; padding: clamp(1.5rem, 2.8vw, 2.2rem); box-shadow: var(--shadow); }
-  .benefit__audience { font-size: clamp(1.2rem, 2.4vw, 1.7rem); margin-bottom: 1.1rem; }
-  .benefit__list { display: grid; gap: 0.75rem; }
-  .benefit__list li { position: relative; padding-left: 1.6rem; color: #2a2a2e; line-height: 1.45; }
-  .benefit__list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  /* deux volets côte à côte : clair (bénéfices) + sombre (fiscal), asymétrique */
+  .se__panels { display: grid; grid-template-columns: 1.25fr 0.9fr; gap: clamp(1rem, 2vw, 1.6rem); align-items: stretch; }
+  .se-ben, .se-fisc { border-radius: 20px; padding: clamp(1.6rem, 3vw, 2.4rem); }
+  .se-ben { background: var(--white); border: 1px solid var(--hairline); box-shadow: var(--shadow); }
+  .se-ben__tag, .se-fisc__tag { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: clamp(1.2rem, 2.5vw, 1.8rem); }
+  .se-ben__tag { color: var(--red); }
+  .se-ben__tag span, .se-fisc__tag span { font-size: 0.9rem; opacity: 0.55; }
 
-  .sportentr__fiscal { margin-top: clamp(1.8rem, 4vw, 3rem); background: var(--white); border: 1px solid var(--hairline); border-left: 5px solid var(--red); border-radius: 16px; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: var(--shadow); }
-  .fiscal__title { font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: clamp(1rem, 2vw, 1.5rem); }
-  .fiscal__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); }
-  .fiscal__k { color: var(--red); margin-bottom: 0.5rem; }
-  .fiscal__v { color: #33333a; line-height: 1.55; }
-  .fiscal__note { margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid var(--hairline); color: var(--smoke); font-size: 0.9rem; line-height: 1.5; font-style: italic; }
-  .sportentr__cta { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+  .se-ben__cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); }
+  .se-aud--alt { border-left: 1px solid var(--hairline); padding-left: clamp(1.2rem, 3vw, 2.4rem); }
+  .se-aud__title { font-size: clamp(1.05rem, 2vw, 1.35rem); color: var(--ink); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--red); display: inline-block; }
+  .se-aud__list { display: grid; gap: 0.9rem; }
+  .se-item { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; color: #2a2a2e; line-height: 1.4; }
+  .se-item__ic { flex-shrink: 0; display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 10px; background: rgba(226,0,15,0.08); color: var(--red); transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease); }
+  .se-item:hover .se-item__ic { background: var(--red); color: #fff; transform: translateY(-2px); }
+  .se-item__txt { align-self: center; }
+
+  /* volet fiscal : sombre, orienté chiffres, chiffre clé mis en avant */
+  .se-fisc { background: var(--ink); color: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .se-fisc::before { content: ""; position: absolute; right: -20%; top: -30%; width: 70%; height: 70%; background: radial-gradient(closest-side, rgba(226,0,15,0.28), transparent 70%); pointer-events: none; }
+  .se-fisc__tag { color: var(--red-bright); position: relative; }
+  .se-fisc__figure { position: relative; margin-bottom: 1.1rem; }
+  .se-fisc__amount { display: block; font-size: clamp(3.2rem, 7vw, 5rem); color: var(--red-bright); line-height: 0.9; }
+  .se-fisc__unit { display: block; margin-top: 0.5rem; color: #9a9aa2; }
+  .se-fisc__lead { color: #d6d6db; line-height: 1.5; }
+  .se-fisc__cond { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.1rem; }
+  .se-fisc__cond li { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: #cfcfd4; border: 1px solid var(--hairline-d); border-radius: 999px; padding: 0.35rem 0.7rem; }
+  .se-fisc__example { color: #b9b9c0; line-height: 1.5; font-size: 0.95rem; }
+  .se-fisc__deduct { color: #d6d6db; line-height: 1.5; margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--hairline-d); }
+  .se-fisc__note { margin-top: auto; padding-top: 1.1rem; color: #7f7f87; font-size: 0.82rem; line-height: 1.45; font-style: italic; }
+
+  .se__cta { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
 
   .soon__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
   .soon__tag { color: var(--smoke); }
@@ -770,7 +818,9 @@ const galFrame = GAL_FRAME[u.slug] || {};
     .points { grid-template-columns: 1fr; }
     .point { padding-right: 0; }
     .schedule__grid, .criteria__grid { grid-template-columns: 1fr; }
-    .sportentr__benefits, .fiscal__grid { grid-template-columns: 1fr; }
+    .se__head, .se__panels, .se-ben__cols { grid-template-columns: 1fr; }
+    .se__head { align-items: start; }
+    .se-aud--alt { border-left: 0; padding-left: 0; border-top: 1px solid var(--hairline); padding-top: 1.4rem; }
     .schedule__loc { margin-top: 1.4rem; }
     .tiers__grid--2, .tiers__grid--3 { grid-template-columns: 1fr; }
     .event { grid-template-columns: 2.2rem 1fr auto; column-gap: 0.9rem; }
