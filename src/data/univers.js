@@ -168,6 +168,7 @@ export const univers = [
           'Plan 100 % individualisé, adapté à ton niveau, tes contraintes et tes objectifs',
           'Un échange par semaine + 1 appel avant l’objectif principal',
           'Plan livré chaque semaine selon tes retours',
+          'Renforcement musculaire et prophylaxie',
           'Sports croisés possibles',
           'Planification des séances via Nolio (gratuit)',
         ],
@@ -178,6 +179,7 @@ export const univers = [
           'Appel bilan de 30 min à 1 h',
           'Plan 100 % individualisé, adapté à ton niveau, tes contraintes, tes objectifs et ton évolution',
           'Analyse des axes de progression et du niveau actuel pour adapter l’entraînement',
+          'Renforcement musculaire au poids du corps, adapté à tes objectifs',
           'Entraînement croisé possible',
           'Échange régulier par message + 1 appel par semaine si besoin (WhatsApp)',
           'Plan livré chaque semaine selon les retours et analyses',
@@ -190,6 +192,7 @@ export const univers = [
         name: 'Suivi Premium', price: '120 €', per: '/mois', shortPrice: '130 €', asterisk: true,
         features: [
           'Tout le contenu de l’offre Suivi Performance, plus :',
+          'Préparation physique individualisée selon tes objectifs : développement des points faibles et optimisation des points forts',
           'Adaptation quotidienne de l’entraînement selon les analyses et retours de séances',
           'Retours approfondis sur les séances clés',
           'Conseils stratégie de course (pacing, nutrition, hydratation)',
