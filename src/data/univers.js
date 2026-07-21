@@ -204,6 +204,45 @@ export const univers = [
       per: '/séance',
       text: "Des séances collectives pour dynamiser vos équipes : running, renforcement et cohésion, encadrés par nos coachs. Un format adapté à votre structure et à vos disponibilités.",
     },
+    sportEntreprise: {
+      eyebrow: 'Sport en entreprise',
+      title: 'Le sport, un levier pour vos équipes',
+      intro: "Faire bouger vos collaborateurs, c'est bon pour eux comme pour l'entreprise. On construit un programme collectif adapté à vos locaux, vos horaires et vos objectifs.",
+      benefits: [
+        {
+          audience: 'Pour les salariés',
+          items: [
+            'Meilleure condition physique et moins de sédentarité',
+            'Réduction du stress et meilleur sommeil',
+            "Plus d'énergie et de concentration",
+          ],
+        },
+        {
+          audience: "Pour l'entreprise",
+          items: [
+            "Cohésion d'équipe renforcée",
+            "Baisse de l'absentéisme",
+            'Meilleure productivité et bien-être (démarche QVCT)',
+            'Marque employeur plus attractive',
+          ],
+        },
+      ],
+      fiscal: {
+        title: 'Des avantages fiscaux possibles',
+        items: [
+          {
+            k: 'Exonération de cotisations sociales URSSAF',
+            v: "Le financement de prestations sportives collectives peut être exonéré de cotisations sociales jusqu'à 200,25 € par salarié et par an en 2026. Par exemple, une entreprise de 10 salariés peut financer jusqu'à 2 002,50 € par an sans charges sociales. Sous conditions : la prestation doit être collective, accessible à tous les salariés et facturée à l'entreprise.",
+          },
+          {
+            k: 'Charge déductible',
+            v: "La prestation facturée réduit le résultat imposable de l'entreprise.",
+          },
+        ],
+        note: "Ces dispositifs sont présentés à titre indicatif et restent soumis à conditions. À confirmer avec l'expert-comptable de votre entreprise.",
+      },
+      cta: { label: 'Discuter d’un projet entreprise', href: '/contact' },
+    },
     coaches: [
       { name: 'Prénom Nom', role: 'Coach', line: 'Accompagnement individualisé, construit autour de ton objectif.' },
       { name: 'Prénom Nom', role: 'Coach', line: 'Suivi régulier, plan d’entraînement et ajustements en continu.' },

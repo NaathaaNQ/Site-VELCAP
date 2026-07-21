@@ -251,6 +251,48 @@ const galFrame = GAL_FRAME[u.slug] || {};
     </section>
   )}
 
+  {u.sportEntreprise && (
+    <section class="section sportentr" id="sport-entreprise">
+      <div class="container">
+        <div class="sportentr__head" data-reveal>
+          <p class="mono eyebrow">{u.sportEntreprise.eyebrow}</p>
+          <h2 class="sportentr__title display">{u.sportEntreprise.title}</h2>
+          {u.sportEntreprise.intro && <p class="sportentr__intro">{u.sportEntreprise.intro}</p>}
+        </div>
+
+        <div class="sportentr__benefits" data-reveal-group>
+          {u.sportEntreprise.benefits.map((b) => (
+            <article class="benefit" data-reveal-item>
+              <h3 class="benefit__audience display">{b.audience}</h3>
+              <ul class="benefit__list">
+                {b.items.map((it) => <li>{it}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div class="sportentr__fiscal" data-reveal>
+          <h3 class="fiscal__title display">{u.sportEntreprise.fiscal.title}</h3>
+          <div class="fiscal__grid">
+            {u.sportEntreprise.fiscal.items.map((f) => (
+              <div class="fiscal__item">
+                <p class="fiscal__k mono">{f.k}</p>
+                <p class="fiscal__v">{f.v}</p>
+              </div>
+            ))}
+          </div>
+          <p class="fiscal__note">{u.sportEntreprise.fiscal.note}</p>
+        </div>
+
+        <div class="sportentr__cta" data-reveal>
+          <a class="btn btn--red btn--lg" href={u.sportEntreprise.cta.href} data-magnetic>
+            {u.sportEntreprise.cta.label} <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
   {u.criteria && (
     <section class="section criteria">
       <div class={`container criteria__grid ${!u.aside ? 'criteria__grid--solo' : ''}`}>
@@ -609,6 +651,26 @@ const galFrame = GAL_FRAME[u.slug] || {};
   .entreprise__amount { font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--red-bright); line-height: 1; }
   .entreprise__per { color: #9a9aa0; }
 
+  /* — Sport en entreprise — */
+  .sportentr__head { max-width: 62ch; margin-bottom: clamp(1.8rem, 4vw, 2.8rem); }
+  .sportentr__title { font-size: var(--fs-h3); margin: 0.4rem 0 0.9rem; }
+  .sportentr__intro { font-size: var(--fs-lead); color: #3a3a40; line-height: 1.45; }
+
+  .sportentr__benefits { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.6rem); }
+  .benefit { background: var(--white); border: 1px solid var(--hairline); border-top: 4px solid var(--red); border-radius: 16px; padding: clamp(1.5rem, 2.8vw, 2.2rem); box-shadow: var(--shadow); }
+  .benefit__audience { font-size: clamp(1.2rem, 2.4vw, 1.7rem); margin-bottom: 1.1rem; }
+  .benefit__list { display: grid; gap: 0.75rem; }
+  .benefit__list li { position: relative; padding-left: 1.6rem; color: #2a2a2e; line-height: 1.45; }
+  .benefit__list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+
+  .sportentr__fiscal { margin-top: clamp(1.8rem, 4vw, 3rem); background: var(--white); border: 1px solid var(--hairline); border-left: 5px solid var(--red); border-radius: 16px; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: var(--shadow); }
+  .fiscal__title { font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: clamp(1rem, 2vw, 1.5rem); }
+  .fiscal__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); }
+  .fiscal__k { color: var(--red); margin-bottom: 0.5rem; }
+  .fiscal__v { color: #33333a; line-height: 1.55; }
+  .fiscal__note { margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid var(--hairline); color: var(--smoke); font-size: 0.9rem; line-height: 1.5; font-style: italic; }
+  .sportentr__cta { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+
   .soon__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
   .soon__tag { color: var(--smoke); }
   .soon__line { font-size: var(--fs-h2); }
@@ -687,6 +749,7 @@ const galFrame = GAL_FRAME[u.slug] || {};
     .points { grid-template-columns: 1fr; }
     .point { padding-right: 0; }
     .schedule__grid, .criteria__grid { grid-template-columns: 1fr; }
+    .sportentr__benefits, .fiscal__grid { grid-template-columns: 1fr; }
     .schedule__loc { margin-top: 1.4rem; }
     .tiers__grid--2, .tiers__grid--3 { grid-template-columns: 1fr; }
     .event { grid-template-columns: 2.2rem 1fr auto; column-gap: 0.9rem; }
