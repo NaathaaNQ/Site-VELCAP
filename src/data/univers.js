@@ -236,10 +236,10 @@ export const univers = [
         },
       ],
       fiscal: {
-        figure: '200,25 €',
+        figure: '200,25 €',
         figureLabel: 'par salarié et par an · 2026',
         lead: 'Le financement de prestations sportives collectives peut être exonéré de cotisations sociales URSSAF.',
-        example: "Une entreprise de 10 salariés peut ainsi financer jusqu'à 2 002,50 € par an sans charges sociales.",
+        example: "Une entreprise de 10 salariés peut ainsi financer jusqu'à 2 002,50 € par an sans charges sociales.",
         conditions: ['Prestation collective', 'Accessible à tous les salariés', "Facturée à l'entreprise"],
         deductible: "La prestation facturée réduit aussi le résultat imposable de l'entreprise (charge déductible).",
         note: "Dispositifs présentés à titre indicatif et soumis à conditions. À confirmer avec l'expert-comptable de votre entreprise.",
