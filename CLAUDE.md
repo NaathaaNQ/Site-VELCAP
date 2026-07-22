@@ -24,4 +24,5 @@ S'appuyer sur les skills **`frontend-design`** (goût, principes) et
   PNG officiel `assets/img/velcap-logo.png` si fourni).
 
 ## Git
-- Brancher le travail sur la branche de feature en cours ; commit + push.
+- Git n'est pas disponible en local. Ne jamais exécuter de commandes git.
+  Le versionnement se fait uniquement via l'interface web GitHub.
