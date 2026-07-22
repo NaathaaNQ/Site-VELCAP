@@ -45,8 +45,9 @@ export const univers = [
           'Des séminaires nutrition',
           {
             text: '2 courses objectifs par an accompagnées de A à Z',
+            detailsLead: 'La semaine qui précède chaque course :',
             details: [
-              "Entraînements d'affûtage de la semaine",
+              "Entraînements d'affûtage",
               'Conseils récupération et sommeil',
               'Stratégie nutritionnelle avant course',
               'Plan de pacing pour le jour J',

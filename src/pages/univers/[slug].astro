@@ -255,6 +255,7 @@ const se = u.sportEntreprise;
                       <li class="tier__feat--rich">
                         <details class="feat-acc">
                           <summary class="feat-acc__sum">{f.text}</summary>
+                          {f.detailsLead && <p class="feat-acc__lead">{f.detailsLead}</p>}
                           <ul class="feat-acc__list">
                             {f.details.map((d) => <li>{d}</li>)}
                           </ul>
@@ -680,7 +681,8 @@ const se = u.sportEntreprise;
   .feat-acc__sum::after { content: ""; width: 6px; height: 6px; border-right: 1.6px solid var(--red); border-bottom: 1.6px solid var(--red); transform: rotate(45deg); transition: transform 0.25s var(--ease); }
   .feat-acc[open] .feat-acc__sum::after { transform: rotate(-135deg); }
   .feat-acc__sum:hover { color: var(--ink); }
-  .feat-acc__list { display: grid; gap: 0.3rem; margin: 0.55rem 0 0.1rem; }
+  .feat-acc__lead { margin: 0.55rem 0 0.1rem; color: #2a2a2e; font-size: 0.86rem; font-weight: 600; }
+  .feat-acc__list { display: grid; gap: 0.3rem; margin: 0.35rem 0 0.1rem; }
   .tier__features .feat-acc__list li { padding-left: 0.95rem; color: #6a6a70; font-size: 0.84rem; }
   .tier__features .feat-acc__list li::before { top: 0.6em; width: 6px; height: 1.6px; background: var(--smoke); clip-path: none; }
   .tier__soon { color: var(--smoke); margin: 0.6rem 0 1rem; }
