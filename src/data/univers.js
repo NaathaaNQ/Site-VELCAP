@@ -94,7 +94,7 @@ export const univers = [
     slug: 'club-ffa',
     index: '03',
     name: 'Club FFA',
-    discipline: 'Athlétisme · jeunes et compétition',
+    discipline: 'Compétitions et formation des jeunes',
     lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
     intro:
       "Tu désires faire de la compétition ? Participer à des championnats fédéraux ? Tu es jeune et tu cherches à progresser ? Rejoins le club FFA afin de progresser avec un collectif soudé et motivé !!!",
