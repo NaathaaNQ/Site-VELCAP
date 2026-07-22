@@ -31,7 +31,7 @@ const FORMS = {
     title: 'Adhérer au Team Loisirs',
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'tier', label: 'Formule', type: 'select', required: true,
-        options: ['Adhésion Communauté · 180 €', 'Adhésion Communauté Plus · 250 €'] },
+        options: ['Adhésion Communauté · 180 € / an', 'Adhésion Communauté Plus · 220 € / an'] },
       FIELD.message],
   },
   'team-elite': {
@@ -229,7 +229,20 @@ const se = u.sportEntreprise;
               {t.tagline && <p class="tier__tagline">{t.tagline}</p>}
               {t.features && t.features.length > 0 ? (
                 <ul class="tier__features">
-                  {t.features.map((f) => <li>{f}</li>)}
+                  {t.features.map((f) => (
+                    typeof f === 'string' ? (
+                      <li>{f}</li>
+                    ) : (
+                      <li class="tier__feat--rich">
+                        <details class="feat-acc">
+                          <summary class="feat-acc__sum">{f.text}</summary>
+                          <ul class="feat-acc__list">
+                            {f.details.map((d) => <li>{d}</li>)}
+                          </ul>
+                        </details>
+                      </li>
+                    )
+                  ))}
                 </ul>
               ) : (
                 <p class="tier__soon mono">Détails à venir</p>
@@ -641,6 +654,16 @@ const se = u.sportEntreprise;
   .tier__features { display: grid; gap: 0.5rem; margin: 0.4rem 0 1rem; }
   .tier__features li { position: relative; padding-left: 1.4rem; color: #2a2a2e; font-size: 0.98rem; }
   .tier__features li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  /* avantage à détail dépliable (courses objectifs) : carte compacte par défaut,
+     déplié au clic/tap — fonctionne sur mobile sans JS ni survol */
+  .feat-acc__sum { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.45rem; color: #2a2a2e; transition: color 0.25s var(--ease); }
+  .feat-acc__sum::-webkit-details-marker { display: none; }
+  .feat-acc__sum::after { content: ""; width: 6px; height: 6px; border-right: 1.6px solid var(--red); border-bottom: 1.6px solid var(--red); transform: rotate(45deg); transition: transform 0.25s var(--ease); }
+  .feat-acc[open] .feat-acc__sum::after { transform: rotate(-135deg); }
+  .feat-acc__sum:hover { color: var(--ink); }
+  .feat-acc__list { display: grid; gap: 0.3rem; margin: 0.55rem 0 0.1rem; }
+  .tier__features .feat-acc__list li { padding-left: 0.95rem; color: #6a6a70; font-size: 0.84rem; }
+  .tier__features .feat-acc__list li::before { top: 0.6em; width: 6px; height: 1.6px; background: var(--smoke); clip-path: none; }
   .tier__soon { color: var(--smoke); margin: 0.6rem 0 1rem; }
   .tier__cta { margin-top: auto; justify-content: center; }
   .tiers__note {

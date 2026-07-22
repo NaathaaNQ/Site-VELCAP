@@ -22,6 +22,7 @@ export const univers = [
       {
         name: 'Adhésion Communauté',
         price: '180 €',
+        per: '/an',
         sub: 'soit 15 € par mois',
         features: [
           '2 entraînements encadrés / semaine (mardi et jeudi, 19h à 20h30)',
@@ -30,19 +31,28 @@ export const univers = [
           '1 social run festif par mois',
           'Participation à tous nos événements',
           'Un maillot VELCAP',
-          'Des avantages sur le merch',
         ],
       },
       {
         name: 'Adhésion Communauté Plus',
-        price: '250 €',
-        sub: 'soit 20,80 € par mois',
+        price: '220 €',
+        per: '/an',
+        sub: 'soit 18,33 € par mois',
         features: [
           "Toute l'offre Communauté, et en plus :",
           '1 séance de renforcement par semaine',
           'Accès prioritaire chez le kiné',
           'Des séminaires nutrition',
-          "2 semaines / an d'accompagnement complet avant une compétition",
+          {
+            text: '2 courses objectifs par an accompagnées de A à Z',
+            details: [
+              "Entraînements d'affûtage de la semaine",
+              'Conseils récupération et sommeil',
+              'Stratégie nutritionnelle avant course',
+              'Plan de pacing pour le jour J',
+              'Stratégie de nutrition pendant la course',
+            ],
+          },
         ],
       },
     ],
