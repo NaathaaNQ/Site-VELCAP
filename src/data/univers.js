@@ -7,9 +7,9 @@ export const univers = [
     index: '01',
     name: 'Team Loisirs',
     discipline: 'Communauté · loisir',
-    lead: 'Courir et progresser avec des coureur(e)s motivé(e)s !',
+    lead: 'Grand débutant ou coureur aguerri, on court ensemble.',
     intro:
-      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré pour tous, courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
+      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: ['Mardi · 19h00 à 20h30', 'Jeudi · 19h00 à 20h30'],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
