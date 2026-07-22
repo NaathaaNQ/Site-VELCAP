@@ -170,6 +170,20 @@ function initContactForm() {
   });
 }
 
+// Liste d'attente (Club FFC) : collecte prénom / nom / e-mail avant lancement.
+function initWaitlistForm() {
+  const form = document.querySelector('[data-waitlist-form]');
+  if (!form) return;
+  const out = form.querySelector('[data-waitlist-feedback]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const data = new FormData(form);
+    if (out) out.textContent = `Merci ${data.get('firstname') || ''}, tu es sur la liste. On te prévient dès l'ouverture.`;
+    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+  });
+}
+
 function initUniversModal() {
   const modal = document.querySelector('[data-univers-modal]');
   if (!modal) return;
@@ -244,6 +258,7 @@ export function initSite() {
   initMenu();
   initForm();
   initContactForm();
+  initWaitlistForm();
   initUniversModal();
   initEventModal();
   initMagnetic();
