@@ -46,7 +46,7 @@ const FORMS = {
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'age', label: 'Âge', type: 'number' },
       { name: 'level', label: 'Niveau actuel', type: 'select',
-        options: ['Débutant', 'Intermédiaire', 'Confirmé', 'Compétiteur'] },
+        options: ['Intermédiaire', 'Confirmé', 'Compétiteur'] },
       FIELD.message],
   },
   coaching: {
@@ -63,7 +63,7 @@ const FORMS = {
     title: 'Nous envoyer une demande',
     fields: [FIELD.firstname, FIELD.name, FIELD.email,
       { name: 'eventtype', label: 'Type de demande', type: 'select', required: true,
-        options: ['Participer à un événement', 'Proposer une intervention', 'Partenariat', 'Autre'] },
+        options: ['Participer à un événement', 'Créer un événement', 'Proposer une intervention', 'Partenariat', 'Autre'] },
       FIELD.message],
   },
 };
@@ -516,7 +516,7 @@ const se = u.sportEntreprise;
               <span>Pour l'adhésion d'un·e mineur·e, je suis le représentant légal et fournirai l'autorisation parentale.</span>
             </label>
           )}
-          {u.slug !== 'evenements' && (
+          {!['evenements', 'team-elite', 'coaching'].includes(u.slug) && (
             <label class="consent field--full">
               <input type="checkbox" name="pps" required />
               <span>Je m'engage à compléter le PPS (Parcours de Prévention Santé), obligatoire. *</span>
@@ -526,7 +526,7 @@ const se = u.sportEntreprise;
             <input type="checkbox" name="rgpd" required />
             <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
           </label>
-          {u.slug !== 'evenements' && (
+          {!['evenements', 'team-elite'].includes(u.slug) && (
             <label class="consent field--full">
               <input type="checkbox" name="image" />
               <span>J'autorise VELCAP à utiliser mon image (photos / vidéos) dans le cadre de sa communication. (facultatif)</span>

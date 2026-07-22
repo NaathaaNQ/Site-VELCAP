@@ -142,8 +142,14 @@ const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre
           <label class="mono" for="f-interest">Je veux</label>
           <select id="f-interest" name="interest" required>
             <option value="" disabled selected>Choisir…</option>
-            {univers.map((u) => <option data-slug={u.slug}>{u.cta}</option>)}
+            {univers.filter((u) => u.slug !== 'club-ffc' && u.slug !== 'evenements').map((u) => <option data-slug={u.slug}>{u.cta}</option>)}
+            <option>Demande de partenariat</option>
+            <option>Créer ou participer à un événement</option>
           </select>
+        </div>
+        <div class="field">
+          <label class="mono" for="f-precision">Précise ta demande</label>
+          <textarea id="f-precision" name="message" rows="4" placeholder="Dis-nous ce que tu recherches…"></textarea>
         </div>
         <label class="consent">
           <input type="checkbox" name="rgpd" required />
@@ -239,11 +245,13 @@ const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre
   .engager__form { display: grid; gap: 1rem; background: var(--ink); color: #fff; padding: clamp(1.5rem, 3vw, 2.4rem); border-radius: 16px; }
   .field { display: grid; gap: 0.4rem; }
   .field label { color: #8a8a90; }
-  .field input, .field select {
+  .field input, .field select, .field textarea {
     background: #15151a; border: 1px solid #2a2a31; border-radius: 9px; padding: 0.85rem 1rem; color: #fff;
+    font: inherit;
   }
-  .field input::placeholder { color: #6a6a72; }
-  .field input:focus, .field select:focus { outline: 2px solid var(--red); border-color: var(--red); }
+  .field textarea { resize: vertical; min-height: 3.4rem; }
+  .field input::placeholder, .field textarea::placeholder { color: #6a6a72; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--red); border-color: var(--red); }
   .engager__form .btn { justify-content: center; margin-top: 0.4rem; }
   .engager__feedback { color: var(--red-bright); min-height: 1.2em; text-transform: none; letter-spacing: 0; }
   .engager__form .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #b9b9c0; line-height: 1.4; cursor: pointer; }
