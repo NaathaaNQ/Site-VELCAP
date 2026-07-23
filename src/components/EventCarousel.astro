@@ -1,0 +1,57 @@
+---
+// Carrousel photo d'un événement passé.
+// - Ne s'affiche pas si le tableau `photos` est vide (aucune casse de mise en page).
+// - Défilement auto + pause au survol + navigation manuelle (géré par carousel.js).
+// - prefers-reduced-motion : pas de défilement auto (navigation manuelle conservée).
+// - Images en lazy loading, alt renseigné.
+// Les fichiers vont dans public/img/photos/ ; on liste ici leurs noms.
+const { photos = [], name = '' } = Astro.props;
+const imgs = Array.isArray(photos) ? photos.filter(Boolean) : [];
+const multi = imgs.length > 1;
+---
+{imgs.length > 0 && (
+  <div class="ecarousel" data-carousel data-count={imgs.length}>
+    <div class="ecarousel__viewport">
+      <div class="ecarousel__track" data-carousel-track>
+        {imgs.map((src, i) => (
+          <figure class="ecarousel__slide">
+            <img src={`/img/photos/${src}`} alt={`${name} — photo ${i + 1}`} loading="lazy" draggable="false" />
+          </figure>
+        ))}
+      </div>
+    </div>
+    {multi && (
+      <>
+        <button type="button" class="ecarousel__arrow ecarousel__arrow--prev" data-carousel-prev aria-label="Photo précédente">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7" /></svg>
+        </button>
+        <button type="button" class="ecarousel__arrow ecarousel__arrow--next" data-carousel-next aria-label="Photo suivante">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+        </button>
+        <div class="ecarousel__dots" data-carousel-dots>
+          {imgs.map((_, i) => (
+            <button type="button" class="ecarousel__dot" data-carousel-dot aria-label={`Aller à la photo ${i + 1}`}></button>
+          ))}
+        </div>
+      </>
+    )}
+  </div>
+)}
+
+<style>
+  .ecarousel { position: relative; margin: 1.1rem 0 0.2rem; border-radius: 12px; overflow: hidden; background: #0c0c0f; }
+  .ecarousel__viewport { overflow: hidden; }
+  .ecarousel__track { display: flex; will-change: transform; transition: transform 0.6s var(--ease, cubic-bezier(0.22,0.61,0.36,1)); }
+  .ecarousel__slide { flex: 0 0 100%; aspect-ratio: 16 / 10; }
+  .ecarousel__slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.06) brightness(0.98); }
+  .ecarousel__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; display: grid; place-items: center;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); background: rgba(10,10,12,0.5); color: #fff; cursor: pointer;
+    backdrop-filter: blur(3px); transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }
+  .ecarousel__arrow:hover { background: var(--red); border-color: var(--red); }
+  .ecarousel__arrow--prev { left: 0.7rem; }
+  .ecarousel__arrow--next { right: 0.7rem; }
+  .ecarousel__dots { position: absolute; left: 0; right: 0; bottom: 0.7rem; display: flex; justify-content: center; gap: 0.45rem; }
+  .ecarousel__dot { width: 7px; height: 7px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,0.45); cursor: pointer; transition: background 0.3s var(--ease), transform 0.3s var(--ease); }
+  .ecarousel__dot.is-active { background: var(--red); transform: scale(1.3); }
+  @media (hover: none) { .ecarousel__arrow { display: none; } }
+</style>

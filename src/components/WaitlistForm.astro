@@ -1,0 +1,74 @@
+---
+// Formulaire de collecte réutilisable (liste d'attente / inscription).
+// Utilisé par : Club FFC (informé du lancement), Corrida de Salins (recontact),
+// Social Ride (inscription, avec téléphone + message). Style identique partout.
+//
+// Web3Forms : ajouter la clé dans un champ caché name="access_key" pour activer
+// l'envoi réel (voir la doc). En attendant, l'envoi est géré côté client (main.js).
+const {
+  ctaLabel = 'Envoyer',
+  context = 'pour traiter ma demande',     // fragment inséré dans la phrase de consentement
+  idPrefix = 'wl',                          // préfixe d'id unique par instance
+  eventName = '',                           // identifie l'événement dans le message reçu
+  withPhone = false,
+  withMessage = false,
+  narrow = false,                           // largeur limitée + centré (page FFC)
+  big = false,                              // bouton btn--lg
+  success = "Merci {firstname}, c'est bien noté. On revient vers toi très vite.",
+} = Astro.props;
+---
+<form class={`wlform ${narrow ? 'wlform--narrow' : ''}`} data-waitlist-form data-success={success} novalidate>
+  <div class="field">
+    <label class="mono" for={`${idPrefix}-firstname`}>Prénom</label>
+    <input id={`${idPrefix}-firstname`} name="firstname" type="text" autocomplete="given-name" placeholder="Ton prénom" required />
+  </div>
+  <div class="field">
+    <label class="mono" for={`${idPrefix}-name`}>Nom</label>
+    <input id={`${idPrefix}-name`} name="name" type="text" autocomplete="family-name" placeholder="Ton nom" required />
+  </div>
+  <div class={`field ${withPhone ? '' : 'field--full'}`}>
+    <label class="mono" for={`${idPrefix}-email`}>E-mail</label>
+    <input id={`${idPrefix}-email`} name="email" type="email" autocomplete="email" placeholder="toi@exemple.fr" required />
+  </div>
+  {withPhone && (
+    <div class="field">
+      <label class="mono" for={`${idPrefix}-phone`}>Téléphone</label>
+      <input id={`${idPrefix}-phone`} name="phone" type="tel" autocomplete="tel" placeholder="06 00 00 00 00" />
+    </div>
+  )}
+  {withMessage && (
+    <div class="field field--full">
+      <label class="mono" for={`${idPrefix}-message`}>Un mot (optionnel)</label>
+      <textarea id={`${idPrefix}-message`} name="message" rows="3" placeholder="Une question, une précision…"></textarea>
+    </div>
+  )}
+  <label class="consent field--full">
+    <input type="checkbox" name="rgpd" required />
+    <span>J'accepte d'être recontacté·e {context}, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
+  </label>
+  {eventName && <input type="hidden" name="event" value={eventName} />}
+  <button type="submit" class={`btn btn--red ${big ? 'btn--lg' : ''} wlform__submit`} data-magnetic>{ctaLabel} <span class="arrow" aria-hidden="true">→</span></button>
+  <p class="wlform__feedback mono" data-waitlist-feedback role="status"></p>
+</form>
+
+<style>
+  .wlform { width: 100%; text-align: left;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    background: var(--ink); color: #fff; padding: clamp(1.4rem, 3vw, 2.2rem); border-radius: 16px; box-shadow: var(--shadow); }
+  .wlform--narrow { max-width: 520px; margin-inline: auto; }
+  .wlform .field { display: grid; gap: 0.4rem; }
+  .wlform .field--full, .wlform__submit, .wlform__feedback, .wlform .consent { grid-column: 1 / -1; }
+  .wlform label { color: #8a8a90; }
+  .wlform input, .wlform textarea {
+    background: #15151a; border: 1px solid #2a2a31; border-radius: 9px; padding: 0.85rem 1rem;
+    color: #fff; font-family: var(--font-body); width: 100%; resize: vertical;
+  }
+  .wlform input::placeholder, .wlform textarea::placeholder { color: #6a6a72; }
+  .wlform input:focus, .wlform textarea:focus { outline: 2px solid var(--red); border-color: var(--red); }
+  .wlform .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #b9b9c0; line-height: 1.4; cursor: pointer; }
+  .wlform .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
+  .wlform .consent a { color: var(--red-bright); text-decoration: underline; }
+  .wlform__submit { justify-content: center; margin-top: 0.3rem; }
+  .wlform__feedback { color: var(--red-bright); min-height: 1.1em; text-transform: none; letter-spacing: 0; }
+  @media (max-width: 620px) { .wlform { grid-template-columns: 1fr; } }
+</style>

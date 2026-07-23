@@ -143,19 +143,47 @@ export const univers = [
     intro:
       "Toute l'année, VELCAP anime le territoire : courses, social runs, fan zones, social rides et stages. Les rendez-vous où l'on se retrouve, où l'on partage, où l'on fait la fête.",
     events: {
+      // Chaque événement accepte des champs optionnels réutilisables :
+      //   link:   { href, label }  -> bouton lien externe (nouvel onglet)
+      //   teaser: 'texte'          -> mention teasing mise en avant
+      //   signup: true             -> formulaire d'inscription dépliable (nom, prénom, e-mail, tel, message)
+      //   notify: true             -> bouton « être recontacté » (composant liste d'attente, comme le Club FFC)
+      //   badge:  'texte'          -> pastille discrète (ex. accès réservé)
+      //   note:   'texte'          -> précision courte sous la description
+      //   photos: ['fichier.jpg']  -> carrousel photo (voir past). Vide = pas de carrousel.
       // à venir : du plus proche au plus lointain
       upcoming: [
-        { name: 'Social Run avec Décathlon', date: 'Tous les vendredis', place: 'Décathlon Besançon', desc: "Un rendez-vous hebdomadaire décontracté au départ du magasin : on court ensemble, tous niveaux, puis on partage un moment." },
-        { name: 'Social Ride avec ASSOS x PRODUSPORT', date: '12/09/2026', place: 'Besançon et alentours', desc: "Une sortie vélo qui réunit ASSOS, PRODUSPORT et la communauté VELCAP autour d'un moment de partage." },
-        { name: 'Lièvres Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon', desc: 'Nos lièvres t’emmènent sur la Boucle Vauban, en toute régularité, sur le semi et le 10 km.' },
-        { name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains', desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête." },
+        {
+          name: 'Social Run avec Décathlon', date: 'Tous les vendredis', place: 'Décathlon Besançon',
+          desc: "Un rendez-vous hebdomadaire décontracté au départ du magasin : on court ensemble, tous niveaux, puis on partage un moment.",
+          link: { href: 'https://activites.decathlon.fr/fr-FR/activites-sportives/details/11325257', label: 'Toutes les infos et inscriptions' },
+        },
+        {
+          name: 'Social Ride avec ASSOS x PRODUSPORT', date: '12/09/2026', place: 'Besançon et alentours',
+          desc: "Une sortie vélo qui réunit ASSOS, PRODUSPORT et la communauté VELCAP autour d'un moment de partage.",
+          teaser: 'Quelques surprises attendent les participants.',
+          signup: true,
+        },
+        {
+          name: 'Lièvres Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
+          desc: 'Nos lièvres t’emmènent sur la Boucle Vauban, en toute régularité, sur le semi et le 10 km.',
+          badge: 'Réservé Team Élite',
+          note: 'Épreuve assurée par les athlètes VELCAP de la Team Élite : pas d’inscription ouverte au public.',
+        },
+        {
+          name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
+          desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui fait aussi découvrir les monuments historiques de la ville.",
+          notify: true,
+        },
       ],
-      // passés : du plus récent au plus ancien
+      // passés : du plus récent au plus ancien.
+      // photos : dépose les fichiers dans public/img/photos/ et liste ici leurs noms,
+      // ex. photos: ['event-volodalen-1.jpg', 'event-volodalen-2.jpg']. Tableau vide = pas de carrousel.
       past: [
-        { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.' },
-        { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.' },
-        { name: 'Stage en Ardèche', date: '4 au 11 avril 2026', place: 'Ardèche', desc: 'Une semaine de stage pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.' },
-        { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs." },
+        { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.', photos: [] },
+        { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.', photos: [] },
+        { name: 'Stage en Ardèche', date: '4 au 11 avril 2026', place: 'Ardèche', desc: 'Une semaine de stage pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.', photos: [] },
+        { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [] },
       ],
     },
     request:

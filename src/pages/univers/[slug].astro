@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
+import WaitlistForm from '../../components/WaitlistForm.astro';
+import EventCarousel from '../../components/EventCarousel.astro';
 import { univers } from '../../data/univers.js';
 
 export function getStaticPaths() {
@@ -157,26 +159,15 @@ const se = u.sportEntreprise;
         <p class="soon__tag mono">En préparation</p>
         <p class="soon__line display">Le projet<br />arrive <span class="accent">bientôt.</span></p>
         <p class="soon__text">Laisse-nous tes coordonnées : on te préviendra par e-mail dès l'ouverture du {u.name}.</p>
-        <form class="soon__form" data-waitlist-form novalidate>
-          <div class="field">
-            <label class="mono" for="w-firstname">Prénom</label>
-            <input id="w-firstname" name="firstname" type="text" autocomplete="given-name" placeholder="Ton prénom" required />
-          </div>
-          <div class="field">
-            <label class="mono" for="w-name">Nom</label>
-            <input id="w-name" name="name" type="text" autocomplete="family-name" placeholder="Ton nom" required />
-          </div>
-          <div class="field field--full">
-            <label class="mono" for="w-email">E-mail</label>
-            <input id="w-email" name="email" type="email" autocomplete="email" placeholder="toi@exemple.fr" required />
-          </div>
-          <label class="consent field--full">
-            <input type="checkbox" name="rgpd" required />
-            <span>J'accepte d'être recontacté·e au lancement du {u.name}, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
-          </label>
-          <button type="submit" class="btn btn--red btn--lg soon__submit" data-magnetic>{u.cta} <span class="arrow" aria-hidden="true">→</span></button>
-          <p class="soon__feedback mono" data-waitlist-feedback role="status"></p>
-        </form>
+        <WaitlistForm
+          narrow
+          big
+          idPrefix="ffc"
+          ctaLabel={u.cta}
+          eventName={u.name}
+          context={`au lancement du ${u.name}`}
+          success="Merci {firstname}, tu es sur la liste. On te prévient dès l'ouverture."
+        />
       </div>
     </section>
   )}
@@ -396,19 +387,66 @@ const se = u.sportEntreprise;
         ].filter((g) => g.items && g.items.length).map((g) => (
           <div class={`events__group events__group--${g.key}`}>
             <h3 class="events__group-title display" data-reveal>{g.title}</h3>
-            <ol class="events__list" data-reveal-group>
+            <div class="ecards" data-reveal-group>
               {g.items.map((e, i) => (
-                <li data-reveal-item>
-                  <button type="button" class="event" data-open-event
-                    data-name={e.name} data-date={e.date} data-place={e.place} data-desc={e.desc}>
-                    <span class="event__n mono">{String(i + 1).padStart(2, '0')}</span>
-                    <span class="event__name display">{e.name}</span>
-                    <span class="event__meta mono">{e.date} · {e.place}</span>
-                    <span class="event__arrow mono" aria-hidden="true">→</span>
-                  </button>
-                </li>
+                <article class={`ecard ${g.key === 'past' ? 'ecard--past' : ''}`} data-reveal-item>
+                  <div class="ecard__top">
+                    <span class="ecard__n mono">{String(i + 1).padStart(2, '0')}</span>
+                    <div class="ecard__head">
+                      <h4 class="ecard__name display">{e.name}</h4>
+                      <p class="ecard__meta mono">{e.date} · {e.place}</p>
+                    </div>
+                    {e.badge && <span class="ecard__badge mono">{e.badge}</span>}
+                  </div>
+
+                  {e.teaser && (
+                    <p class="ecard__teaser"><span class="ecard__teaser-k mono">Teasing</span> {e.teaser}</p>
+                  )}
+                  <p class="ecard__desc">{e.desc}</p>
+                  {e.note && <p class="ecard__note mono">{e.note}</p>}
+
+                  {g.key === 'past' && <EventCarousel photos={e.photos} name={e.name} />}
+
+                  {e.link && (
+                    <a class="btn btn--dark ecard__cta" href={e.link.href} target="_blank" rel="noopener noreferrer" data-magnetic>
+                      {e.link.label} <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
+                  )}
+
+                  {e.signup && (
+                    <details class="ev-acc">
+                      <summary class="ev-acc__btn btn btn--red">Je m'inscris <span class="ev-acc__chev" aria-hidden="true"></span></summary>
+                      <div class="ev-acc__body">
+                        <WaitlistForm
+                          idPrefix={`ride-${i}`}
+                          ctaLabel="Envoyer mon inscription"
+                          eventName={e.name}
+                          context={`pour mon inscription au ${e.name}`}
+                          withPhone
+                          withMessage
+                          success="Merci {firstname}, ton inscription est bien reçue. On revient vers toi très vite."
+                        />
+                      </div>
+                    </details>
+                  )}
+
+                  {e.notify && (
+                    <details class="ev-acc">
+                      <summary class="ev-acc__btn btn btn--red">Être recontacté à l'ouverture <span class="ev-acc__chev" aria-hidden="true"></span></summary>
+                      <div class="ev-acc__body">
+                        <WaitlistForm
+                          idPrefix={`notify-${i}`}
+                          ctaLabel="Me prévenir à l'ouverture"
+                          eventName={e.name}
+                          context={`à l'ouverture des inscriptions du ${e.name}`}
+                          success="Merci {firstname}, c'est noté. On te prévient dès l'ouverture des inscriptions."
+                        />
+                      </div>
+                    </details>
+                  )}
+                </article>
               ))}
-            </ol>
+            </div>
           </div>
         ))}
         {u.request && <p class="events__request" data-reveal>{u.request}</p>}
@@ -560,24 +598,6 @@ const se = u.sportEntreprise;
     </div>
   )}
 
-  {u.events && (
-    <div class="umodal" data-event-modal aria-hidden="true">
-      <div class="umodal__backdrop" data-event-close></div>
-      <div class="umodal__panel" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Détail de l'événement">
-        <button type="button" class="umodal__x" data-event-close aria-label="Fermer">✕</button>
-        <p class="mono eyebrow">Événement</p>
-        <h2 class="umodal__title display" data-event-name></h2>
-        <ul class="emeta">
-          <li><span class="mono">Quand</span><span data-event-date></span></li>
-          <li><span class="mono">Où</span><span data-event-place></span></li>
-        </ul>
-        <p class="emodal__desc" data-event-desc></p>
-        <button type="button" class="btn btn--red emodal__cta" data-event-close data-open-form>
-          Faire une demande <span class="arrow" aria-hidden="true">→</span>
-        </button>
-      </div>
-    </div>
-  )}
 </Base>
 
 <style>
@@ -724,18 +744,32 @@ const se = u.sportEntreprise;
   .events__group + .events__group { margin-top: clamp(2.4rem, 5vw, 3.8rem); }
   .events__group-title { font-size: var(--fs-h3); margin: clamp(1.4rem, 3vw, 2.2rem) 0 0.2rem; }
   .events__group--past .events__group-title { color: var(--smoke); }
-  .events__group--past .event__name { color: #55555c; }
-  .events__group--past .event:hover .event__name { color: var(--red); }
-  .events__list { margin-top: 1.5rem; border-bottom: 1px solid var(--hairline); list-style: none; }
-  .event { width: 100%; display: grid; grid-template-columns: 3rem 1fr auto auto; align-items: center; gap: 0.4rem 1.3rem; padding: clamp(0.9rem, 2vw, 1.4rem) 0; border: 0; border-top: 1px solid var(--hairline); background: transparent; text-align: left; cursor: pointer; color: var(--ink); transition: padding-left 0.3s var(--ease), color 0.3s var(--ease); }
-  .event__n { color: var(--smoke); }
-  .event__name { font-size: clamp(1.3rem, 3vw, 2.2rem); }
-  .event__meta { color: var(--smoke); justify-self: end; text-align: right; }
-  .event__arrow { color: var(--red); justify-self: end; transition: transform 0.3s var(--ease); }
-  .event:hover { padding-left: 0.8rem; }
-  .event:hover .event__name { color: var(--red); }
-  .event:hover .event__arrow { transform: translateX(5px); }
-  .events__request { margin-top: 1.6rem; font-size: var(--fs-lead); color: #3a3a40; max-width: 44ch; }
+
+  /* Cartes d'événement */
+  .ecards { margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.5rem); align-items: start; }
+  .ecard { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; padding: clamp(1.3rem, 2.5vw, 1.9rem); box-shadow: var(--shadow); }
+  .ecard--past { background: transparent; box-shadow: none; }
+  .ecard__top { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 0.5rem 1rem; }
+  .ecard__n { color: var(--red); }
+  .ecard__name { font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1; }
+  .ecard--past .ecard__name { color: #55555c; }
+  .ecard__meta { color: var(--smoke); margin-top: 0.4rem; }
+  .ecard__badge { justify-self: end; align-self: start; white-space: nowrap; color: var(--red); border: 1px solid var(--red); border-radius: 999px; padding: 0.25rem 0.65rem; font-size: 0.62rem; }
+  .ecard__teaser { margin-top: 0.9rem; display: flex; align-items: baseline; gap: 0.55rem; color: var(--ink); font-weight: 600; line-height: 1.4; }
+  .ecard__teaser-k { flex-shrink: 0; color: #fff; background: var(--red); border-radius: 999px; padding: 0.2rem 0.6rem; font-size: 0.6rem; }
+  .ecard__desc { margin-top: 0.9rem; color: #2a2a2e; line-height: 1.55; }
+  .ecard--past .ecard__desc { color: #4a4a50; }
+  .ecard__note { margin-top: 0.8rem; color: var(--smoke); text-transform: none; letter-spacing: 0.02em; line-height: 1.45; }
+  .ecard__cta { align-self: flex-start; margin-top: 1.2rem; }
+  .events__request { margin-top: clamp(2rem, 4vw, 3rem); font-size: var(--fs-lead); color: #3a3a40; max-width: 44ch; }
+
+  /* Bloc dépliable (inscription / recontact) dans une carte */
+  .ev-acc { margin-top: 1.2rem; }
+  .ev-acc__btn { list-style: none; justify-content: center; width: 100%; cursor: pointer; }
+  .ev-acc__btn::-webkit-details-marker { display: none; }
+  .ev-acc__chev { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.25s var(--ease); }
+  .ev-acc[open] .ev-acc__chev { transform: rotate(-135deg); }
+  .ev-acc__body { margin-top: 0.9rem; }
 
   /* — Coaching entreprise — */
   .entreprise__inner { display: flex; align-items: center; justify-content: space-between; gap: clamp(1.4rem, 3vw, 2.5rem); flex-wrap: wrap; background: var(--ink); color: #fff; border-radius: 16px; padding: clamp(1.6rem, 3vw, 2.6rem); box-shadow: var(--shadow); }
@@ -789,24 +823,6 @@ const se = u.sportEntreprise;
   .soon__tag { color: var(--smoke); }
   .soon__line { font-size: var(--fs-h2); }
   .soon__text { color: #4a4a50; max-width: 42ch; }
-  /* formulaire liste d'attente (Club FFC) : carte sombre centrée */
-  .soon__form { width: 100%; max-width: 520px; text-align: left; margin-top: 0.4rem;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    background: var(--ink); color: #fff; padding: clamp(1.6rem, 3vw, 2.4rem); border-radius: 18px; box-shadow: var(--shadow); }
-  .soon__form .field { display: grid; gap: 0.4rem; }
-  .soon__form .field--full, .soon__submit, .soon__feedback, .soon__form .consent { grid-column: 1 / -1; }
-  .soon__form label { color: #8a8a90; }
-  .soon__form input {
-    background: #15151a; border: 1px solid #2a2a31; border-radius: 9px; padding: 0.85rem 1rem;
-    color: #fff; font-family: var(--font-body); width: 100%;
-  }
-  .soon__form input::placeholder { color: #6a6a72; }
-  .soon__form input:focus { outline: 2px solid var(--red); border-color: var(--red); }
-  .soon__form .consent { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: #b9b9c0; line-height: 1.4; cursor: pointer; }
-  .soon__form .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--red); flex-shrink: 0; }
-  .soon__form .consent a { color: var(--red-bright); text-decoration: underline; }
-  .soon__submit { justify-content: center; margin-top: 0.3rem; }
-  .soon__feedback { color: var(--red-bright); min-height: 1.1em; text-transform: none; letter-spacing: 0; }
 
   .ucta { background: var(--ink); color: #fff; padding-block: clamp(3rem, 7vw, 6rem); text-align: center; }
   .ucta__inner { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
@@ -853,12 +869,6 @@ const se = u.sportEntreprise;
   .consent a { color: var(--red); text-decoration: underline; }
 
   /* modale détail événement (réutilise .umodal) */
-  .emeta { display: grid; margin: 0.2rem 0 1.2rem; }
-  .emeta li { display: grid; grid-template-columns: 6rem 1fr; gap: 0.9rem; align-items: baseline; padding: 0.7rem 0; border-top: 1px solid var(--hairline); }
-  .emeta li:last-child { border-bottom: 1px solid var(--hairline); }
-  .emeta .mono { color: var(--red); }
-  .emodal__desc { color: #3a3a40; line-height: 1.6; margin-bottom: 1.4rem; }
-  .emodal__cta { justify-content: center; width: 100%; }
 
   /* galerie */
   .ugallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: 1.4rem; }
@@ -875,7 +885,7 @@ const se = u.sportEntreprise;
   }
   @media (max-width: 760px) {
     .umodal__form { grid-template-columns: 1fr; }
-    .soon__form { grid-template-columns: 1fr; }
+    .ecards { grid-template-columns: 1fr; }
     .ugallery__grid { grid-template-columns: 1fr 1fr; }
     .coaches__grid, .testimonials__grid { grid-template-columns: 1fr; }
     .ugallery__item--1 { margin-top: 0; }
@@ -888,8 +898,6 @@ const se = u.sportEntreprise;
     .se-aud--alt { border-left: 0; padding-left: 0; border-top: 1px solid var(--hairline); padding-top: 1.4rem; }
     .schedule__loc { margin-top: 1.4rem; }
     .tiers__grid--2, .tiers__grid--3 { grid-template-columns: 1fr; }
-    .event { grid-template-columns: 2.2rem 1fr auto; column-gap: 0.9rem; }
-    .event__meta { grid-column: 2 / -1; justify-self: start; text-align: left; margin-top: 0.15rem; }
     .unav { grid-template-columns: 1fr; }
     .unav__link--next { text-align: left; }
     .unav__link--prev { border-right: 0; border-bottom: 1px solid var(--hairline); }

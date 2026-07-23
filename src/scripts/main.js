@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { initTurntable } from './turntable.js';
+import { initCarousels } from './carousel.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -170,17 +171,19 @@ function initContactForm() {
   });
 }
 
-// Liste d'attente (Club FFC) : collecte prénom / nom / e-mail avant lancement.
-function initWaitlistForm() {
-  const form = document.querySelector('[data-waitlist-form]');
-  if (!form) return;
-  const out = form.querySelector('[data-waitlist-feedback]');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('firstname') || ''}, tu es sur la liste. On te prévient dès l'ouverture.`;
-    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+// Formulaires de collecte (composant WaitlistForm) : Club FFC, inscriptions et
+// recontacts d'événements. Plusieurs instances possibles sur une même page.
+function initWaitlistForms() {
+  document.querySelectorAll('[data-waitlist-form]').forEach((form) => {
+    const out = form.querySelector('[data-waitlist-feedback]');
+    const tpl = form.dataset.success || "Merci {firstname}, c'est bien noté. On revient vers toi très vite.";
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const data = new FormData(form);
+      if (out) out.textContent = tpl.replace('{firstname}', data.get('firstname') || '');
+      form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+    });
   });
 }
 
@@ -223,32 +226,6 @@ function initUniversModal() {
   });
 }
 
-// Panneau de détail d'un événement — même pattern d'ouverture/fermeture et
-// d'animation que la modale d'adhésion (.umodal).
-function initEventModal() {
-  const modal = document.querySelector('[data-event-modal]');
-  if (!modal) return;
-  const fill = (sel, val) => { const el = modal.querySelector(sel); if (el) el.textContent = val || ''; };
-  const open = (btn) => {
-    fill('[data-event-name]', btn.dataset.name);
-    fill('[data-event-date]', btn.dataset.date);
-    fill('[data-event-place]', btn.dataset.place);
-    fill('[data-event-desc]', btn.dataset.desc);
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.documentElement.style.overflow = 'hidden';
-    lenis?.stop();
-  };
-  const close = () => {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.documentElement.style.overflow = '';
-    lenis?.start();
-  };
-  document.querySelectorAll('[data-open-event]').forEach((b) => b.addEventListener('click', () => open(b)));
-  modal.querySelectorAll('[data-event-close]').forEach((x) => x.addEventListener('click', close));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
-}
 
 export function initSite() {
   initSmoothScroll();
@@ -258,9 +235,9 @@ export function initSite() {
   initMenu();
   initForm();
   initContactForm();
-  initWaitlistForm();
+  initWaitlistForms();
   initUniversModal();
-  initEventModal();
+  initCarousels();
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });
   // Recalcule après chargement des polices
