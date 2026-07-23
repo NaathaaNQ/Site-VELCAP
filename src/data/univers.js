@@ -167,8 +167,6 @@ export const univers = [
         {
           name: 'Lièvres Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
           desc: 'Nos lièvres t’emmènent sur la Boucle Vauban, en toute régularité, sur le semi et le 10 km.',
-          badge: 'Réservé Team Élite',
-          note: 'Épreuve assurée par les athlètes VELCAP de la Team Élite : pas d’inscription ouverte au public.',
         },
         {
           name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',

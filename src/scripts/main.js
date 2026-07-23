@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { initTurntable } from './turntable.js';
-import { initCarousels } from './carousel.js';
+import { initGallery } from './gallery.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -237,7 +237,7 @@ export function initSite() {
   initContactForm();
   initWaitlistForms();
   initUniversModal();
-  initCarousels();
+  initGallery({ lenis });
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });
   // Recalcule après chargement des polices
