@@ -42,8 +42,10 @@ const multi = imgs.length > 1;
   .ecarousel { position: relative; margin: 1.1rem 0 0.2rem; border-radius: 12px; overflow: hidden; background: #0c0c0f; }
   .ecarousel__viewport { overflow: hidden; }
   .ecarousel__track { display: flex; will-change: transform; transition: transform 0.6s var(--ease, cubic-bezier(0.22,0.61,0.36,1)); }
-  .ecarousel__slide { flex: 0 0 100%; aspect-ratio: 16 / 10; }
-  .ecarousel__slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.06) brightness(0.98); }
+  /* cadre portrait : ces photos d'événement sont majoritairement verticales ;
+     `contain` évite de couper les pancartes / sujets (léger cadre sombre autour). */
+  .ecarousel__slide { flex: 0 0 100%; aspect-ratio: 3 / 4; display: grid; place-items: center; }
+  .ecarousel__slide img { width: 100%; height: 100%; object-fit: contain; display: block; filter: grayscale(1) contrast(1.06) brightness(0.98); }
   .ecarousel__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; display: grid; place-items: center;
     border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); background: rgba(10,10,12,0.5); color: #fff; cursor: pointer;
     backdrop-filter: blur(3px); transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }

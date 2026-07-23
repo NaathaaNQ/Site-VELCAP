@@ -405,7 +405,14 @@ const se = u.sportEntreprise;
                   <p class="ecard__desc">{e.desc}</p>
                   {e.note && <p class="ecard__note mono">{e.note}</p>}
 
-                  {g.key === 'past' && <EventCarousel photos={e.photos} name={e.name} />}
+                  {g.key === 'past' && e.photos && e.photos.length > 0 && (
+                    <details class="ev-acc ev-acc--photos">
+                      <summary class="ev-acc__btn btn btn--dark">Voir les photos ({e.photos.length}) <span class="ev-acc__chev" aria-hidden="true"></span></summary>
+                      <div class="ev-acc__body">
+                        <EventCarousel photos={e.photos} name={e.name} />
+                      </div>
+                    </details>
+                  )}
 
                   {e.link && (
                     <a class="btn btn--dark ecard__cta" href={e.link.href} target="_blank" rel="noopener noreferrer" data-magnetic>

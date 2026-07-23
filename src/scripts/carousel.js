@@ -39,7 +39,15 @@ export function initCarousels() {
     root.addEventListener('focusin', stop);
     root.addEventListener('focusout', start);
 
+    // Si le carrousel est dans un panneau dépliable (« Voir les photos »),
+    // l'auto-défilement ne tourne que lorsqu'il est ouvert (donc visible).
+    const panel = root.closest('details');
     render();
-    start();
+    if (panel) {
+      panel.addEventListener('toggle', () => (panel.open ? start() : stop()));
+      if (panel.open) start();
+    } else {
+      start();
+    }
   });
 }
