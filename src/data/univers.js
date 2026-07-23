@@ -79,7 +79,7 @@ export const univers = [
       { k: 'Santé', v: 'Des créneaux rapides chez le kiné.' },
       { k: 'Logistique et financier', v: 'Un soutien sur les déplacements et la logistique.' },
       { k: 'Visibilité', v: 'Vos performances relayées sur nos réseaux.' },
-      { k: 'En équipe', v: 'Les lièvres des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
+      { k: 'En équipe', v: 'Les pacers des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
     ],
     criteria: [
       'La motivation à porter le projet',
@@ -165,8 +165,9 @@ export const univers = [
           signup: true,
         },
         {
-          name: 'Lièvres Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
-          desc: 'Nos lièvres t’emmènent sur la Boucle Vauban, en toute régularité, sur le semi et le 10 km.',
+          name: 'Pacers Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
+          desc: 'Nos pacers t’emmènent sur la Boucle Vauban, en toute régularité : de 36 min à 1 h 10 sur le 10 km, et de 1 h 20 à 2 h 10 sur le semi-marathon.',
+          note: '15 pacers VELCAP sur le parcours, accompagnés des pacers Décathlon.',
         },
         {
           name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
@@ -189,7 +190,7 @@ export const univers = [
           'event-ardeche-1.jpg', 'event-ardeche-2.jpg', 'event-ardeche-3.jpg', 'event-ardeche-4.jpg', 'event-ardeche-5.jpg',
           'event-ardeche-6.jpg', 'event-ardeche-7.jpg', 'event-ardeche-8.jpg', 'event-ardeche-9.jpg', 'event-ardeche-10.jpg',
         ] },
-        { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [
+        { name: 'Pacers Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos pacers ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [
           'event-doubs-1.jpg', 'event-doubs-2.jpg', 'event-doubs-3.jpg', 'event-doubs-4.jpg', 'event-doubs-5.jpg',
           'event-doubs-6.jpg', 'event-doubs-7.jpg', 'event-doubs-8.jpg', 'event-doubs-9.jpg', 'event-doubs-10.jpg',
           'event-doubs-11.jpg', 'event-doubs-12.jpg', 'event-doubs-13.jpg', 'event-doubs-14.jpg', 'event-doubs-15.jpg',
