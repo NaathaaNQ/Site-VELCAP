@@ -186,7 +186,11 @@ export const univers = [
           { src: 'event-forts-9.jpg', alt: 'Fan zone VELCAP au Trail des Forts : pancarte « Le virage VELCAP » face aux coureurs.' },
         ] },
         { name: 'Stage en Ardèche', date: '4 au 11 avril 2026', place: 'Ardèche', desc: 'Une semaine de stage pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.', photos: [] },
-        { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [] },
+        { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [
+          'event-doubs-1.jpg', 'event-doubs-2.jpg', 'event-doubs-3.jpg', 'event-doubs-4.jpg', 'event-doubs-5.jpg',
+          'event-doubs-6.jpg', 'event-doubs-7.jpg', 'event-doubs-8.jpg', 'event-doubs-9.jpg', 'event-doubs-10.jpg',
+          'event-doubs-11.jpg', 'event-doubs-12.jpg', 'event-doubs-13.jpg', 'event-doubs-14.jpg', 'event-doubs-15.jpg',
+        ] },
       ],
     },
     request:
