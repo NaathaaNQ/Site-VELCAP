@@ -220,6 +220,7 @@ export const univers = [
           'Renforcement musculaire et prophylaxie',
           'Sports croisés possibles',
           'Planification des séances via Nolio (gratuit)',
+          'Accès à une communauté WhatsApp',
         ],
       },
       {
