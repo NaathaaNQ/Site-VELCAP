@@ -405,14 +405,23 @@ const se = u.sportEntreprise;
                   {e.note && <p class="ecard__note mono">{e.note}</p>}
 
                   {g.key === 'past' && e.photos && e.photos.length > 0 && (
-                    <button type="button" class="ecard__gallery" data-gallery-open
-                      data-photos={JSON.stringify(e.photos)} data-name={e.name}
-                      aria-haspopup="dialog">
-                      <span class="ecard__gallery-ic" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                      </span>
-                      Voir les photos <span class="ecard__gallery-n mono">{e.photos.length}</span>
-                    </button>
+                    <div class="ecard__gallery-wrap">
+                      <button type="button" class="ecard__gallery" data-gallery-open data-name={e.name} aria-haspopup="dialog">
+                        <span class="ecard__gallery-ic" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                        </span>
+                        Voir les photos <span class="ecard__gallery-n mono">{e.photos.length}</span>
+                      </button>
+                      {/* Sources listées en HTML (chemins réécrits pour file://) ; masquées et
+                          en lazy loading : elles ne sont pas téléchargées, juste lues par la galerie. */}
+                      <div class="ecard__photos" hidden data-gallery-src>
+                        {e.photos.map((ph, k) => {
+                          const src = typeof ph === 'string' ? ph : ph.src;
+                          const alt = typeof ph === 'string' ? `${e.name}, photo ${k + 1}` : ph.alt;
+                          return <img src={`/img/photos/${src}`} alt={alt} loading="lazy" />;
+                        })}
+                      </div>
+                    </div>
                   )}
 
                   {e.link && (
@@ -471,7 +480,7 @@ const se = u.sportEntreprise;
           <button type="button" class="gmodal__arrow gmodal__arrow--prev" data-gallery-prev aria-label="Photo précédente">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
           </button>
-          <img class="gmodal__img" data-gallery-img src="" alt="" loading="lazy" draggable="false" />
+          <img class="gmodal__img" data-gallery-img alt="" loading="lazy" draggable="false" />
           <button type="button" class="gmodal__arrow gmodal__arrow--next" data-gallery-next aria-label="Photo suivante">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
           </button>
@@ -809,6 +818,7 @@ const se = u.sportEntreprise;
   .ecard__gallery:hover { border-color: var(--red); color: var(--red); }
   .ecard__gallery-ic { display: grid; place-items: center; color: var(--red); }
   .ecard__gallery-n { color: var(--smoke); }
+  .ecard__photos { display: none; }
 
   /* Galerie photo en modale, mesurée et centrée */
   .gmodal { position: fixed; inset: 0; z-index: 130; display: grid; place-items: center; padding: 1.2rem;

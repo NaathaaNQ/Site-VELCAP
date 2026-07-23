@@ -18,16 +18,19 @@ export function initGallery({ lenis } = {}) {
 
   const show = (i) => {
     index = (i + photos.length) % photos.length;
-    imgEl.src = `/img/photos/${photos[index]}`;
-    imgEl.alt = `${name} — photo ${index + 1} sur ${photos.length}`;
+    imgEl.src = photos[index].src;
+    imgEl.alt = photos[index].alt || `${name} — photo ${index + 1} sur ${photos.length}`;
     if (countEl) countEl.textContent = `${index + 1} / ${photos.length}`;
   };
   const next = () => show(index + 1);
   const prev = () => show(index - 1);
 
   const open = (trigger) => {
-    try { photos = JSON.parse(trigger.dataset.photos || '[]'); }
-    catch { photos = []; }
+    // Les chemins viennent des <img> listés en HTML (donc déjà corrects pour le
+    // web comme pour file://) plutôt que reconstruits en JS.
+    const card = trigger.closest('.ecard') || trigger.closest('.ecard__gallery-wrap');
+    const sources = card ? [...card.querySelectorAll('[data-gallery-src] img')] : [];
+    photos = sources.map((im) => ({ src: im.getAttribute('src'), alt: im.getAttribute('alt') || '' }));
     if (!photos.length) return;
     name = trigger.dataset.name || '';
     lastFocus = trigger;

@@ -179,7 +179,12 @@ export const univers = [
       // ex. photos: ['event-volodalen-1.jpg', 'event-volodalen-2.jpg']. Tableau vide = pas de carrousel.
       past: [
         { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.', photos: [] },
-        { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.', photos: ['event-forts-1.jpg', 'event-forts-2.jpg', 'event-forts-3.jpg', 'event-forts-4.jpg', 'event-forts-5.jpg', 'event-forts-6.jpg', 'event-forts-7.jpg'] },
+        // photos : chemin simple (string) ou objet { src, alt } pour un texte alternatif précis.
+        { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.', photos: [
+          'event-forts-1.jpg', 'event-forts-2.jpg', 'event-forts-3.jpg', 'event-forts-4.jpg', 'event-forts-5.jpg', 'event-forts-6.jpg', 'event-forts-7.jpg',
+          { src: 'event-forts-8.jpg', alt: "Fan zone VELCAP au Trail des Forts : banderole « T'es grand » et membres au bord du parcours." },
+          { src: 'event-forts-9.jpg', alt: 'Fan zone VELCAP au Trail des Forts : pancarte « Le virage VELCAP » face aux coureurs.' },
+        ] },
         { name: 'Stage en Ardèche', date: '4 au 11 avril 2026', place: 'Ardèche', desc: 'Une semaine de stage pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.', photos: [] },
         { name: 'Lièvres Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos lièvres ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [] },
       ],
