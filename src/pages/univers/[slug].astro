@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
 import WaitlistForm from '../../components/WaitlistForm.astro';
 import { univers } from '../../data/univers.js';
+import { site } from '../../data/site.js';
 
 export function getStaticPaths() {
   return univers.map((u, i) => ({
@@ -164,6 +165,7 @@ const se = u.sportEntreprise;
           idPrefix="ffc"
           ctaLabel={u.cta}
           eventName={u.name}
+          subject={`Liste d'attente ${u.name} - site VELCAP`}
           context={`au lancement du ${u.name}`}
           success="Merci {firstname}, tu es sur la liste. On te prévient dès l'ouverture."
         />
@@ -438,6 +440,7 @@ const se = u.sportEntreprise;
                           idPrefix={`ride-${i}`}
                           ctaLabel="Envoyer mon inscription"
                           eventName={e.name}
+                          subject={`Inscription ${e.name} - site VELCAP`}
                           context={`pour mon inscription au ${e.name}`}
                           withPhone
                           withMessage
@@ -455,6 +458,7 @@ const se = u.sportEntreprise;
                           idPrefix={`notify-${i}`}
                           ctaLabel="Me prévenir à l'ouverture"
                           eventName={e.name}
+                          subject={`Recontact ouverture ${e.name} - site VELCAP`}
                           context={`à l'ouverture des inscriptions du ${e.name}`}
                           success="Merci {firstname}, c'est noté. On te prévient dès l'ouverture des inscriptions."
                         />
@@ -591,6 +595,9 @@ const se = u.sportEntreprise;
         <p class="mono eyebrow">{u.name}</p>
         <h2 class="umodal__title display">{form.title}</h2>
         <form class="umodal__form" data-univers-form novalidate>
+          <input type="hidden" name="access_key" value={site.web3formsKey} />
+          <input type="hidden" name="subject" value={`${form.title} - site VELCAP`} />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           {form.fields.map((f) => (
             <div class={`field ${f.type === 'textarea' ? 'field--full' : ''}`}>
               <label class="mono" for={`m-${f.name}`}>{f.label}{f.required ? ' *' : ''}</label>

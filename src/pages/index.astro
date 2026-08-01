@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Turntable from '../components/Turntable.astro';
 import Photo from '../components/Photo.astro';
 import { univers } from '../data/univers.js';
+import { site } from '../data/site.js';
 
 // Emplacements partenaires — remplacer le libellé par une vraie image de logo
 // dès qu'elle est fournie (public/img/partenaires/…).
@@ -126,6 +127,9 @@ const partners = ['Votre logo', 'Votre logo', 'Votre logo', 'Votre logo', 'Votre
       </div>
 
       <form class="engager__form" data-engage-form data-reveal data-delay="0.1" novalidate>
+        <input type="hidden" name="access_key" value={site.web3formsKey} />
+        <input type="hidden" name="subject" value="Nouvelle demande (accueil) - site VELCAP" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="field">
           <label class="mono" for="f-firstname">Prénom</label>
           <input id="f-firstname" name="firstname" type="text" placeholder="Ton prénom" required />

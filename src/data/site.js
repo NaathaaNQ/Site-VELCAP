@@ -5,6 +5,8 @@ export const site = {
   phone: '07 50 45 57 58',
   phoneHref: '+33750455758',
   address: '15 rue de la Combe, 25750 Désandans',
+  // Clé publique Web3Forms : réception des formulaires par e-mail.
+  web3formsKey: '42c8cd40-198a-4dbf-b5a4-50ddcfe6ab2d',
   // Renseigner l'URL exacte du compte quand elle est connue.
   socials: [
     { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/velcap_team/' },

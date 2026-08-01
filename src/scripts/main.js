@@ -138,6 +138,32 @@ function initMagnetic() {
   });
 }
 
+// Envoi d'un formulaire vers Web3Forms (réception par e-mail). Gère l'état du
+// bouton et les messages de succès / d'erreur affichés à l'utilisateur.
+async function submitWeb3Form(form, out, successMsg) {
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+  const btn = form.querySelector('[type="submit"]');
+  btn?.setAttribute('disabled', 'true');
+  if (out) { out.textContent = 'Envoi en cours…'; out.classList.remove('is-error'); }
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      if (out) out.textContent = successMsg;
+      form.reset();                       // vide les champs ; le bouton reste désactivé
+    } else {
+      throw new Error(data.message || 'echec');
+    }
+  } catch {
+    if (out) { out.textContent = "Oups, l'envoi a échoué. Réessaie, ou écris-nous à velcapteam@gmail.com."; out.classList.add('is-error'); }
+    btn?.removeAttribute('disabled');     // on laisse réessayer
+  }
+}
+
 function initForm() {
   const form = document.querySelector('[data-engage-form]');
   if (!form) return;
@@ -151,10 +177,7 @@ function initForm() {
   }
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')}, demande « ${data.get('interest')} » reçue. On te recontacte très vite.`;
-    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+    submitWeb3Form(form, out, 'Merci, ta demande a bien été envoyée ! On te recontacte très vite.');
   });
 }
 
@@ -164,10 +187,7 @@ function initContactForm() {
   const out = form.querySelector('[data-contact-feedback]');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name') || ''}, ton message est bien parti. On te répond très vite.`;
-    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+    submitWeb3Form(form, out, 'Merci, ton message a bien été envoyé ! On te répond très vite.');
   });
 }
 
@@ -179,10 +199,8 @@ function initWaitlistForms() {
     const tpl = form.dataset.success || "Merci {firstname}, c'est bien noté. On revient vers toi très vite.";
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      const data = new FormData(form);
-      if (out) out.textContent = tpl.replace('{firstname}', data.get('firstname') || '');
-      form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+      const first = form.querySelector('[name="firstname"]')?.value || '';
+      submitWeb3Form(form, out, tpl.replace('{firstname}', first));
     });
   });
 }
@@ -219,10 +237,7 @@ function initUniversModal() {
   const out = modal.querySelector('[data-univers-feedback]');
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    const data = new FormData(form);
-    if (out) out.textContent = `Merci ${data.get('firstname') || data.get('name')}, demande reçue. On te recontacte très vite.`;
-    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
+    submitWeb3Form(form, out, 'Merci, ta demande a bien été envoyée ! On te recontacte très vite.');
   });
 }
 

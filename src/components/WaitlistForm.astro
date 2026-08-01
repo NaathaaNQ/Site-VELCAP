@@ -2,9 +2,8 @@
 // Formulaire de collecte réutilisable (liste d'attente / inscription).
 // Utilisé par : Club FFC (informé du lancement), Corrida de Salins (recontact),
 // Social Ride (inscription, avec téléphone + message). Style identique partout.
-//
-// Web3Forms : ajouter la clé dans un champ caché name="access_key" pour activer
-// l'envoi réel (voir la doc). En attendant, l'envoi est géré côté client (main.js).
+// Envoi vers Web3Forms (champs cachés access_key + subject + honeypot botcheck).
+import { site } from '../data/site.js';
 const {
   ctaLabel = 'Envoyer',
   context = 'pour traiter ma demande',     // fragment inséré dans la phrase de consentement
@@ -15,9 +14,13 @@ const {
   narrow = false,                           // largeur limitée + centré (page FFC)
   big = false,                              // bouton btn--lg
   success = "Merci {firstname}, c'est bien noté. On revient vers toi très vite.",
+  subject = 'Nouvelle demande - site VELCAP',  // objet de l'e-mail reçu
 } = Astro.props;
 ---
 <form class={`wlform ${narrow ? 'wlform--narrow' : ''}`} data-waitlist-form data-success={success} novalidate>
+  <input type="hidden" name="access_key" value={site.web3formsKey} />
+  <input type="hidden" name="subject" value={subject} />
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <div class="field">
     <label class="mono" for={`${idPrefix}-firstname`}>Prénom</label>
     <input id={`${idPrefix}-firstname`} name="firstname" type="text" autocomplete="given-name" placeholder="Ton prénom" required />
