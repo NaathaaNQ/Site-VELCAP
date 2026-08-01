@@ -258,7 +258,9 @@ const se = u.sportEntreprise;
               ) : (
                 <p class="tier__soon mono">Détails à venir</p>
               )}
-              <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
+              {u.slug !== 'team-loisirs' && (
+                <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
+              )}
             </article>
           ))}
         </div>
