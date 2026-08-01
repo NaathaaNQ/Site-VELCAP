@@ -267,9 +267,8 @@ export const univers = [
       text: "Des séances collectives pour dynamiser vos équipes : running, renforcement et cohésion, encadrés par nos coachs. Un format adapté à votre structure et à vos disponibilités.",
     },
     sportEntreprise: {
-      tag: 'Vous êtes une entreprise, un CE ou un service RH ?',
-      title: 'Sport en entreprise',
-      subtitle: 'Le sport, un levier pour vos équipes.',
+      eyebrow: 'Sport en entreprise',
+      title: 'Le sport, un levier pour vos équipes',
       intro: "Un programme collectif, sur vos horaires et dans vos locaux. Bon pour vos collaborateurs, bon pour l'entreprise.",
       benefits: [
         {

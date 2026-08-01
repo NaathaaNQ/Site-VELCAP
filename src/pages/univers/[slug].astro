@@ -317,9 +317,8 @@ const se = u.sportEntreprise;
       <div class="container">
         <div class="se__head" data-reveal>
           <div class="se__headline">
-            {se.tag && <p class="se__tag mono">{se.tag}</p>}
+            <p class="mono eyebrow">{se.eyebrow}</p>
             <h2 class="se__title display">{se.title}</h2>
-            {se.subtitle && <p class="se__subtitle">{se.subtitle}</p>}
           </div>
           {se.intro && <p class="se__intro">{se.intro}</p>}
         </div>
@@ -882,12 +881,7 @@ const se = u.sportEntreprise;
 
   /* — Sport en entreprise (refonte) — */
   .se__head { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(1rem, 3vw, 3rem); align-items: end; margin-bottom: clamp(1.8rem, 4vw, 2.8rem); }
-  /* accroche qui interpelle la cible (pastille rouge, bien visible) */
-  .se__tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--red); color: #fff;
-    padding: 0.5rem 1rem 0.55rem; border-radius: 999px; font-weight: 600; letter-spacing: 0.1em; }
-  .se__tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
-  .se__title { font-size: var(--fs-h2); margin-top: 0.9rem; }
-  .se__subtitle { font-size: clamp(1.15rem, 1rem + 0.7vw, 1.6rem); color: #3a3a40; font-weight: 500; line-height: 1.25; margin-top: 0.6rem; }
+  .se__title { font-size: var(--fs-h2); margin-top: 0.5rem; }
   .se__intro { font-size: var(--fs-lead); color: #3a3a40; line-height: 1.45; max-width: 40ch; padding-bottom: 0.3rem; }
 
   /* deux volets côte à côte : clair (bénéfices) + sombre (fiscal), asymétrique */
