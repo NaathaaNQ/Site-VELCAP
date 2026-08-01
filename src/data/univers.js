@@ -117,6 +117,7 @@ export const univers = [
     coaches: [
       { name: 'Hugo Gachod', photo: 'coach-hugo.jpg' },
       { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
+      { name: 'Adam Montega', photo: 'coach-adam.jpg' },
     ],
     cta: 'Prendre une licence FFA',
     ctaKind: 'Licence',
