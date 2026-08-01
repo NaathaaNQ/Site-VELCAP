@@ -513,18 +513,15 @@ const se = u.sportEntreprise;
         <div class="coaches__head" data-reveal>
           <p class="mono eyebrow">L'encadrement</p>
           <h2 class="coaches__title display">Les coachs</h2>
-          <p class="coaches__note mono">Cartes d'exemple, prêtes à recevoir les vrais profils.</p>
         </div>
-        <div class="coaches__grid" data-reveal-group>
-          {u.coaches.map((c, i) => (
+        <div class={`coaches__grid coaches__grid--${u.coaches.length}`} data-reveal-group>
+          {u.coaches.map((c) => (
             <article class="coach" data-reveal-item>
               <div class="coach__photo">
-                <Photo src={`coach-${u.slug}-${i + 1}.jpg`} treatment="bw" slug={u.slug} alt={c.name} hint={false} />
+                <Photo src={c.photo} treatment="bw" slug={u.slug} alt={`${c.name}, entraîneur`} hint={false} />
               </div>
               <div class="coach__body">
-                <p class="coach__role mono">{c.role}</p>
                 <h3 class="coach__name display">{c.name}</h3>
-                <p class="coach__line">{c.line}</p>
               </div>
             </article>
           ))}
@@ -679,15 +676,15 @@ const se = u.sportEntreprise;
   /* — Coachs — */
   .coaches__head { margin-bottom: clamp(1.4rem, 3vw, 2rem); }
   .coaches__title { font-size: var(--fs-h3); margin: 0.4rem 0 0.4rem; }
-  .coaches__note { color: var(--smoke); text-transform: none; letter-spacing: 0.04em; }
   .coaches__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem); }
+  /* colonnes selon le nombre de coachs (2 -> largeur limitée, 4 -> quatre de front) */
+  .coaches__grid--2 { grid-template-columns: repeat(2, 1fr); max-width: 660px; }
+  .coaches__grid--4 { grid-template-columns: repeat(4, 1fr); }
   .coach { background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
   .coach:hover { transform: translateY(-4px); }
   .coach__photo { position: relative; aspect-ratio: 4 / 5; }
   .coach__body { padding: 1.1rem 1.2rem 1.4rem; }
-  .coach__role { color: var(--red); }
-  .coach__name { font-size: clamp(1.3rem, 2.4vw, 1.85rem); margin: 0.3rem 0 0.45rem; }
-  .coach__line { color: #4a4a50; font-size: 0.96rem; }
+  .coach__name { font-size: clamp(1.3rem, 2.4vw, 1.85rem); margin: 0; }
 
   /* — Témoignages — */
   .testimonials__head { margin-bottom: clamp(1.4rem, 3vw, 2rem); }

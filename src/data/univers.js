@@ -58,9 +58,9 @@ export const univers = [
       },
     ],
     coaches: [
-      { name: 'Prénom Nom', role: 'Coach running', line: 'Séances du mardi, spécialiste route et endurance.' },
-      { name: 'Prénom Nom', role: 'Coach trail', line: 'Sorties nature et préparation aux courses de trail.' },
-      { name: 'Prénom Nom', role: 'Prépa physique', line: 'Renforcement, mobilité et prévention des blessures.' },
+      { name: 'Xavier Hubner', photo: 'coach-xavier.jpg' },
+      { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
+      { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
     ],
     cta: 'Adhérer au Team Loisirs',
     ctaKind: 'Adhésion',
@@ -115,9 +115,8 @@ export const univers = [
       text: "Jeune ou adulte, viens essayer le club pendant deux jours d'essai gratuits avant de prendre ta licence FFA.",
     },
     coaches: [
-      { name: 'Prénom Nom', role: 'Entraîneur jeunes', line: 'Initiation et formation des plus jeunes sur piste.' },
-      { name: 'Prénom Nom', role: 'Entraîneur piste', line: 'Sprint, demi-fond et préparation aux compétitions.' },
-      { name: 'Prénom Nom', role: 'Entraîneur route et cross', line: 'Endurance, cross et objectifs fédéraux.' },
+      { name: 'Hugo Gachod', photo: 'coach-hugo.jpg' },
+      { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
     ],
     cta: 'Prendre une licence FFA',
     ctaKind: 'Licence',
@@ -301,9 +300,10 @@ export const univers = [
       cta: { label: 'Discuter d’un projet entreprise', href: '/contact' },
     },
     coaches: [
-      { name: 'Prénom Nom', role: 'Coach', line: 'Accompagnement individualisé, construit autour de ton objectif.' },
-      { name: 'Prénom Nom', role: 'Coach', line: 'Suivi régulier, plan d’entraînement et ajustements en continu.' },
-      { name: 'Prénom Nom', role: 'Coach', line: 'De la reprise à la performance, à ton rythme.' },
+      { name: 'Hugo Gachod', photo: 'coach-hugo.jpg' },
+      { name: 'Luc Le Baron', photo: 'coach-luc.jpg' },
+      { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
+      { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
     ],
     // Témoignages : structure prête, à remplacer par les vrais retours des coachés.
     testimonials: [
