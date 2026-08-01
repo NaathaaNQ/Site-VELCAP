@@ -262,6 +262,20 @@ const se = u.sportEntreprise;
             </article>
           ))}
         </div>
+
+        {u.slug === 'team-loisirs' && (
+          <div class="helloasso" data-reveal>
+            <iframe
+              id="haWidgetButton"
+              class="helloasso__btn"
+              title="Adhérer à VELCAP via HelloAsso"
+              allowtransparency="true"
+              loading="lazy"
+              src="https://www.helloasso.com/associations/team-velcap/adhesions/adhesion-2026-2027/widget-bouton"
+            ></iframe>
+          </div>
+        )}
+
         {u.engagement && (
           <div class="engage-cond" data-reveal>
             <p class="engage-cond__title mono">{u.engagement.title}</p>
@@ -761,6 +775,10 @@ const se = u.sportEntreprise;
     flex-shrink: 0; display: grid; place-items: center; width: 1.9rem; height: 1.9rem;
     border-radius: 50%; background: var(--red); color: #fff; font-weight: 700; font-size: 1.15rem; line-height: 1;
   }
+  /* bouton d'adhésion HelloAsso (widget iframe) : pleine largeur sur mobile,
+     largeur maîtrisée et centrée sur desktop */
+  .helloasso { margin-top: clamp(1.8rem, 4vw, 2.6rem); display: flex; justify-content: center; }
+  .helloasso__btn { width: 100%; max-width: 420px; height: 70px; border: 0; display: block; }
   /* conditions d'engagement (coaching) */
   .engage-cond {
     margin-top: clamp(1.6rem, 3vw, 2.4rem);
