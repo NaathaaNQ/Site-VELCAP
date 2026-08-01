@@ -7,6 +7,6 @@ export const site = {
   address: '15 rue de la Combe, 25750 Désandans',
   // Renseigner l'URL exacte du compte quand elle est connue.
   socials: [
-    { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/velcap' },
+    { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/velcap_team/' },
   ],
 };
