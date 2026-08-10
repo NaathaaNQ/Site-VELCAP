@@ -61,6 +61,7 @@ export const univers = [
       { name: 'Xavier Hubner', photo: 'coach-xavier.jpg' },
       { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
       { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
+      { name: 'Adam Montega', photo: 'coach-adam.jpg' },
     ],
     cta: 'Adhérer au Team Loisirs',
     ctaKind: 'Adhésion',
