@@ -29,10 +29,10 @@ const FIELD = {
 };
 const FORMS = {
   'team-loisirs': {
-    title: 'Adhérer à Loisirs VELCAP',
+    title: 'Adhérer au Team Loisirs',
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
       { name: 'tier', label: 'Formule', type: 'select', required: true,
-        options: ['Adhésion Communauté · 180 € / an', 'Adhésion Communauté Plus · 220 € / an'] },
+        options: ['Loisirs VELCAP · 180 € / an', 'Loisirs VELLECAP · 180 € / an'] },
       FIELD.message],
   },
   'team-elite': {
@@ -105,12 +105,7 @@ const SE_ICON = {
 };
 const se = u.sportEntreprise;
 
-// Bloc(s) d'offre : Loisirs affiche deux groupes (VELCAP mixte + VELLECAP
-// féminin), les autres univers un seul groupe simple (`plain`, ex. coaching).
-const offerBlocks = u.loisirsGroups
-  ? u.loisirsGroups
-  : (u.tiers ? [{ tiers: u.tiers, plain: true }] : null);
-// Met « ELLE » en rouge à l'intérieur du wordmark VELLECAP.
+// Met « ELLE » en rouge à l'intérieur du wordmark VELLECAP (carte Loisirs féminin).
 const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE</span>CAP');
 ---
 <Base title={`${u.name} · VELCAP`} description={u.intro}>
@@ -228,76 +223,63 @@ const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE
     </section>
   )}
 
-  {offerBlocks && (
+  {u.tiers && (
     <section class="section tiers">
       <div class="container">
-        {offerBlocks.map((blk) => (
-          <div class={`offer ${blk.plain ? '' : 'offer--named'}`}>
-            {blk.plain ? (
-              <p class="mono eyebrow" data-reveal>{blk.tiers.length === 2 ? 'Deux adhésions' : 'Trois formules'}</p>
-            ) : (
-              <header class="offer__head" data-reveal>
-                <h2 class="offer__name display" set:html={wordmark(blk.name)}></h2>
-                <p class="offer__meta">
-                  <span class={`offer__badge mono ${blk.feminin ? 'offer__badge--fem' : 'offer__badge--mix'}`}>{blk.tag}</span>
-                  {blk.tagline && <span class="offer__tagline">{blk.tagline}</span>}
-                </p>
-              </header>
-            )}
-            <div class={`tiers__grid tiers__grid--${blk.tiers.length}`} data-reveal-group>
-              {blk.tiers.map((t) => (
-                <article class={`tier ${t.highlight ? 'tier--hl' : ''}`} data-reveal-item>
-                  {t.highlight && <span class="tier__badge mono">Le + complet</span>}
-                  <h3 class="tier__name display">{t.name}</h3>
-                  {t.price ? (
-                    <p class="tier__price display">{t.price}{t.per && <span class="tier__per mono">{t.per}</span>}{t.asterisk && <span class="tier__ast" aria-hidden="true">*</span>}</p>
-                  ) : (
-                    <p class="tier__price tier__price--soft mono">Sur devis</p>
-                  )}
-                  {t.sub && <p class="tier__sub mono">{t.sub}</p>}
-                  {t.shortPrice && <p class="tier__short">Prépa de moins de 6 mois : <strong>{t.shortPrice}/mois</strong></p>}
-                  {t.tagline && <p class="tier__tagline">{t.tagline}</p>}
-                  {t.features && t.features.length > 0 ? (
-                    <ul class="tier__features">
-                      {t.features.map((f) => (
-                        typeof f === 'string' ? (
-                          <li>{f}</li>
-                        ) : (
-                          <li class="tier__feat--rich">
-                            <details class="feat-acc">
-                              <summary class="feat-acc__sum">{f.text}</summary>
-                              {f.detailsLead && <p class="feat-acc__lead">{f.detailsLead}</p>}
-                              <ul class="feat-acc__list">
-                                {f.details.map((d) => <li>{d}</li>)}
-                              </ul>
-                            </details>
-                          </li>
-                        )
-                      ))}
-                    </ul>
-                  ) : (
-                    <p class="tier__soon mono">Détails à venir</p>
-                  )}
-                  {blk.plain && (
-                    <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
-                  )}
-                </article>
-              ))}
-            </div>
+        <p class="mono eyebrow" data-reveal>{u.tiers.length === 2 ? 'Deux adhésions' : 'Trois formules'}</p>
+        <div class={`tiers__grid tiers__grid--${u.tiers.length}`} data-reveal-group>
+          {u.tiers.map((t) => (
+            <article class={`tier ${t.highlight ? 'tier--hl' : ''}`} data-reveal-item>
+              {t.highlight && <span class="tier__badge mono">Le + complet</span>}
+              <h3 class="tier__name display" set:html={wordmark(t.name)}></h3>
+              {t.mention && <p class="tier__mention">{t.mention}</p>}
+              {t.price ? (
+                <p class="tier__price display">{t.price}{t.per && <span class="tier__per mono">{t.per}</span>}{t.asterisk && <span class="tier__ast" aria-hidden="true">*</span>}</p>
+              ) : (
+                <p class="tier__price tier__price--soft mono">Sur devis</p>
+              )}
+              {t.sub && <p class="tier__sub mono">{t.sub}</p>}
+              {t.shortPrice && <p class="tier__short">Prépa de moins de 6 mois : <strong>{t.shortPrice}/mois</strong></p>}
+              {t.tagline && <p class="tier__tagline">{t.tagline}</p>}
+              {t.features && t.features.length > 0 ? (
+                <ul class="tier__features">
+                  {t.features.map((f) => (
+                    typeof f === 'string' ? (
+                      <li>{f}</li>
+                    ) : (
+                      <li class="tier__feat--rich">
+                        <details class="feat-acc">
+                          <summary class="feat-acc__sum">{f.text}</summary>
+                          {f.detailsLead && <p class="feat-acc__lead">{f.detailsLead}</p>}
+                          <ul class="feat-acc__list">
+                            {f.details.map((d) => <li>{d}</li>)}
+                          </ul>
+                        </details>
+                      </li>
+                    )
+                  ))}
+                </ul>
+              ) : (
+                <p class="tier__soon mono">Détails à venir</p>
+              )}
+              {u.slug !== 'team-loisirs' && (
+                <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
+              )}
+            </article>
+          ))}
+        </div>
 
-            {!blk.plain && (
-              <div class="helloasso" data-reveal>
-                <iframe
-                  class="helloasso__btn"
-                  title={`Adhérer à ${blk.name} via HelloAsso`}
-                  allowtransparency="true"
-                  loading="lazy"
-                  src="https://www.helloasso.com/associations/team-velcap/adhesions/adhesion-2026-2027/widget-bouton"
-                ></iframe>
-              </div>
-            )}
+        {u.slug === 'team-loisirs' && (
+          <div class="helloasso" data-reveal>
+            <iframe
+              class="helloasso__btn"
+              title="Adhérer au Team Loisirs via HelloAsso"
+              allowtransparency="true"
+              loading="lazy"
+              src="https://www.helloasso.com/associations/team-velcap/adhesions/adhesion-2026-2027/widget-bouton"
+            ></iframe>
           </div>
-        ))}
+        )}
 
         {u.engagement && (
           <div class="engage-cond" data-reveal>
@@ -533,7 +515,7 @@ const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE
     </div>
   )}
 
-  {!u.comingSoon && !u.tiers && !u.loisirsGroups && (
+  {!u.comingSoon && !u.tiers && (
     <section class="ucta section--dark">
       <div class="container ucta__inner">
         <p class="mono eyebrow" data-reveal>Passer à l'action</p>
@@ -751,15 +733,10 @@ const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE
   .schedule__q { font-size: clamp(2.6rem, 7vw, 5rem); color: var(--red); line-height: 1; }
   .schedule__note { color: var(--smoke); align-self: center; }
 
-  /* deux blocs d'offre nommés (Loisirs VELCAP mixte / VELLECAP féminin) */
-  .offer--named + .offer--named { margin-top: clamp(3rem, 7vw, 5.5rem); padding-top: clamp(2.4rem, 5vw, 4rem); border-top: 1px solid var(--hairline); }
-  .offer__name { font-size: clamp(2.3rem, 1.3rem + 4vw, 4.6rem); line-height: 0.92; }
+  /* « ELLE » en rouge dans le wordmark VELLECAP (carte Loisirs féminin) */
   :global(.wm-elle) { color: var(--red); }
-  .offer__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem 1rem; margin-top: 0.9rem; }
-  .offer__badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.4rem 0.9rem; font-weight: 600; letter-spacing: 0.1em; }
-  .offer__badge--mix { color: var(--ink); border: 1.5px solid var(--ink); }
-  .offer__badge--fem { color: #fff; background: var(--red); }
-  .offer__tagline { color: #4a4a50; font-size: var(--fs-lead); }
+  /* mention mixte / féminin sous le titre de carte (même traitement des deux côtés) */
+  .tier__mention { margin: 0.1rem 0 0.5rem; color: #4a4a50; font-size: 0.95rem; line-height: 1.35; max-width: 34ch; }
 
   .tiers__grid { display: grid; gap: clamp(1rem, 2vw, 1.5rem); margin-top: 1.5rem; }
   .tiers__grid--2 { grid-template-columns: repeat(2, 1fr); }

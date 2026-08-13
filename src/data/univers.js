@@ -5,110 +5,53 @@ export const univers = [
   {
     slug: 'team-loisirs',
     index: '01',
-    name: 'Loisirs VELCAP',
-    discipline: 'Communauté · loisir',
+    name: 'Team Loisirs',
+    discipline: 'Course à pied · loisir',
     lead: 'Grand débutant ou coureur aguerri, on court ensemble.',
     intro:
-      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
+      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: ['Mardi · 19h00 à 20h30', 'Jeudi · 19h00 à 20h30'],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
     freeTrial: {
       title: "Deux jours d'essai, gratuits",
-      text: "Viens tester Loisirs VELCAP pendant deux jours d'essai gratuits, un mardi et un jeudi soir, sans aucun engagement.",
+      text: "Viens tester le Team Loisirs pendant deux jours d'essai gratuits, un mardi et un jeudi soir, sans aucun engagement.",
     },
-    // Deux blocs d'offre sur la même page : Loisirs VELCAP (mixte) et
-    // Loisirs VELLECAP (100 % féminin). Même offre dupliquée pour l'instant ;
-    // chaque bloc a ses propres `tiers`, éditables indépendamment plus tard.
-    loisirsGroups: [
+    // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
+    // VELLECAP (100 % féminin). Même contenu, même prix ; la distinction se
+    // fait par le nom (« ELLE » en rouge) et la mention sous le titre.
+    tiers: [
       {
         name: 'Loisirs VELCAP',
-        tag: 'Mixte',
-        tagline: 'Ouvert à toutes et à tous.',
-        tiers: [
-          {
-            name: 'Adhésion Communauté',
-            price: '180 €',
-            per: '/an',
-            sub: 'soit 15 € par mois',
-            features: [
-              '2 entraînements encadrés / semaine (mardi et jeudi, 19h à 20h30)',
-              'Accès à une communauté WhatsApp',
-              'Jeux concours exclusifs',
-              '1 social run festif par mois',
-              'Participation à tous nos événements',
-              'Un maillot VELCAP',
-            ],
-          },
-          {
-            name: 'Adhésion Communauté Plus',
-            price: '220 €',
-            per: '/an',
-            sub: 'soit 18,33 € par mois',
-            features: [
-              "Toute l'offre Communauté, et en plus :",
-              '1 séance de renforcement par semaine',
-              'Accès prioritaire chez le kiné',
-              'Des séminaires nutrition',
-              {
-                text: '2 courses objectifs par an accompagnées de A à Z',
-                detailsLead: 'La semaine qui précède chaque course :',
-                details: [
-                  "Entraînements d'affûtage",
-                  'Conseils récupération et sommeil',
-                  'Stratégie nutritionnelle avant course',
-                  'Plan de pacing pour le jour J',
-                  'Stratégie de nutrition pendant la course',
-                ],
-              },
-            ],
-          },
+        mention: 'Ouvert à toutes et à tous',
+        price: '180 €',
+        per: '/an',
+        sub: 'soit 15 € par mois',
+        features: [
+          'Un maillot VELCAP',
+          '2 entraînements encadrés par semaine (mardi et jeudi, 19h à 20h30)',
+          'Séminaires micronutrition, nutrition et préparation physique',
+          'Accès à la communauté WhatsApp',
+          'Jeux concours exclusifs',
+          '1 social run festif par mois',
+          'Participation à tous nos événements',
         ],
       },
       {
         name: 'Loisirs VELLECAP',
-        feminin: true,
-        tag: '100 % féminin',
-        tagline: "Rien qu'entre elles.",
-        tiers: [
-          {
-            name: 'Adhésion Communauté',
-            price: '180 €',
-            per: '/an',
-            sub: 'soit 15 € par mois',
-            features: [
-              '2 entraînements encadrés / semaine (mardi et jeudi, 19h à 20h30)',
-              'Accès à une communauté WhatsApp',
-              'Jeux concours exclusifs',
-              '1 social run festif par mois',
-              'Participation à tous nos événements',
-              'Un maillot VELCAP',
-            ],
-          },
-          {
-            name: 'Adhésion Communauté Plus',
-            price: '220 €',
-            per: '/an',
-            sub: 'soit 18,33 € par mois',
-            features: [
-              "Toute l'offre Communauté, et en plus :",
-              '1 séance de renforcement par semaine',
-              'Accès prioritaire chez le kiné',
-              'Des séminaires nutrition',
-              {
-                text: '2 courses objectifs par an accompagnées de A à Z',
-                detailsLead: 'La semaine qui précède chaque course :',
-                details: [
-                  "Entraînements d'affûtage",
-                  'Conseils récupération et sommeil',
-                  'Stratégie nutritionnelle avant course',
-                  'Plan de pacing pour le jour J',
-                  'Stratégie de nutrition pendant la course',
-                ],
-              },
-            ],
-          },
+        mention: 'Une formule pensée pour les femmes, dans un cadre 100 % féminin',
+        price: '180 €',
+        per: '/an',
+        sub: 'soit 15 € par mois',
+        features: [
+          'Un maillot VELCAP',
+          '2 entraînements encadrés par semaine (mardi et jeudi, 19h à 20h30)',
+          'Séminaires micronutrition, nutrition et préparation physique',
+          'Accès à la communauté WhatsApp',
+          'Jeux concours exclusifs',
+          '1 social run festif par mois',
+          'Participation à tous nos événements',
         ],
       },
     ],
@@ -118,7 +61,7 @@ export const univers = [
       { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
       { name: 'Adam Montega', photo: 'coach-adam.jpg' },
     ],
-    cta: 'Adhérer à Loisirs VELCAP',
+    cta: 'Adhérer au Team Loisirs',
     ctaKind: 'Adhésion',
   },
   {
