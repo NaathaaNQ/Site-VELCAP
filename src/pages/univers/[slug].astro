@@ -525,25 +525,49 @@ const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE
     </section>
   )}
 
-  {u.coaches && (
+  {(u.coaches || u.coachGroups) && (
     <section class="section coaches">
       <div class="container">
         <div class="coaches__head" data-reveal>
           <p class="mono eyebrow">L'encadrement</p>
           <h2 class="coaches__title display">Les coachs</h2>
         </div>
-        <div class={`coaches__grid coaches__grid--${u.coaches.length}`} data-reveal-group>
-          {u.coaches.map((c) => (
-            <article class="coach" data-reveal-item>
-              <div class="coach__photo">
-                <Photo src={c.photo} treatment="bw" slug={u.slug} alt={`${c.name}, entraîneur`} hint={false} />
+        {u.coachGroups ? (
+          u.coachGroups.map((g) => (
+            <div class="coach-group">
+              <div class="coach-group__head" data-reveal>
+                <h3 class="coach-group__label display">{g.label}</h3>
+                {g.note && <p class="coach-group__note mono">{g.note}</p>}
               </div>
-              <div class="coach__body">
-                <h3 class="coach__name display">{c.name}</h3>
+              <div class={`coaches__grid coaches__grid--${g.coaches.length}`} data-reveal-group>
+                {g.coaches.map((c) => (
+                  <article class="coach" data-reveal-item>
+                    <div class="coach__photo">
+                      <Photo src={c.photo} treatment="bw" slug={u.slug} alt={`${c.name}, ${c.role || 'entraîneur'}`} hint={false} />
+                    </div>
+                    <div class="coach__body">
+                      <h3 class="coach__name display">{c.name}</h3>
+                      {c.role && <p class="coach__role mono">{c.role}</p>}
+                    </div>
+                  </article>
+                ))}
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          ))
+        ) : (
+          <div class={`coaches__grid coaches__grid--${u.coaches.length}`} data-reveal-group>
+            {u.coaches.map((c) => (
+              <article class="coach" data-reveal-item>
+                <div class="coach__photo">
+                  <Photo src={c.photo} treatment="bw" slug={u.slug} alt={`${c.name}, entraîneur`} hint={false} />
+                </div>
+                <div class="coach__body">
+                  <h3 class="coach__name display">{c.name}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )}
@@ -703,6 +727,13 @@ const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE
   .coach__photo { position: relative; aspect-ratio: 4 / 5; }
   .coach__body { padding: 1.1rem 1.2rem 1.4rem; }
   .coach__name { font-size: clamp(1.3rem, 2.4vw, 1.85rem); margin: 0; }
+  .coach__role { color: var(--red); text-transform: none; letter-spacing: 0.04em; margin: 0.35rem 0 0; }
+  /* Encadrement séparé par groupe (Team Loisirs : VELCAP / VELLECAP) */
+  .coach-group { margin-top: clamp(1.6rem, 3.5vw, 2.6rem); }
+  .coach-group:first-of-type { margin-top: 0; }
+  .coach-group__head { border-top: 1px solid var(--hairline); padding-top: clamp(0.9rem, 2vw, 1.3rem); margin-bottom: clamp(1rem, 2.2vw, 1.5rem); }
+  .coach-group__label { font-size: clamp(1.4rem, 3vw, 2rem); margin: 0; }
+  .coach-group__note { color: var(--smoke); text-transform: none; letter-spacing: 0.04em; margin: 0.35rem 0 0; max-width: 60ch; }
 
   /* — Témoignages — */
   .testimonials__head { margin-bottom: clamp(1.4rem, 3vw, 2rem); }

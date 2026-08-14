@@ -11,7 +11,10 @@ export const univers = [
     intro:
       "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
-    schedule: ['Mardi · 19h00 à 20h30', 'Jeudi · 19h00 à 20h30'],
+    schedule: [
+      'Groupe VELCAP · mardi et jeudi, 19h à 20h30',
+      'Groupe VELLECAP · mercredi et vendredi, 18h30 à 20h',
+    ],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
     freeTrial: {
@@ -46,7 +49,7 @@ export const univers = [
         sub: 'soit 15 € par mois',
         features: [
           'Un maillot VELCAP',
-          '2 entraînements encadrés par semaine (mardi et jeudi, 19h à 20h30)',
+          '2 entraînements encadrés par semaine (mercredi et vendredi, 18h30 à 20h)',
           'Séminaires micronutrition, nutrition et préparation physique',
           'Accès à la communauté WhatsApp',
           'Jeux concours exclusifs',
@@ -55,11 +58,27 @@ export const univers = [
         ],
       },
     ],
-    coaches: [
-      { name: 'Xavier Hubner', photo: 'coach-xavier.jpg' },
-      { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
-      { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
-      { name: 'Adam Montega', photo: 'coach-adam.jpg' },
+    // Encadrement séparé par groupe : chaque bloc a son étiquette, ses jours
+    // et horaires, et ses propres entraîneur(e)s.
+    coachGroups: [
+      {
+        label: 'Groupe VELCAP',
+        note: 'Mixte · mardi et jeudi, 19h à 20h30',
+        coaches: [
+          { name: 'Xavier Hubner', photo: 'coach-xavier.jpg' },
+          { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
+          { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
+          { name: 'Adam Montega', photo: 'coach-adam.jpg' },
+        ],
+      },
+      {
+        label: 'Groupe VELLECAP',
+        note: '100 % féminin · mercredi et vendredi, 18h30 à 20h · mêmes lieux que le groupe VELCAP',
+        coaches: [
+          { name: 'Charlène Degret', role: 'Entraîneuse', photo: 'coach-charlene.jpg' },
+          { name: 'Oriane Gressier', role: 'Entraîneuse', photo: 'coach-oriane.jpg' },
+        ],
+      },
     ],
     cta: 'Adhérer au Team Loisirs',
     ctaKind: 'Adhésion',
