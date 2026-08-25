@@ -242,6 +242,26 @@ function initUniversModal() {
 }
 
 
+// Témoignages longs : repli « Lire la suite » (amélioration progressive).
+// Sans JS, le texte reste intégralement lisible et le bouton reste masqué.
+function initTestimonials() {
+  const group = document.querySelector('.testimonials__masonry');
+  if (!group) return;
+  group.classList.add('is-enhanced');
+  group.querySelectorAll('.testimonial--long').forEach((fig) => {
+    fig.classList.add('is-clamped');
+    const btn = fig.querySelector('[data-more]');
+    if (!btn) return;
+    const label = btn.querySelector('.testimonial__more-txt');
+    btn.addEventListener('click', () => {
+      const clamped = fig.classList.toggle('is-clamped');
+      btn.setAttribute('aria-expanded', String(!clamped));
+      if (label) label.textContent = clamped ? 'Lire la suite' : 'Réduire';
+      ScrollTrigger.refresh();
+    });
+  });
+}
+
 export function initSite() {
   initSmoothScroll();
   initIntro();
@@ -252,6 +272,7 @@ export function initSite() {
   initContactForm();
   initWaitlistForms();
   initUniversModal();
+  initTestimonials();
   initGallery({ lenis });
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });

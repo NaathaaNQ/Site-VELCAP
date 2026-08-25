@@ -579,35 +579,49 @@ const initials = (name) =>
   )}
 
   {u.testimonials && (
-    <section class="section testimonials">
+    <section class="section testimonials" aria-labelledby="testi-title">
       <div class="container">
         <div class="testimonials__head" data-reveal>
+          <svg class="testimonials__crest" viewBox="0 0 220 24" fill="none" aria-hidden="true" preserveAspectRatio="none">
+            <path d="M0 22 44 6l30 12 36-18 34 16 30-10 46 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
           <p class="mono eyebrow">Témoignages</p>
-          <h2 class="testimonials__title display">Leurs retours</h2>
-          <p class="testimonials__note mono">Retours d'athlètes suivis en coaching.</p>
+          <h2 id="testi-title" class="testimonials__title display">Leurs retours</h2>
+          <p class="testimonials__note">Des athlètes suivis en coaching racontent leur progression, sans filtre.</p>
         </div>
-        <div class="testimonials__grid" data-reveal-group>
-          {u.testimonials.map((t) => (
-            <figure class="testimonial" data-reveal-item>
-              <span class="testimonial__mark" aria-hidden="true">“</span>
-              <blockquote class="testimonial__quote">
-                {Array.isArray(t.quote)
-                  ? t.quote.map((p) => <p>{p}</p>)
-                  : <p>{t.quote}</p>}
-              </blockquote>
-              <figcaption class="testimonial__by">
-                <span class="testimonial__avatar" aria-hidden="true">
-                  {photoExists(t.photo)
-                    ? <img class="testimonial__photo" src={`/img/photos/${t.photo}`} alt="" loading="lazy" />
-                    : <span class="testimonial__initials">{initials(t.name)}</span>}
-                </span>
-                <span class="testimonial__byline">
-                  <span class="testimonial__name display">{t.name}</span>
-                  {t.coach && <span class="testimonial__meta mono">Coach · {t.coach}</span>}
-                </span>
-              </figcaption>
-            </figure>
-          ))}
+        <div class="testimonials__masonry" data-reveal-group>
+          {u.testimonials.map((t, i) => {
+            const paras = Array.isArray(t.quote) ? t.quote : [t.quote];
+            const long = paras.join(' ').length > 430;
+            const qid = `testi-q-${u.slug}-${i}`;
+            return (
+              <figure class={`testimonial ${long ? 'testimonial--long' : ''}`} data-reveal-item>
+                <span class="testimonial__mark display" aria-hidden="true">“</span>
+                <blockquote class="testimonial__quote">
+                  <div class="testimonial__clip" id={qid}>
+                    {paras.map((p) => <p>{p}</p>)}
+                  </div>
+                  {long && (
+                    <button type="button" class="testimonial__more mono" data-more aria-expanded="false" aria-controls={qid}>
+                      <span class="testimonial__more-txt">Lire la suite</span>
+                      <span class="testimonial__more-ic" aria-hidden="true">↧</span>
+                    </button>
+                  )}
+                </blockquote>
+                <figcaption class="testimonial__by">
+                  <span class="testimonial__avatar" aria-hidden="true">
+                    {photoExists(t.photo)
+                      ? <img class="testimonial__photo" src={`/img/photos/${t.photo}`} alt="" loading="lazy" />
+                      : <span class="testimonial__initials">{initials(t.name)}</span>}
+                  </span>
+                  <span class="testimonial__byline">
+                    <span class="testimonial__name display">{t.name}</span>
+                    {t.coach && <span class="testimonial__meta mono">Suivi par <span class="testimonial__coach">{t.coach}</span></span>}
+                  </span>
+                </figcaption>
+              </figure>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -753,23 +767,59 @@ const initials = (name) =>
   .coach-group__note { color: var(--smoke); text-transform: none; letter-spacing: 0.04em; margin: 0.35rem 0 0; max-width: 60ch; }
 
   /* — Témoignages — */
-  .testimonials__head { margin-bottom: clamp(1.4rem, 3vw, 2rem); }
-  .testimonials__title { font-size: var(--fs-h3); margin: 0.4rem 0 0.4rem; }
-  .testimonials__note { color: var(--smoke); text-transform: none; letter-spacing: 0.04em; }
-  .testimonials__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 2vw, 1.6rem); align-items: start; }
-  .testimonial { position: relative; display: flex; flex-direction: column; gap: 0.9rem; background: var(--white); border: 1px solid var(--hairline); border-left: 4px solid var(--red); border-radius: 16px; padding: clamp(1.4rem, 2.5vw, 2rem); box-shadow: var(--shadow); }
-  .testimonial__mark { font-family: var(--font-display); color: var(--red); font-size: 3.2rem; line-height: 0.6; height: 1.4rem; }
-  .testimonial__quote { color: #2a2a2e; font-size: 1.02rem; line-height: 1.55; }
-  .testimonial__quote p { margin: 0 0 0.7rem; }
-  .testimonial__quote p:last-child { margin-bottom: 0; }
-  .testimonial__by { display: flex; align-items: center; gap: 0.8rem; margin-top: auto; padding-top: 0.9rem; border-top: 1px solid var(--hairline); }
+  .testimonials__head { position: relative; margin-bottom: clamp(1.8rem, 4vw, 3rem); max-width: 52ch; }
+  .testimonials__crest { display: block; width: clamp(160px, 24vw, 240px); height: auto; color: var(--red); margin-bottom: 1rem; }
+  .testimonials__title { font-size: clamp(2.4rem, 1.4rem + 4vw, 4.6rem); line-height: 0.94; margin: 0.3rem 0 0.6rem; }
+  .testimonials__note { color: #4a4a50; font-size: clamp(1rem, 0.96rem + 0.3vw, 1.2rem); line-height: 1.5; }
+
+  /* Masonry en colonnes : ordre de lecture préservé, hauteurs organiques (anti-grille) */
+  .testimonials__masonry { columns: 2; column-gap: clamp(1rem, 2.2vw, 1.8rem); }
+  .testimonial {
+    position: relative; break-inside: avoid; margin: 0 0 clamp(1rem, 2.2vw, 1.8rem);
+    display: flex; flex-direction: column; gap: 0.85rem;
+    background: var(--white); border: 1px solid var(--hairline); border-radius: 18px;
+    padding: clamp(1.5rem, 2.6vw, 2.3rem); box-shadow: var(--shadow);
+    transition: box-shadow 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
+  }
+  /* accent « ligne de crête » rouge sur le bord gauche, qui se déploie au survol */
+  .testimonial::before {
+    content: ""; position: absolute; left: 0; top: 1.6rem; bottom: 1.6rem; width: 4px;
+    background: var(--red); border-radius: 0 4px 4px 0;
+    transform: scaleY(0.45); transform-origin: top; transition: transform 0.5s var(--ease-out);
+  }
+  .testimonial:hover { box-shadow: 0 34px 74px -34px rgba(10, 10, 12, 0.36); border-color: color-mix(in srgb, var(--red) 24%, var(--hairline)); }
+  .testimonial:hover::before { transform: scaleY(1); }
+
+  .testimonial__mark { color: var(--red); font-size: clamp(3.6rem, 6vw, 5.2rem); line-height: 0.5; height: 1.5rem; font-weight: 700; }
+  .testimonial__quote { color: #2a2a2e; font-size: clamp(1rem, 0.97rem + 0.2vw, 1.12rem); line-height: 1.6; }
+  .testimonial__clip > p { margin: 0 0 0.75rem; }
+  .testimonial__clip > p:last-child { margin-bottom: 0; }
+
+  /* Repli « lire la suite » : activé par JS ; sans JS, texte entier + bouton masqué */
+  .testimonial__more {
+    display: none; align-self: flex-start; align-items: center; gap: 0.45rem; margin-top: 0.9rem;
+    background: none; border: 0; padding: 0.2rem 0; cursor: pointer; color: var(--red);
+    text-transform: uppercase; letter-spacing: 0.11em; font-size: 0.72rem;
+  }
+  .testimonial__more:hover { color: var(--red-deep); }
+  .testimonial__more-ic { transition: transform 0.35s var(--ease-out); }
+  .testimonials__masonry.is-enhanced .testimonial--long .testimonial__more { display: inline-flex; }
+  .testimonial.is-clamped .testimonial__clip {
+    max-height: 12.5em; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 66%, transparent);
+    mask-image: linear-gradient(to bottom, #000 66%, transparent);
+  }
+  .testimonial--long:not(.is-clamped) .testimonial__more-ic { transform: rotate(180deg); }
+
+  .testimonial__by { display: flex; align-items: center; gap: 0.85rem; margin-top: auto; padding-top: 1.1rem; border-top: 1px solid var(--hairline); }
   /* Avatar : photo si fournie plus tard, sinon initiales (aucune refonte nécessaire) */
-  .testimonial__avatar { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: color-mix(in srgb, var(--red) 12%, var(--white)); border: 1px solid color-mix(in srgb, var(--red) 30%, var(--hairline)); }
-  .testimonial__initials { font-family: var(--font-display); color: var(--red); font-size: 1.05rem; letter-spacing: 0.04em; line-height: 1; }
+  .testimonial__avatar { flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: color-mix(in srgb, var(--red) 12%, var(--white)); border: 1px solid color-mix(in srgb, var(--red) 32%, var(--hairline)); }
+  .testimonial__initials { font-family: var(--font-display); color: var(--red); font-size: 1.15rem; letter-spacing: 0.03em; line-height: 1; }
   .testimonial__photo { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.04); }
-  .testimonial__byline { display: grid; gap: 0.1rem; }
-  .testimonial__name { font-size: clamp(1.15rem, 2vw, 1.5rem); }
-  .testimonial__meta { color: var(--red); }
+  .testimonial__byline { display: grid; gap: 0.15rem; }
+  .testimonial__name { font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1; }
+  .testimonial__meta { color: var(--smoke); text-transform: none; letter-spacing: 0.02em; }
+  .testimonial__coach { color: var(--red); }
 
   .points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
   .point { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: clamp(1.2rem, 2.5vw, 1.8rem) 1.5rem clamp(1.2rem, 2.5vw, 1.8rem) 0; border-top: 1px solid var(--hairline); }
@@ -1040,7 +1090,7 @@ const initials = (name) =>
   .ugallery__item--wide { aspect-ratio: 4 / 3; align-self: center; }
 
   @media (max-width: 860px) {
-    .coaches__grid, .testimonials__grid { grid-template-columns: 1fr 1fr; }
+    .coaches__grid { grid-template-columns: 1fr 1fr; }
     .freetrial__inner { flex-direction: column; align-items: flex-start; }
     .freetrial__cta { width: 100%; justify-content: center; }
     .entreprise__inner { flex-direction: column; align-items: flex-start; }
@@ -1049,7 +1099,8 @@ const initials = (name) =>
     .umodal__form { grid-template-columns: 1fr; }
     .ecards { grid-template-columns: 1fr; }
     .ugallery__grid { grid-template-columns: 1fr 1fr; }
-    .coaches__grid, .testimonials__grid { grid-template-columns: 1fr; }
+    .coaches__grid { grid-template-columns: 1fr; }
+    .testimonials__masonry { columns: 1; }
     .ugallery__item--1 { margin-top: 0; }
     .uhero__top { grid-template-columns: 1fr; }
     .points { grid-template-columns: 1fr; }

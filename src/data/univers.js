@@ -348,6 +348,21 @@ export const univers = [
           "Compétent, accessible et bienveillant : le coach qu'il faut",
         ],
       },
+      {
+        name: 'Alexis D.',
+        coach: 'Nathan',
+        quote: [
+          "Je suis vraiment très content de mon expérience avec Nathan. Il est toujours à l'écoute et disponible, et il sait constamment mettre en avant le positif, même dans les moments plus difficiles. J'apprécie particulièrement sa capacité à s'adapter : il n'hésite pas à modifier les séances au jour le jour en fonction de ma fatigue, de mes sensations ou d'un événement imprévu. Cette flexibilité permet de garder un entraînement adapté et cohérent, sans jamais perdre de vue l'objectif. Grâce à son accompagnement et ses conseils, mes performances ont littéralement explosé, tout en gardant le plaisir de courir et de progresser. J'ai hâte de voir jusqu'où cette collaboration pourra encore me mener.",
+        ],
+      },
+      {
+        name: 'Falvie N.',
+        coach: 'Nathan',
+        quote: [
+          "Nathan est avant tout un coach très à l'écoute de son athlète et c'est selon moi, le plus important ! Il me permet de progresser sans jamais émettre de jugement ou de pression vis à vis des séances. Rigoureux mais en adaptant vraiment à nos objectifs et nos envies.",
+          "Je le recommanderais vivement et je le remercie pour ce super suivi !",
+        ],
+      },
     ],
     cta: 'Demander un coaching',
     ctaKind: 'Sur devis',
