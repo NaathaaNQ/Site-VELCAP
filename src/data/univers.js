@@ -324,11 +324,30 @@ export const univers = [
       { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
       { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
     ],
-    // Témoignages : structure prête, à remplacer par les vrais retours des coachés.
+    // Vrais témoignages d'athlètes suivis en coaching. Texte repris mot pour
+    // mot ; `coach` = prénom du coach associé ; `photo` optionnelle (à déposer
+    // plus tard dans public/img/photos/), sinon fallback initiales.
     testimonials: [
-      { name: 'Marie L.', meta: 'Trail · premier ultra', quote: "Grâce au plan sur-mesure, j'ai bouclé mon premier ultra sans blessure. Le suivi chaque semaine change vraiment tout." },
-      { name: 'Thomas B.', meta: '10 km · record personnel', quote: "En quatre mois, j'ai gagné plus de trois minutes sur 10 km. Les retours de séance sont précis et motivants." },
-      { name: 'Julie R.', meta: 'Route · reprise après blessure', quote: "Reprise en douceur et remise en confiance : je cours à nouveau avec plaisir et sans appréhension." },
+      {
+        name: 'Justin P.',
+        coach: 'Hugo',
+        quote: [
+          "Hugo m'entraîne depuis le mois de janvier. Nous avons commencé progressivement, en construisant une bonne base et en nous adaptant à mon niveau. Au fil des mois, j'ai vraiment pu constater mes progrès, sans me blesser.",
+          "Les séances sont variées, avec de la course à pied, mais aussi du vélo, de la musculation et du renforcement, ce qui permet un travail très complet. Je lui fais entièrement confiance dans la planification de mes entraînements, et les résultats sont là.",
+          "Hugo sait également adapter les séances à mon emploi du temps et à mes contraintes. Les points chaque semaine permettent un vrai suivi et une bonne adaptation des entraînements. Sa disponibilité et son écoute m'ont aussi permis de prendre davantage confiance en moi en voyant mon évolution.",
+          'Je le remercie pour son accompagnement depuis le début !',
+        ],
+      },
+      {
+        name: 'Adel S.',
+        coach: 'Enzo',
+        quote: [
+          "J'ai vraiment passé un cap grâce Enzo !",
+          "Toujours à l'écoute, il adapte mes séances à ma forme et à mes objectifs. Il a su cibler mes points à travailler pour me faire progresser et ça même à distance !",
+          "C'est vraiment un suivi sur-mesure qui permet de se sentir parfaitement accompagné.",
+          "Compétent, accessible et bienveillant : le coach qu'il faut",
+        ],
+      },
     ],
     cta: 'Demander un coaching',
     ctaKind: 'Sur devis',
