@@ -361,6 +361,7 @@ export const univers = [
       {
         name: 'Flavie N.',
         coach: 'Nathan',
+        photo: 'testi-flavie.jpg',
         quote: [
           "Nathan est avant tout un coach très à l'écoute de son athlète et c'est selon moi, le plus important ! Il me permet de progresser sans jamais émettre de jugement ou de pression vis à vis des séances. Rigoureux mais en adaptant vraiment à nos objectifs et nos envies.",
           "Je le recommanderais vivement et je le remercie pour ce super suivi !",
