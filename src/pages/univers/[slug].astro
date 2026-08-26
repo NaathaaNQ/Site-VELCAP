@@ -772,10 +772,11 @@ const initials = (name) =>
   .testimonials__title { font-size: clamp(2.4rem, 1.4rem + 4vw, 4.6rem); line-height: 0.94; margin: 0.3rem 0 0.6rem; }
   .testimonials__note { color: #4a4a50; font-size: clamp(1rem, 0.96rem + 0.3vw, 1.2rem); line-height: 1.5; }
 
-  /* Masonry en colonnes : ordre de lecture préservé, hauteurs organiques (anti-grille) */
-  .testimonials__masonry { columns: 2; column-gap: clamp(1rem, 2.2vw, 1.8rem); }
+  /* Grille deux colonnes (ordre de lecture préservé, chaque carte toujours
+     rendue). align-items:start donne un rythme organique sans grille figée. */
+  .testimonials__masonry { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 2.2vw, 1.8rem); align-items: start; }
   .testimonial {
-    position: relative; break-inside: avoid; margin: 0 0 clamp(1rem, 2.2vw, 1.8rem);
+    position: relative;
     display: flex; flex-direction: column; gap: 0.85rem;
     background: var(--white); border: 1px solid var(--hairline); border-radius: 18px;
     padding: clamp(1.5rem, 2.6vw, 2.3rem); box-shadow: var(--shadow);
@@ -1100,7 +1101,7 @@ const initials = (name) =>
     .ecards { grid-template-columns: 1fr; }
     .ugallery__grid { grid-template-columns: 1fr 1fr; }
     .coaches__grid { grid-template-columns: 1fr; }
-    .testimonials__masonry { columns: 1; }
+    .testimonials__masonry { grid-template-columns: 1fr; }
     .ugallery__item--1 { margin-top: 0; }
     .uhero__top { grid-template-columns: 1fr; }
     .points { grid-template-columns: 1fr; }

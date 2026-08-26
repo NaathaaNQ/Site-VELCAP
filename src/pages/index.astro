@@ -250,6 +250,9 @@ const partnersLoop = Array.from({ length: 4 }).flatMap(() => partners);
     overflow: hidden; margin-top: 1.6rem;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    /* confine le compositing du masque/défilement à ce conteneur : un repeint
+       du bandeau ne peut plus altérer le bord de la section au-dessus */
+    isolation: isolate;
   }
   .partners__track { display: flex; width: max-content; animation: partners 30s linear infinite; }
   .partners__viewport:hover .partners__track { animation-play-state: paused; }
@@ -261,7 +264,7 @@ const partnersLoop = Array.from({ length: 4 }).flatMap(() => partners);
     display: grid; place-items: center; background: var(--white);
     border: 1px solid var(--hairline); border-radius: 12px;
     text-decoration: none; cursor: pointer;
-    transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+    transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
   .partners__logo:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   .partners__img {
@@ -270,8 +273,11 @@ const partnersLoop = Array.from({ length: 4 }).flatMap(() => partners);
     filter: grayscale(1); opacity: 0.9;
     transition: filter 0.35s var(--ease), opacity 0.35s var(--ease);
   }
-  /* hover sobre : léger soulèvement + le logo reprend ses couleurs, bord rouge */
-  .partners__logo:hover { border-color: var(--red); box-shadow: 0 16px 32px -18px rgba(226, 0, 15, 0.42); transform: translateY(-3px); }
+  /* hover sobre : bord rouge + ombre douce, le logo reprend ses couleurs.
+     Pas de transform ici : il promeut la carte sur sa propre couche de
+     composition et, combiné au masque du bandeau, fait « sauter » le repeint
+     du bord de la section sombre au-dessus (bug WebKit). */
+  .partners__logo:hover { border-color: var(--red); box-shadow: 0 16px 32px -18px rgba(226, 0, 15, 0.42); }
   .partners__logo:hover .partners__img { filter: grayscale(0); opacity: 1; }
   /* Liens accessibles : hors flux, révélés au focus clavier (le bandeau reste décoratif) */
   .partners__links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; }
