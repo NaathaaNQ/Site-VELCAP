@@ -609,10 +609,10 @@ const initials = (name) =>
                   )}
                 </blockquote>
                 <figcaption class="testimonial__by">
-                  <span class="testimonial__avatar" aria-hidden="true">
+                  <span class="testimonial__avatar">
                     {photoExists(t.photo)
-                      ? <img class="testimonial__photo" src={`/img/photos/${t.photo}`} alt="" loading="lazy" />
-                      : <span class="testimonial__initials">{initials(t.name)}</span>}
+                      ? <img class="testimonial__photo" src={`/img/photos/${t.photo}`} alt={t.name} loading="lazy" width="52" height="52" />
+                      : <span class="testimonial__initials" aria-hidden="true">{initials(t.name)}</span>}
                   </span>
                   <span class="testimonial__byline">
                     <span class="testimonial__name display">{t.name}</span>

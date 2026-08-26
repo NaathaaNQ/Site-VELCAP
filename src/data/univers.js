@@ -331,6 +331,7 @@ export const univers = [
       {
         name: 'Justin P.',
         coach: 'Hugo',
+        photo: 'testi-justin.jpg',
         quote: [
           "Hugo m'entraîne depuis le mois de janvier. Nous avons commencé progressivement, en construisant une bonne base et en nous adaptant à mon niveau. Au fil des mois, j'ai vraiment pu constater mes progrès, sans me blesser.",
           "Les séances sont variées, avec de la course à pied, mais aussi du vélo, de la musculation et du renforcement, ce qui permet un travail très complet. Je lui fais entièrement confiance dans la planification de mes entraînements, et les résultats sont là.",
@@ -341,6 +342,7 @@ export const univers = [
       {
         name: 'Adel S.',
         coach: 'Enzo',
+        photo: 'testi-adel.jpg',
         quote: [
           "J'ai vraiment passé un cap grâce à Enzo !",
           "Toujours à l'écoute, il adapte mes séances à ma forme et à mes objectifs. Il a su cibler mes points à travailler pour me faire progresser et ça même à distance !",
@@ -351,6 +353,7 @@ export const univers = [
       {
         name: 'Alexis D.',
         coach: 'Nathan',
+        photo: 'testi-alexis.jpg',
         quote: [
           "Je suis vraiment très content de mon expérience avec Nathan. Il est toujours à l'écoute et disponible, et il sait constamment mettre en avant le positif, même dans les moments plus difficiles. J'apprécie particulièrement sa capacité à s'adapter : il n'hésite pas à modifier les séances au jour le jour en fonction de ma fatigue, de mes sensations ou d'un événement imprévu. Cette flexibilité permet de garder un entraînement adapté et cohérent, sans jamais perdre de vue l'objectif. Grâce à son accompagnement et ses conseils, mes performances ont littéralement explosé, tout en gardant le plaisir de courir et de progresser. J'ai hâte de voir jusqu'où cette collaboration pourra encore me mener.",
         ],
