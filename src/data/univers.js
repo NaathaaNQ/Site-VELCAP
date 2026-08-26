@@ -342,7 +342,7 @@ export const univers = [
         name: 'Adel S.',
         coach: 'Enzo',
         quote: [
-          "J'ai vraiment passé un cap grâce Enzo !",
+          "J'ai vraiment passé un cap grâce à Enzo !",
           "Toujours à l'écoute, il adapte mes séances à ma forme et à mes objectifs. Il a su cibler mes points à travailler pour me faire progresser et ça même à distance !",
           "C'est vraiment un suivi sur-mesure qui permet de se sentir parfaitement accompagné.",
           "Compétent, accessible et bienveillant : le coach qu'il faut",
@@ -356,7 +356,7 @@ export const univers = [
         ],
       },
       {
-        name: 'Falvie N.',
+        name: 'Flavie N.',
         coach: 'Nathan',
         quote: [
           "Nathan est avant tout un coach très à l'écoute de son athlète et c'est selon moi, le plus important ! Il me permet de progresser sans jamais émettre de jugement ou de pression vis à vis des séances. Rigoureux mais en adaptant vraiment à nos objectifs et nos envies.",
