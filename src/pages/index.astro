@@ -10,6 +10,8 @@ import { site } from '../data/site.js';
 const partners = [
   { src: '/img/partenaires/courtier-pontissalien.webp', name: 'Courtier Pontissalien', url: 'https://courtier-pontissalien.com', w: 760, h: 211 },
   { src: '/img/partenaires/decathlon.webp', name: 'Décathlon', url: 'https://www.decathlon.fr', w: 760, h: 114 },
+  { src: '/img/partenaires/triobois.webp', name: 'Triobois', url: 'https://www.triobois.fr', w: 712, h: 220, alt: 'Triobois' },
+  { src: '/img/partenaires/comte-frasne.webp', name: 'Comté de Frasne', url: 'https://comte-frasne.fr', w: 400, h: 185, alt: 'Comté de Frasne' },
 ];
 // Bandeau défilant : on répète la liste pour remplir la piste et boucler sans
 // couture, même avec peu de partenaires.
@@ -155,7 +157,7 @@ const jsonLd = {
                 aria-label={`Site de ${p.name}`}
                 tabindex="-1"
               >
-                <img class="partners__img" src={p.src} alt="" width={p.w} height={p.h} loading="lazy" decoding="async" />
+                <img class="partners__img" src={p.src} alt={p.alt || ''} width={p.w} height={p.h} loading="lazy" decoding="async" />
               </a>
             ))}
           </div>
