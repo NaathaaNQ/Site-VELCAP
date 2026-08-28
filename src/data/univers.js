@@ -302,7 +302,8 @@ export const univers = [
     },
     enterprise: {
       title: 'Coaching entreprise',
-      price: '100 €',
+      priceLead: 'À partir de',
+      price: '75 €',
       per: '/séance',
       text: "Des séances collectives pour dynamiser vos équipes : running, renforcement et cohésion, encadrées par nos coachs. Un format adapté à votre structure et à vos disponibilités.",
     },

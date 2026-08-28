@@ -354,6 +354,7 @@ if (u.slug === 'coaching' && u.coaches) {
           <p class="entreprise__text">{u.enterprise.text}</p>
         </div>
         <div class="entreprise__price">
+          {u.enterprise.priceLead && <span class="entreprise__lead mono">{u.enterprise.priceLead}</span>}
           <span class="entreprise__amount display">{u.enterprise.price}</span>
           <span class="entreprise__per mono">{u.enterprise.per}</span>
         </div>
@@ -1031,7 +1032,8 @@ if (u.slug === 'coaching' && u.coaches) {
   .entreprise__inner .eyebrow { color: var(--red-bright); }
   .entreprise__title { font-size: clamp(1.6rem, 4vw, 2.6rem); margin: 0.5rem 0 0.6rem; }
   .entreprise__text { color: #c8c8cf; max-width: 56ch; }
-  .entreprise__price { display: flex; align-items: baseline; gap: 0.3rem; flex-shrink: 0; }
+  .entreprise__price { display: grid; grid-template-columns: auto auto; align-items: baseline; column-gap: 0.3rem; flex-shrink: 0; }
+  .entreprise__lead { grid-column: 1 / -1; color: #9a9aa0; margin-bottom: 0.45rem; }
   .entreprise__amount { font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--red-bright); line-height: 1; }
   .entreprise__per { color: #9a9aa0; }
 
