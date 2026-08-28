@@ -9,7 +9,10 @@ export const univers = [
     discipline: 'Course à pied · loisir',
     lead: 'Grand débutant ou coureur aguerri, on court ensemble.',
     intro:
-      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP !!! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
+      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP ! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
+    seoTitle: 'Club de course à pied loisir à Besançon · Team Loisirs VELCAP',
+    seoDesc:
+      "Cours encadré à Besançon avec la Team Loisirs VELCAP : 2 entraînements par semaine, tous niveaux, groupe mixte ou 100 % féminin (VELLECAP). Adhésion 180 € par an, deux séances d'essai gratuites.",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: [
       'Groupe VELCAP · mardi et jeudi, 19h à 20h30',
@@ -19,7 +22,7 @@ export const univers = [
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
     freeTrial: {
       title: "Deux jours d'essai, gratuits",
-      text: "Viens tester le Team Loisirs pendant deux jours d'essai gratuits, un mardi et un jeudi soir, sans aucun engagement.",
+      text: "Viens tester le Team Loisirs pendant deux jours d'essai gratuits, sur les créneaux de ton groupe, sans aucun engagement.",
     },
     // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
     // VELLECAP (100 % féminin). Même contenu, même prix ; la distinction se
@@ -91,12 +94,15 @@ export const univers = [
     lead: 'Une élite franc-comtoise, soudée et ambitieuse.',
     intro:
       "Créer une élite régionale, voire nationale, en Franche-Comté : des athlètes qui performent en trail, sur route, en cross et sur piste, portés par un esprit d'équipe et de solidarité. Performer, ensemble.",
+    seoTitle: 'Team Élite VELCAP · Trail, route, cross et piste en Franche-Comté',
+    seoDesc:
+      "La Team Élite VELCAP réunit des athlètes de haut niveau en Franche-Comté : stages, coaching, suivi kiné et soutien logistique pour performer en trail, sur route, en cross et sur piste.",
     points: [
       { k: 'Stages', v: 'Des stages réguliers pour franchir des paliers ensemble.' },
       { k: 'Coaching', v: 'Un accompagnement coaching pour celles et ceux qui en ont besoin.' },
       { k: 'Santé', v: 'Des créneaux rapides chez le kiné.' },
       { k: 'Logistique et financier', v: 'Un soutien sur les déplacements et la logistique.' },
-      { k: 'Visibilité', v: 'Vos performances relayées sur nos réseaux.' },
+      { k: 'Visibilité', v: 'Tes performances relayées sur nos réseaux.' },
       { k: 'En équipe', v: 'Les pacers des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
     ],
     criteria: [
@@ -116,7 +122,10 @@ export const univers = [
     discipline: 'Compétitions et formation des jeunes',
     lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
     intro:
-      "Tu désires faire de la compétition ? Participer à des championnats fédéraux ? Tu es jeune et tu cherches à progresser ? Rejoins le club FFA afin de progresser avec un collectif soudé et motivé !!!",
+      "Tu désires faire de la compétition ? Participer à des championnats fédéraux ? Tu es jeune et tu cherches à progresser ? Rejoins le club FFA afin de progresser avec un collectif soudé et motivé !",
+    seoTitle: "Club FFA d'athlétisme à Besançon · Compétition et jeunes | VELCAP",
+    seoDesc:
+      "Le club FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales jusqu'aux Championnats de France et formation des jeunes. Licence 200 € par an, deux séances d'essai gratuites.",
     points: [
       { k: 'Trois créneaux / semaine', v: 'Lundi et mercredi dès 18h30, samedi de 9h à 12h.' },
       { k: 'Objectifs forts', v: 'Les compétitions fédérales, jusqu’aux Championnats de France.' },
@@ -148,6 +157,9 @@ export const univers = [
     lead: 'Bientôt.',
     intro:
       "Le projet cyclisme se dessine. Les contours du club FFC arrivent bientôt. Laisse-nous tes coordonnées pour être prévenu dès l'ouverture.",
+    seoTitle: 'Club de cyclisme FFC à Besançon · Ouverture prochaine | VELCAP',
+    seoDesc:
+      "VELCAP prépare son club de cyclisme FFC à Besançon. Laisse tes coordonnées pour être prévenu dès l'ouverture et rejoindre la Team Vélo.",
     comingSoon: true,
     // Textes alternatifs descriptifs des visuels vélo (accessibilité).
     ttAlt: "Un cycliste VELCAP à vélo de route devant l'arche de l'ancienne saline de Salins, d'autres cyclistes rassemblés au départ.",
@@ -163,6 +175,9 @@ export const univers = [
     lead: 'Le calendrier qui rassemble la communauté.',
     intro:
       "Toute l'année, VELCAP anime le territoire : courses, social runs, fan zones, social rides et stages. Les rendez-vous où l'on se retrouve, où l'on partage, où l'on fait la fête.",
+    seoTitle: 'Événements running et vélo à Besançon · Social runs, stages | VELCAP',
+    seoDesc:
+      "Social runs hebdomadaires, social rides, pacers, fan zones et stages : le calendrier des événements VELCAP qui animent Besançon et la Franche-Comté toute l'année.",
     events: {
       // Chaque événement accepte des champs optionnels réutilisables :
       //   link:   { href, label }  -> bouton lien externe (nouvel onglet)
@@ -231,6 +246,9 @@ export const univers = [
     lead: 'Un accompagnement individualisé à ton objectif.',
     intro:
       "Du débutant à l'élite, on t'accompagne dans tes objectifs : course à pied, trail, route, cross, piste et vélo. Un coaching individualisé, construit pour toi.",
+    seoTitle: 'Coaching running et trail à Besançon · Suivi individualisé | VELCAP',
+    seoDesc:
+      "Coaching course à pied, trail et vélo à Besançon et à distance : plans 100 % individualisés, suivi hebdomadaire via Nolio, renforcement et conseils de course par les coachs VELCAP.",
     tiers: [
       {
         name: 'Suivi Découverte', price: '80 €', per: '/mois', shortPrice: '90 €', asterisk: true,
@@ -273,6 +291,8 @@ export const univers = [
       },
     ],
     tiersNote: '* 25 € de frais d’inscription, maillot VELCAP inclus.',
+    tiersDisclaimer:
+      'Prestations proposées, réalisées et facturées directement par les coachs, qui exercent à titre indépendant. Le site met en relation : aucune vente en ligne.',
     engagement: {
       title: "Conditions d'engagement",
       items: [
@@ -285,7 +305,7 @@ export const univers = [
       title: 'Coaching entreprise',
       price: '100 €',
       per: '/séance',
-      text: "Des séances collectives pour dynamiser vos équipes : running, renforcement et cohésion, encadrés par nos coachs. Un format adapté à votre structure et à vos disponibilités.",
+      text: "Des séances collectives pour dynamiser vos équipes : running, renforcement et cohésion, encadrées par nos coachs. Un format adapté à votre structure et à vos disponibilités.",
     },
     sportEntreprise: {
       eyebrow: 'Sport en entreprise',

@@ -7,7 +7,13 @@ const {
   title = 'VELCAP · Structure sportive',
   description = "VELCAP réunit six univers sous une même bannière : team loisirs, team élite, club FFA (athlétisme), club FFC (cyclisme), nos événements et le coaching privé.",
   theme = 'light', // 'light' | 'dark' (couleur de la barre + header de départ)
+  jsonLd = null, // objet (ou tableau d'objets) schema.org à injecter en JSON-LD
 } = Astro.props;
+
+// URL canonique absolue de la page courante (astro.config : site = https://velcap.fr)
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/img/og-velcap.jpg', Astro.site).href;
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 <!doctype html>
 <html lang="fr" class="no-js">
@@ -17,11 +23,27 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0a0a0b" />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/img/velcap-logo.svg" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VELCAP" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="VELCAP, collectif course à pied et cyclisme à Besançon" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
 
     <link rel="preload" href="/fonts/BigShoulders-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Outfit-Regular.woff2" as="font" type="font/woff2" crossorigin />

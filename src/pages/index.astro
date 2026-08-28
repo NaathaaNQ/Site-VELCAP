@@ -14,12 +14,40 @@ const partners = [
 // Bandeau défilant : on répète la liste pour remplir la piste et boucler sans
 // couture, même avec peu de partenaires.
 const partnersLoop = Array.from({ length: 4 }).flatMap(() => partners);
+
+// Données structurées : l'association sportive, son adresse et ses réseaux.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['SportsOrganization', 'SportsClub'],
+  name: 'VELCAP',
+  url: 'https://velcap.fr',
+  logo: 'https://velcap.fr/img/velcap-logo.svg',
+  image: 'https://velcap.fr/img/og-velcap.jpg',
+  description:
+    "Collectif sportif à Besançon : course à pied loisir et compétition (club FFA), cyclisme (club FFC), team élite, événements et coaching.",
+  email: site.email,
+  telephone: '+33750455758',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '15 rue de la Combe',
+    postalCode: '25750',
+    addressLocality: 'Désandans',
+    addressCountry: 'FR',
+  },
+  areaServed: { '@type': 'City', name: 'Besançon' },
+  sport: ['Course à pied', 'Trail', 'Athlétisme', 'Cyclisme'],
+  sameAs: site.socials.map((s) => s.url),
+};
 ---
-<Base title="VELCAP · Une structure, six univers, un seul cap">
+<Base
+  title="VELCAP · Course à pied et cyclisme à Besançon"
+  description="VELCAP, collectif sportif bisontin : course à pied loisir et compétition (club FFA), cyclisme (club FFC), team élite, événements toute l'année et coaching individualisé."
+  jsonLd={jsonLd}
+>
   <!-- ============ HERO ============ -->
   <section class="hero" data-parallax-scope>
     <div class="container hero__inner">
-      <p class="hero__kicker mono eyebrow" data-intro data-intro-order="1">Une structure. Six univers. Un seul cap.</p>
+      <h1 class="hero__kicker mono eyebrow" data-intro data-intro-order="1">Une structure. Six univers. Un seul cap.</h1>
 
       <img class="hero__logo" src="/img/velcap-logo.svg" alt="VELCAP" width="447" height="140" data-intro="clip" data-intro-order="2" />
 
@@ -27,7 +55,7 @@ const partnersLoop = Array.from({ length: 4 }).flatMap(() => partners);
         <p class="hero__lead">
           Née de l'union entre deux cyclistes et quatre coureurs bisontins, VELCAP
           rassemble toutes les manières de se dépasser ! Du loisir à la performance.
-          Du Trail au Running en passant par le Cyclisme. Des événements communautaires
+          Du trail au running en passant par le cyclisme. Des événements communautaires
           à des coachings individualisés. <strong>Il ne te reste plus qu'à trouver ton CAP !</strong>
         </p>
         <div class="hero__cta">

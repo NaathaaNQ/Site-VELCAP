@@ -113,8 +113,45 @@ const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE
 const photoExists = (src) => !!src && fs.existsSync(`public/img/photos/${src}`);
 const initials = (name) =>
   name.split(/\s+/).filter(Boolean).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+
+// Données structurées par univers : offres d'adhésion (réglées via HelloAsso)
+// et fiches Person des coachs. Le coaching privé est vendu hors site par les
+// coachs eux-mêmes : pas d'Offer pour ne pas présenter l'association en vendeur.
+const ORG = { '@type': 'SportsOrganization', name: 'VELCAP', url: 'https://velcap.fr' };
+const jsonLd = [];
+if (u.slug === 'team-loisirs') {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Adhésion Team Loisirs VELCAP',
+    description: "Adhésion annuelle au groupe course à pied loisir VELCAP à Besançon : deux entraînements encadrés par semaine, groupe mixte ou 100 % féminin.",
+    brand: ORG,
+    offers: { '@type': 'Offer', price: '180', priceCurrency: 'EUR', url: 'https://velcap.fr/univers/team-loisirs/', availability: 'https://schema.org/InStock' },
+  });
+}
+if (u.slug === 'club-ffa') {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Licence FFA · Club VELCAP Besançon',
+    description: "Licence annuelle au club d'athlétisme FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales et formation des jeunes.",
+    brand: ORG,
+    offers: { '@type': 'Offer', price: '200', priceCurrency: 'EUR', url: 'https://velcap.fr/univers/club-ffa/', availability: 'https://schema.org/InStock' },
+  });
+}
+if (u.slug === 'coaching' && u.coaches) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@graph': u.coaches.map((c) => ({
+      '@type': 'Person',
+      name: c.name,
+      jobTitle: 'Coach sportif',
+      memberOf: ORG,
+    })),
+  });
+}
 ---
-<Base title={`${u.name} · VELCAP`} description={u.intro}>
+<Base title={u.seoTitle || `${u.name} · VELCAP`} description={u.seoDesc || u.intro} jsonLd={jsonLd}>
   <!-- HERO -->
   <section class="uhero" data-parallax-scope>
     <div class="container">
@@ -300,6 +337,9 @@ const initials = (name) =>
             <span class="tiers__note-star" aria-hidden="true">*</span>
             <span>{u.tiersNote.replace(/^\*\s*/, '')}</span>
           </p>
+        )}
+        {u.tiersDisclaimer && (
+          <p class="tiers__disclaimer mono" data-reveal>{u.tiersDisclaimer}</p>
         )}
       </div>
     </section>
@@ -891,6 +931,8 @@ const initials = (name) =>
     flex-shrink: 0; display: grid; place-items: center; width: 1.9rem; height: 1.9rem;
     border-radius: 50%; background: var(--red); color: #fff; font-weight: 700; font-size: 1.15rem; line-height: 1;
   }
+  /* mention légale coaching : les prestations sont vendues hors site par les coachs */
+  .tiers__disclaimer { margin-top: 1.1rem; color: var(--smoke); text-transform: none; letter-spacing: 0.03em; font-size: 0.8rem; max-width: 72ch; }
   /* bouton d'adhésion HelloAsso (widget iframe) : pleine largeur sur mobile,
      largeur maîtrisée et centrée sur desktop */
   .helloasso { margin-top: clamp(1.8rem, 4vw, 2.6rem); display: flex; justify-content: center; }
