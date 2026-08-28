@@ -9,7 +9,7 @@ export const univers = [
     discipline: 'Course à pied · loisir',
     lead: 'Grand débutant ou coureur aguerri, on court ensemble.',
     intro:
-      "Marre de t'entraîner seul ou à l'aveugle ? Rejoins la Team Loisirs VELCAP ! L'objectif est de démocratiser l'accès à un entraînement encadré, sans niveau requis : courir avec des personnes motivées, participer à des événements festifs, faire vivre une communauté forte et plus encore !",
+      "Marre de courir seul ? Deux soirs par semaine, un coach t'attend aux Rives du Doubs ou sur les forts. Aucun niveau requis, juste l'envie de venir.",
     seoTitle: 'Club de course à pied loisir à Besançon · Team Loisirs VELCAP',
     seoDesc:
       "Cours encadré à Besançon avec la Team Loisirs VELCAP : 2 entraînements par semaine, tous niveaux, groupe mixte ou 100 % féminin (VELLECAP). Adhésion 180 € par an, deux séances d'essai gratuites.",
@@ -79,7 +79,6 @@ export const univers = [
         note: '100 % féminin · mercredi et vendredi, 18h30 à 20h · mêmes lieux que le groupe VELCAP',
         coaches: [
           { name: 'Charlène Degret', role: 'Entraîneuse', photo: 'coach-charlene.jpg' },
-          { name: 'Oriane Gressier', role: 'Entraîneuse', photo: 'coach-oriane.jpg' },
         ],
       },
     ],
@@ -93,7 +92,7 @@ export const univers = [
     discipline: 'Haut niveau',
     lead: 'Une élite franc-comtoise, soudée et ambitieuse.',
     intro:
-      "Créer une élite régionale, voire nationale, en Franche-Comté : des athlètes qui performent en trail, sur route, en cross et sur piste, portés par un esprit d'équipe et de solidarité. Performer, ensemble.",
+      "Faire émerger une élite franc-comtoise qui gagne en équipe : stages, kiné, logistique et coaching pour viser plus haut, ensemble.",
     seoTitle: 'Team Élite VELCAP · Trail, route, cross et piste en Franche-Comté',
     seoDesc:
       "La Team Élite VELCAP réunit des athlètes de haut niveau en Franche-Comté : stages, coaching, suivi kiné et soutien logistique pour performer en trail, sur route, en cross et sur piste.",
@@ -122,7 +121,7 @@ export const univers = [
     discipline: 'Compétitions et formation des jeunes',
     lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
     intro:
-      "Tu désires faire de la compétition ? Participer à des championnats fédéraux ? Tu es jeune et tu cherches à progresser ? Rejoins le club FFA afin de progresser avec un collectif soudé et motivé !",
+      "Du premier cross des jeunes aux Championnats de France : trois créneaux par semaine pour faire de la compétition dans un collectif qui pousse.",
     seoTitle: "Club FFA d'athlétisme à Besançon · Compétition et jeunes | VELCAP",
     seoDesc:
       "Le club FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales jusqu'aux Championnats de France et formation des jeunes. Licence 200 € par an, deux séances d'essai gratuites.",
@@ -156,7 +155,7 @@ export const univers = [
     discipline: 'Cyclisme',
     lead: 'Bientôt.',
     intro:
-      "Le projet cyclisme se dessine. Les contours du club FFC arrivent bientôt. Laisse-nous tes coordonnées pour être prévenu dès l'ouverture.",
+      "Le vélo arrive chez VELCAP : un club FFC bisontin en préparation. Sois prévenu avant tout le monde.",
     seoTitle: 'Club de cyclisme FFC à Besançon · Ouverture prochaine | VELCAP',
     seoDesc:
       "VELCAP prépare son club de cyclisme FFC à Besançon. Laisse tes coordonnées pour être prévenu dès l'ouverture et rejoindre la Team Vélo.",
@@ -174,7 +173,7 @@ export const univers = [
     discipline: 'Temps forts',
     lead: 'Le calendrier qui rassemble la communauté.',
     intro:
-      "Toute l'année, VELCAP anime le territoire : courses, social runs, fan zones, social rides et stages. Les rendez-vous où l'on se retrouve, où l'on partage, où l'on fait la fête.",
+      "Social runs du vendredi, pacers, fan zones, stages : toute l'année, VELCAP donne rendez-vous à Besançon.",
     seoTitle: 'Événements running et vélo à Besançon · Social runs, stages | VELCAP',
     seoDesc:
       "Social runs hebdomadaires, social rides, pacers, fan zones et stages : le calendrier des événements VELCAP qui animent Besançon et la Franche-Comté toute l'année.",
@@ -245,7 +244,7 @@ export const univers = [
     discipline: 'Sur-mesure',
     lead: 'Un accompagnement individualisé à ton objectif.',
     intro:
-      "Du débutant à l'élite, on t'accompagne dans tes objectifs : course à pied, trail, route, cross, piste et vélo. Un coaching individualisé, construit pour toi.",
+      "Pas de plan générique : un coach, des échanges chaque semaine, un entraînement qui s'adapte à ta vie. Les retours de nos athlètes en témoignent.",
     seoTitle: 'Coaching running et trail à Besançon · Suivi individualisé | VELCAP',
     seoDesc:
       "Coaching course à pied, trail et vélo à Besançon et à distance : plans 100 % individualisés, suivi hebdomadaire via Nolio, renforcement et conseils de course par les coachs VELCAP.",

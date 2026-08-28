@@ -178,7 +178,7 @@ if (u.slug === 'coaching' && u.coaches) {
   <!-- INTRO -->
   <section class="section udetail">
     <div class="container">
-      <p class={`udetail__intro ${u.slug === 'team-loisirs' ? 'udetail__intro--justify' : ''}`} data-reveal>{u.intro}</p>
+      <p class="udetail__intro" data-reveal>{u.intro}</p>
       {u.note && <p class="udetail__note mono" data-reveal data-delay="0.05">{u.note}</p>}
     </div>
   </section>
@@ -771,7 +771,6 @@ if (u.slug === 'coaching' && u.coaches) {
 
   .udetail { padding-block: clamp(2.5rem, 5vw, 4rem); }
   .udetail__intro { font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem); line-height: 1.45; color: var(--ink); font-family: var(--font-body); font-weight: 500; max-width: 60ch; }
-  .udetail__intro--justify { text-align: justify; }
   .udetail__note { margin-top: 1.2rem; color: var(--smoke); max-width: 60ch; letter-spacing: 0.06em; }
 
   /* — Essai gratuit — */
@@ -791,6 +790,7 @@ if (u.slug === 'coaching' && u.coaches) {
   .coaches__title { font-size: var(--fs-h3); margin: 0.4rem 0 0.4rem; }
   .coaches__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem); }
   /* colonnes selon le nombre de coachs (2 -> largeur limitée, 4 -> quatre de front) */
+  .coaches__grid--1 { grid-template-columns: 1fr; max-width: 320px; }
   .coaches__grid--2 { grid-template-columns: repeat(2, 1fr); max-width: 660px; }
   .coaches__grid--4 { grid-template-columns: repeat(4, 1fr); }
   .coach { background: var(--white); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
