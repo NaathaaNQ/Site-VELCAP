@@ -134,7 +134,7 @@ const initials = (name) =>
     </div>
 
     <div class="uhero__visual" data-intro data-intro-order="4" style={heroFrame.h ? `height:${heroFrame.h}` : undefined}>
-      <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax={heroFrame.flat ? 0 : 8} flat={heroFrame.flat || false} alt={u.name} pos={heroFrame.pos || ''} />
+      <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax={heroFrame.flat ? 0 : 8} flat={heroFrame.flat || false} alt={u.heroAlt || u.name} pos={heroFrame.pos || ''} />
     </div>
   </section>
 

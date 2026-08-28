@@ -149,6 +149,9 @@ export const univers = [
     intro:
       "Le projet cyclisme se dessine. Les contours du club FFC arrivent bientôt. Laisse-nous tes coordonnées pour être prévenu dès l'ouverture.",
     comingSoon: true,
+    // Textes alternatifs descriptifs des visuels vélo (accessibilité).
+    ttAlt: "Un cycliste VELCAP à vélo de route devant l'arche de l'ancienne saline de Salins, d'autres cyclistes rassemblés au départ.",
+    heroAlt: "Trois cyclistes de la Team Vélo VELCAP roulant en file sur une route de campagne.",
     cta: 'Être informé du lancement',
     ctaKind: 'Newsletter',
   },

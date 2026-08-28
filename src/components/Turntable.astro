@@ -15,7 +15,7 @@ const total = String(univers.length).padStart(2, '0');
         <article class="tt-panel" data-panel data-name={u.name} aria-hidden="true">
           <a class="board" href={`/univers/${u.slug}`}>
             <div class="board__visual">
-              <Photo src={`tt-${u.slug}.jpg`} treatment="color" slug={u.slug} alt={u.name} hint={false} />
+              <Photo src={`tt-${u.slug}.jpg`} treatment="color" slug={u.slug} alt={u.ttAlt || u.name} hint={false} />
             </div>
             <div class="board__body">
               <div class="board__row">
