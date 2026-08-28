@@ -68,17 +68,17 @@ export const univers = [
         label: 'Groupe VELCAP',
         note: 'Mixte · mardi et jeudi, 19h à 20h30',
         coaches: [
-          { name: 'Xavier Hubner', photo: 'coach-xavier.jpg' },
-          { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
-          { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
-          { name: 'Adam Montega', photo: 'coach-adam.jpg' },
+          { name: 'Xavier Hubner', photo: 'coach-xavier.webp' },
+          { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
+          { name: 'Nathan Quetin', photo: 'coach-nathan.webp' },
+          { name: 'Adam Montega', photo: 'coach-adam.webp' },
         ],
       },
       {
         label: 'Groupe VELLECAP',
         note: '100 % féminin · mercredi et vendredi, 18h30 à 20h · mêmes lieux que le groupe VELCAP',
         coaches: [
-          { name: 'Charlène Degret', role: 'Entraîneuse', photo: 'coach-charlene.jpg' },
+          { name: 'Charlène Degret', role: 'Entraîneuse', photo: 'coach-charlene.webp' },
         ],
       },
     ],
@@ -141,9 +141,9 @@ export const univers = [
       text: "Jeune ou adulte, viens essayer le club pendant deux jours d'essai gratuits avant de prendre ta licence FFA.",
     },
     coaches: [
-      { name: 'Hugo Gachod', photo: 'coach-hugo.jpg' },
-      { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
-      { name: 'Adam Montega', photo: 'coach-adam.jpg' },
+      { name: 'Hugo Gachod', photo: 'coach-hugo.webp' },
+      { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
+      { name: 'Adam Montega', photo: 'coach-adam.webp' },
     ],
     cta: 'Prendre une licence FFA',
     ctaKind: 'Licence',
@@ -185,7 +185,7 @@ export const univers = [
       //   notify: true             -> bouton « être recontacté » (composant liste d'attente, comme le Club FFC)
       //   badge:  'texte'          -> pastille discrète (ex. accès réservé)
       //   note:   'texte'          -> précision courte sous la description
-      //   photos: ['fichier.jpg']  -> carrousel photo (voir past). Vide = pas de carrousel.
+      //   photos: ['fichier.webp']  -> carrousel photo (voir past). Vide = pas de carrousel.
       // à venir : du plus proche au plus lointain
       upcoming: [
         {
@@ -212,23 +212,23 @@ export const univers = [
       ],
       // passés : du plus récent au plus ancien.
       // photos : dépose les fichiers dans public/img/photos/ et liste ici leurs noms,
-      // ex. photos: ['event-volodalen-1.jpg', 'event-volodalen-2.jpg']. Tableau vide = pas de carrousel.
+      // ex. photos: ['event-volodalen-1.webp', 'event-volodalen-2.webp']. Tableau vide = pas de carrousel.
       past: [
         { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.', photos: [] },
         // photos : chemin simple (string) ou objet { src, alt } pour un texte alternatif précis.
         { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.', photos: [
-          'event-forts-1.jpg', 'event-forts-2.jpg', 'event-forts-3.jpg', 'event-forts-4.jpg', 'event-forts-5.jpg', 'event-forts-6.jpg', 'event-forts-7.jpg',
-          { src: 'event-forts-8.jpg', alt: "Fan zone VELCAP au Trail des Forts : banderole « T'es grand » et membres au bord du parcours." },
-          { src: 'event-forts-9.jpg', alt: 'Fan zone VELCAP au Trail des Forts : pancarte « Le virage VELCAP » face aux coureurs.' },
+          'event-forts-1.webp', 'event-forts-2.webp', 'event-forts-3.webp', 'event-forts-4.webp', 'event-forts-5.webp', 'event-forts-6.webp', 'event-forts-7.webp',
+          { src: 'event-forts-8.webp', alt: "Fan zone VELCAP au Trail des Forts : banderole « T'es grand » et membres au bord du parcours." },
+          { src: 'event-forts-9.webp', alt: 'Fan zone VELCAP au Trail des Forts : pancarte « Le virage VELCAP » face aux coureurs.' },
         ] },
         { name: 'Stage en Ardèche', date: '4 au 11 avril 2026', place: 'Ardèche', desc: 'Une semaine de stage pour progresser ensemble : volume, technique, cohésion et bons moments hors du quotidien.', photos: [
-          'event-ardeche-1.jpg', 'event-ardeche-2.jpg', 'event-ardeche-3.jpg', 'event-ardeche-4.jpg', 'event-ardeche-5.jpg',
-          'event-ardeche-6.jpg', 'event-ardeche-7.jpg', 'event-ardeche-8.jpg', 'event-ardeche-9.jpg', 'event-ardeche-10.jpg',
+          'event-ardeche-1.webp', 'event-ardeche-2.webp', 'event-ardeche-3.webp', 'event-ardeche-4.webp', 'event-ardeche-5.webp',
+          'event-ardeche-6.webp', 'event-ardeche-7.webp', 'event-ardeche-8.webp', 'event-ardeche-9.webp', 'event-ardeche-10.webp',
         ] },
         { name: 'Pacers Rives du Doubs', date: '29 mars 2026', place: 'Rives du Doubs, Besançon', desc: "Nos pacers ont accompagné les coureurs sur les allures cibles, le long du Doubs.", photos: [
-          'event-doubs-1.jpg', 'event-doubs-2.jpg', 'event-doubs-3.jpg', 'event-doubs-4.jpg', 'event-doubs-5.jpg',
-          'event-doubs-6.jpg', 'event-doubs-7.jpg', 'event-doubs-8.jpg', 'event-doubs-9.jpg', 'event-doubs-10.jpg',
-          'event-doubs-11.jpg', 'event-doubs-12.jpg', 'event-doubs-13.jpg', 'event-doubs-14.jpg', 'event-doubs-15.jpg',
+          'event-doubs-1.webp', 'event-doubs-2.webp', 'event-doubs-3.webp', 'event-doubs-4.webp', 'event-doubs-5.webp',
+          'event-doubs-6.webp', 'event-doubs-7.webp', 'event-doubs-8.webp', 'event-doubs-9.webp', 'event-doubs-10.webp',
+          'event-doubs-11.webp', 'event-doubs-12.webp', 'event-doubs-13.webp', 'event-doubs-14.webp', 'event-doubs-15.webp',
         ] },
       ],
     },
@@ -342,10 +342,10 @@ export const univers = [
       cta: { label: 'Discuter d’un projet entreprise', href: '/contact' },
     },
     coaches: [
-      { name: 'Hugo Gachod', photo: 'coach-hugo.jpg' },
-      { name: 'Luc Le Baron', photo: 'coach-luc.jpg' },
-      { name: 'Enzo Vasallucci', photo: 'coach-enzo.jpg' },
-      { name: 'Nathan Quetin', photo: 'coach-nathan.jpg' },
+      { name: 'Hugo Gachod', photo: 'coach-hugo.webp' },
+      { name: 'Luc Le Baron', photo: 'coach-luc.webp' },
+      { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
+      { name: 'Nathan Quetin', photo: 'coach-nathan.webp' },
     ],
     // Vrais témoignages d'athlètes suivis en coaching. Texte repris mot pour
     // mot ; `coach` = prénom du coach associé ; `photo` optionnelle (à déposer
@@ -354,7 +354,7 @@ export const univers = [
       {
         name: 'Justin P.',
         coach: 'Hugo',
-        photo: 'testi-justin.jpg',
+        photo: 'testi-justin.webp',
         quote: [
           "Hugo m'entraîne depuis le mois de janvier. Nous avons commencé progressivement, en construisant une bonne base et en nous adaptant à mon niveau. Au fil des mois, j'ai vraiment pu constater mes progrès, sans me blesser.",
           "Les séances sont variées, avec de la course à pied, mais aussi du vélo, de la musculation et du renforcement, ce qui permet un travail très complet. Je lui fais entièrement confiance dans la planification de mes entraînements, et les résultats sont là.",
@@ -365,7 +365,7 @@ export const univers = [
       {
         name: 'Adel S.',
         coach: 'Enzo',
-        photo: 'testi-adel.jpg',
+        photo: 'testi-adel.webp',
         quote: [
           "J'ai vraiment passé un cap grâce à Enzo !",
           "Toujours à l'écoute, il adapte mes séances à ma forme et à mes objectifs. Il a su cibler mes points à travailler pour me faire progresser et ça même à distance !",
@@ -376,7 +376,7 @@ export const univers = [
       {
         name: 'Alexis D.',
         coach: 'Nathan',
-        photo: 'testi-alexis.jpg',
+        photo: 'testi-alexis.webp',
         quote: [
           "Je suis vraiment très content de mon expérience avec Nathan. Il est toujours à l'écoute et disponible, et il sait constamment mettre en avant le positif, même dans les moments plus difficiles. J'apprécie particulièrement sa capacité à s'adapter : il n'hésite pas à modifier les séances au jour le jour en fonction de ma fatigue, de mes sensations ou d'un événement imprévu. Cette flexibilité permet de garder un entraînement adapté et cohérent, sans jamais perdre de vue l'objectif. Grâce à son accompagnement et ses conseils, mes performances ont littéralement explosé, tout en gardant le plaisir de courir et de progresser. J'ai hâte de voir jusqu'où cette collaboration pourra encore me mener.",
         ],
@@ -384,7 +384,7 @@ export const univers = [
       {
         name: 'Flavie N.',
         coach: 'Nathan',
-        photo: 'testi-flavie.jpg',
+        photo: 'testi-flavie.webp',
         quote: [
           "Nathan est avant tout un coach très à l'écoute de son athlète et c'est selon moi, le plus important ! Il me permet de progresser sans jamais émettre de jugement ou de pression vis à vis des séances. Rigoureux mais en adaptant vraiment à nos objectifs et nos envies.",
           "Je le recommanderais vivement et je le remercie pour ce super suivi !",
@@ -393,7 +393,7 @@ export const univers = [
       {
         name: 'Emilien N.',
         coach: 'Hugo',
-        photo: 'testi-emilien.jpg',
+        photo: 'testi-emilien.webp',
         quote: [
           "Envie d'avoir un entraînement structuré avec de vraies semaines d'entraînement réfléchi...",
           "Être préparé pour mon 1er trail de Bernex 62K 4300m, ce qui a été le cas 36/250.",
@@ -407,7 +407,7 @@ export const univers = [
       {
         name: 'Pauline L.',
         coach: 'Enzo',
-        photo: 'testi-pauline.jpg',
+        photo: 'testi-pauline.webp',
         quote: [
           "Après une saison 2025 compliquée, Enzo a su adapter le planning pour me permettre de repartir sur de bonnes bases en septembre. Les entraînements ont rapidement porté leurs fruits, avec de bons résultats en compétition dès novembre avec une minute de gagnée sur 10 km (38'48), puis encore une de gagnée au mois de mars (37'55) !",
           "Très compréhensif et toujours disponible pour échanger, Enzo est pleinement engagé dans son rôle de coach. Il connaît parfaitement mes points forts et mes faiblesses, et sait me conseiller au mieux, aussi bien sur les entraînements que sur les compétitions.",

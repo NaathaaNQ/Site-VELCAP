@@ -73,10 +73,10 @@ const form = FORMS[u.slug];
 
 // Mini-galerie par univers (photos supplémentaires, N&B)
 const GALLERY = {
-  'team-loisirs': ['gal-team-loisirs-1.jpg', 'gal-team-loisirs-2.jpg', 'gal-team-loisirs-3.jpg'],
-  'team-elite': ['gal-team-elite-1.jpg', 'gal-team-elite-2.jpg', 'gal-team-elite-3.jpg'],
-  'club-ffa': ['gal-club-ffa-1.jpg', 'gal-club-ffa-2.jpg', 'gal-club-ffa-3.jpg'],
-  evenements: ['gal-evenements-1.jpg', 'gal-evenements-2.jpg', 'gal-evenements-3.jpg'],
+  'team-loisirs': ['gal-team-loisirs-1.webp', 'gal-team-loisirs-2.webp', 'gal-team-loisirs-3.webp'],
+  'team-elite': ['gal-team-elite-1.webp', 'gal-team-elite-2.webp', 'gal-team-elite-3.webp'],
+  'club-ffa': ['gal-club-ffa-1.webp', 'gal-club-ffa-2.webp', 'gal-club-ffa-3.webp'],
+  evenements: ['gal-evenements-1.webp', 'gal-evenements-2.webp', 'gal-evenements-3.webp'],
 };
 const gallery = GALLERY[u.slug];
 
@@ -171,7 +171,7 @@ if (u.slug === 'coaching' && u.coaches) {
     </div>
 
     <div class="uhero__visual" data-intro data-intro-order="4" style={heroFrame.h ? `height:${heroFrame.h}` : undefined}>
-      <Photo src={`univers-${u.slug}.jpg`} treatment="color" slug={u.slug} parallax={heroFrame.flat ? 0 : 8} flat={heroFrame.flat || false} alt={u.heroAlt || u.name} pos={heroFrame.pos || ''} />
+      <Photo src={`univers-${u.slug}.webp`} treatment="color" slug={u.slug} parallax={heroFrame.flat ? 0 : 8} flat={heroFrame.flat || false} eager alt={u.heroAlt || u.name} pos={heroFrame.pos || ''} />
     </div>
   </section>
 

@@ -8,8 +8,8 @@ import { site } from '../data/site.js';
 // Partenaires — logos dans public/img/partenaires/. Pour en ajouter un,
 // déposer le fichier et compléter ce tableau (traitement/hover automatiques).
 const partners = [
-  { src: '/img/partenaires/courtier-pontissalien.png', name: 'Courtier Pontissalien', url: 'https://courtier-pontissalien.com' },
-  { src: '/img/partenaires/decathlon.png', name: 'Décathlon', url: 'https://www.decathlon.fr' },
+  { src: '/img/partenaires/courtier-pontissalien.webp', name: 'Courtier Pontissalien', url: 'https://courtier-pontissalien.com', w: 760, h: 211 },
+  { src: '/img/partenaires/decathlon.webp', name: 'Décathlon', url: 'https://www.decathlon.fr', w: 760, h: 114 },
 ];
 // Bandeau défilant : on répète la liste pour remplir la piste et boucler sans
 // couture, même avec peu de partenaires.
@@ -69,7 +69,7 @@ const jsonLd = {
     </div>
 
     <div class="hero__media" data-intro="clip" data-intro-order="4">
-      <Photo src="photo-hero.jpg" treatment="color" slug="club-ffa" parallax="6"
+      <Photo src="photo-hero.webp" treatment="color" slug="club-ffa" parallax="6" eager
              alt="Athlète VELCAP" pos="center 35%" />
     </div>
   </section>
@@ -92,7 +92,7 @@ const jsonLd = {
 
   <!-- ============ BANDEAU ÉMOTION (pleine largeur) ============ -->
   <section class="photoband" data-parallax-scope aria-label="VELCAP, le collectif">
-    <Photo src="photo-band.jpg" treatment="color" slug="corrida" parallax="12"
+    <Photo src="photo-band.webp" treatment="color" slug="corrida" parallax="12"
            alt="Deux athlètes VELCAP se prennent dans les bras à l'arrivée" class="photoband__media" />
     <div class="photoband__overlay">
       <div class="container">
@@ -155,7 +155,7 @@ const jsonLd = {
                 aria-label={`Site de ${p.name}`}
                 tabindex="-1"
               >
-                <img class="partners__img" src={p.src} alt="" loading="lazy" decoding="async" />
+                <img class="partners__img" src={p.src} alt="" width={p.w} height={p.h} loading="lazy" decoding="async" />
               </a>
             ))}
           </div>
@@ -175,7 +175,7 @@ const jsonLd = {
           <p class="engager__alt mono">Tu préfères écrire ? <a href="/contact">Va sur la page contact →</a></p>
         </div>
         <div class="engager__media" data-reveal data-delay="0.05">
-          <Photo src="photo-engage.jpg" treatment="bw" slug="association" parallax="7"
+          <Photo src="photo-engage.webp" treatment="bw" slug="association" parallax="7"
                  alt="L'équipe VELCAP" />
         </div>
       </div>
