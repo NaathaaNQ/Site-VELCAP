@@ -50,7 +50,10 @@ export function initTurntable({ reduced } = {}) {
       const dim = abs < 0.5 ? 0 : Math.min(0.14 + (abs - 0.5) * 0.2, 0.6);
       panel.style.setProperty('--dim', dim.toFixed(3));
       const centered = abs < 0.5;
-      panel.style.pointerEvents = centered ? 'auto' : 'none';
+      // Toutes les cartes visibles restent tapables : un tap sur une carte
+      // latérale la fait tourner au centre (voir up()), un tap sur la carte
+      // centrale ouvre sa page. Seules les cartes masquées sont neutralisées.
+      panel.style.pointerEvents = abs > 2.6 ? 'none' : 'auto';
       panel.classList.toggle('is-active', centered);
       panel.setAttribute('aria-hidden', centered ? 'false' : 'true');
       panel.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', centered ? '0' : '-1'));
@@ -111,14 +114,32 @@ export function initTurntable({ reduced } = {}) {
   // Drag / swipe (souris + tactile). Seuil confortable pour ne pas confondre
   // un clic avec un glissement (c'est ce qui empêchait la navigation 1 fois sur 2).
   const DRAG_THRESH = 8;
-  let dragging = false, startX = 0, startPos = 0, moved = false, downPanel = null;
+  let dragging = false, startX = 0, startY = 0, startPos = 0, moved = false, downPanel = null, downOnControl = false;
   const panelIndexFrom = (target) => {
     const el = target && target.closest ? target.closest('[data-panel]') : null;
     return el ? panels.indexOf(el) : null;
   };
-  const down = (x, target) => {
-    dragging = true; moved = false; startX = x; startPos = state.pos;
+  // Les cartes latérales sont derrière le plan du deck en 3D (translateZ négatif
+  // sous preserve-3d) : le hit-testing natif donne le tap au deck, pas à la carte.
+  // On résout donc la carte visée par ses coordonnées projetées à l'écran,
+  // de la plus proche du centre à la plus lointaine.
+  const panelAtPoint = (x, y) => {
+    const order = panels
+      .map((p, i) => ({ i, d: Math.abs(wrap(i - state.pos)) }))
+      .filter((o) => o.d <= 2.6) // cartes visibles uniquement
+      .sort((a, b) => a.d - b.d);
+    for (const { i } of order) {
+      const r = panels[i].getBoundingClientRect();
+      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return i;
+    }
+    return null;
+  };
+  const down = (x, y, target) => {
+    dragging = true; moved = false; startX = x; startY = y; startPos = state.pos;
     downPanel = panelIndexFrom(target);
+    // tap parti d'un contrôle (flèches, pastilles…) : il garde son propre clic,
+    // on ne doit ni naviguer ni tourner par-dessus.
+    downOnControl = !!(target && target.closest && target.closest('button'));
     autoTween?.kill(); stopAuto();
   };
   const move = (x) => {
@@ -129,29 +150,49 @@ export function initTurntable({ reduced } = {}) {
     state.pos = startPos - dx / (stage.clientWidth / 2.2);
     render();
   };
-  // Relâchement : un glissement recentre ; un tap net sur la carte centrale ouvre
-  // sa page (navigation explicite, fiable même si le navigateur annule le clic).
+  // Relâchement : un glissement recentre ; un tap net sur la carte centrale
+  // ouvre sa page, un tap sur une carte latérale la fait tourner au centre
+  // (navigation explicite, fiable même si le navigateur annule le clic).
   const up = () => {
     if (!dragging) return;
     dragging = false;
     if (moved) { animateTo(Math.round(state.pos)); moved = false; return; }
-    // Tap net (déplacement < seuil) : on ouvre la carte visée. Seule la carte
-    // centrale reçoit les événements (les autres sont en pointer-events:none),
-    // donc downPanel correspond toujours à la carte réellement cliquée.
-    if (downPanel != null && panels[downPanel]) {
-      const link = panels[downPanel].querySelector('a.board');
-      if (link) { window.location.href = link.getAttribute('href'); return; }
+    const hit = downOnControl ? null : (downPanel != null ? downPanel : panelAtPoint(startX, startY));
+    if (hit != null && panels[hit]) {
+      const centered = Math.abs(wrap(hit - state.pos)) < 0.5;
+      if (centered) {
+        const link = panels[hit].querySelector('a.board');
+        if (link) { window.location.href = link.getAttribute('href'); return; }
+      } else {
+        animateTo(hit); // carte latérale : on la ramène au centre
+      }
     }
     moved = false;
   };
-  stage.addEventListener('mousedown', (e) => down(e.clientX, e.target));
+  // Geste interrompu par le navigateur (navigation, notification…) : on remet
+  // l'état à zéro pour que le tap suivant reparte propre.
+  const cancelDrag = () => { dragging = false; moved = false; downPanel = null; };
+  stage.addEventListener('mousedown', (e) => down(e.clientX, e.clientY, e.target));
   window.addEventListener('mousemove', (e) => move(e.clientX));
   window.addEventListener('mouseup', up);
-  stage.addEventListener('touchstart', (e) => down(e.touches[0].clientX, e.target), { passive: true });
+  stage.addEventListener('touchstart', (e) => down(e.touches[0].clientX, e.touches[0].clientY, e.target), { passive: true });
   stage.addEventListener('touchmove', (e) => move(e.touches[0].clientX), { passive: true });
   stage.addEventListener('touchend', up);
+  stage.addEventListener('touchcancel', cancelDrag);
   // Empêche le glisser-déposer natif des images (qui avalait le clic 1 fois sur 2).
   stage.addEventListener('dragstart', (e) => e.preventDefault());
+
+  // Retour arrière via le back/forward cache : la page est restaurée telle
+  // quelle, y compris un éventuel état de drag figé en pleine navigation.
+  // On remet l'interaction à zéro pour que chaque carte reste cliquable.
+  window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) return;
+    cancelDrag();
+    autoTween?.kill();
+    state.pos = index;
+    render();
+    updateUI();
+  });
 
   // Molette / trackpad : un balayage horizontal fait tourner la plateforme, une
   // carte à la fois. Le scroll vertical (molette classique) reste libre pour la page.
