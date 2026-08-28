@@ -1145,6 +1145,9 @@ if (u.slug === 'coaching' && u.coaches) {
     .ecards { grid-template-columns: 1fr; }
     .ugallery__grid { grid-template-columns: 1fr 1fr; }
     .coaches__grid { grid-template-columns: 1fr; }
+    /* mobile : la carte seule (groupe VELLECAP) reprend la pleine largeur,
+       comme les autres cartes entraîneur */
+    .coaches__grid--1 { max-width: none; }
     .testimonials__masonry { grid-template-columns: 1fr; }
     .ugallery__item--1 { margin-top: 0; }
     .uhero__top { grid-template-columns: 1fr; }

@@ -391,7 +391,7 @@ export const univers = [
         ],
       },
       {
-        name: 'Emilien N.',
+        name: 'Emilien L.',
         coach: 'Hugo',
         photo: 'testi-emilien.webp',
         quote: [
