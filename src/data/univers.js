@@ -15,7 +15,7 @@ export const univers = [
       "Cours encadré à Besançon avec la Team Loisirs VELCAP : 2 entraînements par semaine, tous niveaux, groupe mixte ou 100 % féminin (VELLECAP). Adhésion 180 € par an, deux séances d'essai gratuites.",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: [
-      'Groupe VELCAP · mardi et jeudi, 19h à 20h30',
+      'Groupe VELCAP · mardi et jeudi, 18h30 à 20h',
       'Groupe VELLECAP · mercredi et vendredi, 18h30 à 20h',
     ],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
@@ -37,7 +37,7 @@ export const univers = [
         sub: 'soit 15 € par mois',
         features: [
           'Un maillot VELCAP',
-          '2 entraînements encadrés par semaine (mardi et jeudi, 19h à 20h30)',
+          '2 entraînements encadrés par semaine (mardi et jeudi, 18h30 à 20h)',
           'Séminaires micronutrition, nutrition et préparation physique',
           'Accès à la communauté WhatsApp',
           'Jeux concours exclusifs',
@@ -67,7 +67,7 @@ export const univers = [
     coachGroups: [
       {
         label: 'Groupe VELCAP',
-        note: 'Mixte · mardi et jeudi, 19h à 20h30',
+        note: 'Mixte · mardi et jeudi, 18h30 à 20h',
         coaches: [
           { name: 'Xavier Hubner', photo: 'coach-xavier.webp' },
           { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
