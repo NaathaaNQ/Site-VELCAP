@@ -23,6 +23,7 @@ export const univers = [
     freeTrial: {
       title: "Deux jours d'essai, gratuits",
       text: "Viens tester le Team Loisirs pendant deux jours d'essai gratuits, sur les créneaux de ton groupe, sans aucun engagement.",
+      href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
     },
     // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
     // VELLECAP (100 % féminin). Même contenu, même prix ; la distinction se
