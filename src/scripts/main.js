@@ -5,6 +5,11 @@ import { initTurntable } from './turntable.js';
 import { initGallery } from './gallery.js';
 
 gsap.registerPlugin(ScrollTrigger);
+// Mobile : la barre d'adresse qui apparaît/disparaît pendant le scroll change la
+// hauteur du viewport et déclenche un resize. Sans ça, ScrollTrigger recalcule ses
+// positions en plein scroll -> saut de page et parallaxe qui sursaute. On ignore
+// donc les resize dus uniquement à ce changement de hauteur sur mobile.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

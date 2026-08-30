@@ -60,7 +60,9 @@ const total = String(univers.length).padStart(2, '0');
   .tt__title { font-size: var(--fs-h2); margin-top: 0.8rem; }
 
   .tt__stage {
-    position: relative; height: clamp(470px, 64vh, 640px);
+    position: relative;
+    height: clamp(470px, 64vh, 640px);   /* fallback anciens navigateurs */
+    height: clamp(470px, 64svh, 640px);  /* viewport stable : pas de saut quand la barre d'adresse mobile apparaît/disparaît */
     perspective: 2000px; touch-action: pan-y; cursor: grab;
     background: radial-gradient(130% 100% at 50% 14%, #191920 0%, #0c0c0f 55%, #070708 100%);
     border: 1px solid #1b1b21; border-radius: 24px; overflow: hidden;
@@ -85,7 +87,9 @@ const total = String(univers.length).padStart(2, '0');
 
   .tt-panel {
     position: absolute; top: 50%; left: 50%;
-    width: min(388px, 78vw); height: clamp(410px, 56vh, 550px);
+    width: min(388px, 78vw);
+    height: clamp(410px, 56vh, 550px);   /* fallback anciens navigateurs */
+    height: clamp(410px, 56svh, 550px);  /* viewport stable */
     transform: translate(-50%, -50%);
     will-change: transform, opacity;
   }
@@ -182,8 +186,8 @@ const total = String(univers.length).padStart(2, '0');
 
   /* desktop : plateforme plus large et panneaux un peu plus grands */
   @media (min-width: 1101px) {
-    .tt__stage { height: clamp(500px, 66vh, 680px); }
-    .tt-panel { width: min(420px, 40vw); height: clamp(430px, 58vh, 580px); }
+    .tt__stage { height: clamp(500px, 66vh, 680px); height: clamp(500px, 66svh, 680px); }
+    .tt-panel { width: min(420px, 40vw); height: clamp(430px, 58vh, 580px); height: clamp(430px, 58svh, 580px); }
   }
 
   @media (max-width: 760px) {

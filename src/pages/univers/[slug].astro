@@ -86,7 +86,9 @@ const gallery = GALLERY[u.slug];
 const HERO_FRAME = {
   // photo portrait dans un bandeau large : on dézoome en agrandissant le bandeau
   // (on révèle plus de la scène) et on remonte le cadrage sur les visages.
-  'club-ffa': { pos: 'center 38%', flat: true, h: 'clamp(460px, 88vh, 940px)' },
+  // svh : hauteur stable (pas de saut mobile). Les navigateurs sans svh
+  // ignorent cette valeur en ligne et retombent sur la hauteur CSS .uhero__visual.
+  'club-ffa': { pos: 'center 38%', flat: true, h: 'clamp(460px, 88svh, 940px)' },
   'team-loisirs': { flat: true },
 };
 // Team Élite : la 3e photo (droite) est dézoomée pour montrer les athlètes coupés.
@@ -772,7 +774,7 @@ if (u.slug === 'coaching' && u.coaches) {
   .uhero__name { font-size: var(--fs-h2); margin: 0.4rem 0 0.9rem; }
   .uhero__lead { font-size: var(--fs-lead); color: #3a3a40; max-width: 30ch; }
   /* hero pleine largeur (full-bleed, bord à bord) */
-  .uhero__visual { margin-top: clamp(2rem, 5vw, 4rem); width: 100%; height: clamp(340px, 62vh, 720px); }
+  .uhero__visual { margin-top: clamp(2rem, 5vw, 4rem); width: 100%; height: clamp(340px, 62vh, 720px); height: clamp(340px, 62svh, 720px); }
   .uhero__visual :global(.ph) { height: 100%; }
 
   .udetail { padding-block: clamp(2.5rem, 5vw, 4rem); }
@@ -1010,7 +1012,7 @@ if (u.slug === 'coaching' && u.coaches) {
     opacity: 0; visibility: hidden; transition: opacity 0.3s var(--ease), visibility 0.3s; }
   .gmodal.is-open { opacity: 1; visibility: visible; }
   .gmodal__backdrop { position: absolute; inset: 0; background: rgba(6,6,8,.72); backdrop-filter: blur(4px); }
-  .gmodal__dialog { position: relative; width: min(680px, 92vw); max-height: 86vh; display: flex; flex-direction: column;
+  .gmodal__dialog { position: relative; width: min(680px, 92vw); max-height: 86vh; max-height: 86svh; display: flex; flex-direction: column;
     background: var(--ink); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7);
     transform: translateY(10px) scale(0.99); transition: transform 0.35s var(--ease-out); }
   .gmodal.is-open .gmodal__dialog { transform: none; }
@@ -1019,7 +1021,7 @@ if (u.slug === 'coaching' && u.coaches) {
     transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }
   .gmodal__x:hover { background: var(--red); border-color: var(--red); }
   .gmodal__stage { position: relative; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: #0c0c0f; }
-  .gmodal__img { max-width: 100%; max-height: 74vh; width: auto; height: auto; display: block; margin: auto; user-select: none; -webkit-user-drag: none; }
+  .gmodal__img { max-width: 100%; max-height: 74vh; max-height: 74svh; width: auto; height: auto; display: block; margin: auto; user-select: none; -webkit-user-drag: none; }
   .gmodal__arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 40px; height: 40px; display: grid; place-items: center;
     border-radius: 50%; border: 1px solid rgba(255,255,255,.28); background: rgba(10,10,12,.5); color: #fff; cursor: pointer; backdrop-filter: blur(3px);
     transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }
@@ -1104,7 +1106,7 @@ if (u.slug === 'coaching' && u.coaches) {
   .umodal.is-open { opacity: 1; visibility: visible; }
   .umodal__backdrop { position: absolute; inset: 0; background: rgba(6,6,8,.6); backdrop-filter: blur(4px); }
   .umodal__panel {
-    position: relative; z-index: 1; width: min(560px, 100%); max-height: 90vh; overflow-y: auto;
+    position: relative; z-index: 1; width: min(560px, 100%); max-height: 90vh; max-height: 90svh; overflow-y: auto;
     overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
     background: var(--white); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem);
     box-shadow: 0 40px 90px -30px rgba(0,0,0,.5);
