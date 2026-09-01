@@ -21,8 +21,8 @@ export const univers = [
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
     freeTrial: {
-      title: "Deux jours d'essai, gratuits",
-      text: "Viens tester le Team Loisirs pendant deux jours d'essai gratuits, sur les créneaux de ton groupe, sans aucun engagement.",
+      title: "Tout septembre est gratuit",
+      text: "Le mois de septembre est offert : viens essayer le Team Loisirs quand tu veux, sur les créneaux de ton groupe et sans aucun engagement. Inscris-toi via le lien.",
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
     },
     // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
@@ -72,7 +72,7 @@ export const univers = [
           { name: 'Xavier Hubner', photo: 'coach-xavier.webp' },
           { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
           { name: 'Nathan Quetin', photo: 'coach-nathan.webp' },
-          { name: 'Adam Montega', photo: 'coach-adam.webp' },
+          { name: 'Adam Mantega', photo: 'coach-adam.webp' },
         ],
       },
       {
@@ -133,7 +133,7 @@ export const univers = [
       { k: 'Licence FFA', v: 'Ouvert à toute personne désireuse de faire de la compétition.' },
     ],
     schedule: ['Lundi · dès 18h30', 'Mercredi · dès 18h30', 'Samedi · 9h à 12h'],
-    places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…), la piste Léo Lagrange ou le STAPS.',
+    places: "Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou le stade d'athlétisme de l'UFR STAPS.",
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
     price: '200 €',
     priceNote: "Licence FFA, à l'année",
@@ -144,7 +144,7 @@ export const univers = [
     coaches: [
       { name: 'Hugo Gachod', photo: 'coach-hugo.webp' },
       { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
-      { name: 'Adam Montega', photo: 'coach-adam.webp' },
+      { name: 'Adam Mantega', photo: 'coach-adam.webp' },
     ],
     cta: 'Prendre une licence FFA',
     ctaKind: 'Licence',
