@@ -312,6 +312,17 @@ if (u.slug === 'coaching' && u.coaches) {
               ) : (
                 <p class="tier__soon mono">Détails à venir</p>
               )}
+              {t.trial && (
+                <div class="tier__trial">
+                  <svg class="tier__trial-ridge" viewBox="0 0 120 12" fill="none" aria-hidden="true" preserveAspectRatio="none">
+                    <path d="M0 10 24 3l16 6 20-8 18 7 16-5 26 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <p class="tier__trial-text">{t.trial.text}</p>
+                  <a class="btn btn--red tier__trial-cta" href={t.trial.href} target="_blank" rel="noopener noreferrer" aria-label={t.trial.aria} data-magnetic>
+                    {t.trial.cta} <span class="arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              )}
               {u.slug !== 'team-loisirs' && (
                 <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
               )}
@@ -927,6 +938,17 @@ if (u.slug === 'coaching' && u.coaches) {
   .tier__features .feat-acc__list li::before { top: 0.6em; width: 6px; height: 1.6px; background: var(--smoke); clip-path: none; }
   .tier__soon { color: var(--smoke); margin: 0.6rem 0 1rem; }
   .tier__cta { margin-top: auto; justify-content: center; }
+  /* Invitation « session découverte gratuite » (carte Loisirs VELCAP mixte).
+     Ancrée en bas de la carte, séparée par un filet ; motif crête + bouton
+     primaire rouge réutilisé (hover et focus hérités de .btn). */
+  .tier__trial {
+    margin-top: auto; padding-top: clamp(1rem, 2vw, 1.3rem);
+    border-top: 1px solid var(--hairline);
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem;
+  }
+  .tier__trial-ridge { width: 92px; height: auto; color: var(--red); }
+  .tier__trial-text { color: #2a2a2e; font-size: 0.96rem; line-height: 1.45; max-width: 32ch; }
+  .tier__trial-cta { align-self: stretch; justify-content: center; margin-top: 0.15rem; }
   .tiers__note {
     margin-top: clamp(1.6rem, 3vw, 2.4rem);
     display: flex; align-items: center; gap: 0.9rem;

@@ -44,6 +44,14 @@ export const univers = [
           '1 social run festif par mois',
           'Participation à tous nos événements',
         ],
+        // Invitation à tester une session découverte gratuite (carte mixte
+        // uniquement). Le champ n'existe pas sur la carte VELLECAP.
+        trial: {
+          text: "Pas encore sûr ? Viens tester une session découverte, c'est gratuit.",
+          href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
+          cta: "Je m'inscris gratuitement",
+          aria: "Réserver ma session d'essai gratuite Loisirs VELCAP",
+        },
       },
       {
         name: 'Loisirs VELLECAP',
