@@ -205,6 +205,28 @@ if (u.slug === 'coaching' && u.coaches) {
     </section>
   )}
 
+  {u.trialVellecap && (
+    <section class="section freetrial freetrial--vellecap">
+      <div class="container freetrial__inner" data-reveal>
+        <div class="freetrial__copy">
+          <svg class="freetrial__ridge" viewBox="0 0 120 12" fill="none" aria-hidden="true" preserveAspectRatio="none">
+            <path d="M0 10 24 3l16 6 20-8 18 7 16-5 26 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p class="mono eyebrow">{u.trialVellecap.eyebrow}</p>
+          <p class="freetrial__title display" set:html={wordmark(u.trialVellecap.name)}></p>
+          <p class="freetrial__text">{u.trialVellecap.text}</p>
+        </div>
+        <a class="btn btn--red btn--lg freetrial__cta"
+           href={u.trialVellecap.href}
+           target="_blank" rel="noopener noreferrer"
+           aria-label={u.trialVellecap.aria}
+           data-magnetic>
+          Réserver mon essai <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  )}
+
   {u.comingSoon && (
     <section class="section soon">
       <div class="container soon__inner" data-reveal>
@@ -311,17 +333,6 @@ if (u.slug === 'coaching' && u.coaches) {
                 </ul>
               ) : (
                 <p class="tier__soon mono">Détails à venir</p>
-              )}
-              {t.trial && (
-                <div class="tier__trial">
-                  <svg class="tier__trial-ridge" viewBox="0 0 120 12" fill="none" aria-hidden="true" preserveAspectRatio="none">
-                    <path d="M0 10 24 3l16 6 20-8 18 7 16-5 26 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <p class="tier__trial-text">{t.trial.text}</p>
-                  <a class="btn btn--red tier__trial-cta" href={t.trial.href} target="_blank" rel="noopener noreferrer" aria-label={t.trial.aria} data-magnetic>
-                    {t.trial.cta} <span class="arrow" aria-hidden="true">→</span>
-                  </a>
-                </div>
               )}
               {u.slug !== 'team-loisirs' && (
                 <button type="button" class="btn btn--dark tier__cta" data-open-form data-tier={t.name} data-magnetic>{u.cta} <span class="arrow">→</span></button>
@@ -803,6 +814,11 @@ if (u.slug === 'coaching' && u.coaches) {
   .freetrial__title { font-size: clamp(1.6rem, 4vw, 2.6rem); margin: 0.5rem 0 0.5rem; }
   .freetrial__text { color: #4a4a50; max-width: 52ch; }
   .freetrial__cta { flex-shrink: 0; }
+  /* Second essai (groupe VELLECAP) : bande jumelle rapprochée, disposition en
+     miroir (accent et bouton à gauche) pour une variance de layout modérée. */
+  .freetrial--vellecap { padding-top: 0; }
+  .freetrial--vellecap .freetrial__inner { flex-direction: row-reverse; border-left: 0; border-right: 5px solid var(--red); }
+  .freetrial__ridge { display: block; width: 88px; height: auto; color: var(--red); margin-bottom: 0.6rem; }
 
   /* — Coachs — */
   .coaches__head { margin-bottom: clamp(1.4rem, 3vw, 2rem); }
@@ -938,17 +954,6 @@ if (u.slug === 'coaching' && u.coaches) {
   .tier__features .feat-acc__list li::before { top: 0.6em; width: 6px; height: 1.6px; background: var(--smoke); clip-path: none; }
   .tier__soon { color: var(--smoke); margin: 0.6rem 0 1rem; }
   .tier__cta { margin-top: auto; justify-content: center; }
-  /* Invitation « session découverte gratuite » (carte Loisirs VELCAP mixte).
-     Ancrée en bas de la carte, séparée par un filet ; motif crête + bouton
-     primaire rouge réutilisé (hover et focus hérités de .btn). */
-  .tier__trial {
-    margin-top: auto; padding-top: clamp(1rem, 2vw, 1.3rem);
-    border-top: 1px solid var(--hairline);
-    display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem;
-  }
-  .tier__trial-ridge { width: 92px; height: auto; color: var(--red); }
-  .tier__trial-text { color: #2a2a2e; font-size: 0.96rem; line-height: 1.45; max-width: 32ch; }
-  .tier__trial-cta { align-self: stretch; justify-content: center; margin-top: 0.15rem; }
   .tiers__note {
     margin-top: clamp(1.6rem, 3vw, 2.4rem);
     display: flex; align-items: center; gap: 0.9rem;
@@ -1166,6 +1171,7 @@ if (u.slug === 'coaching' && u.coaches) {
   @media (max-width: 860px) {
     .coaches__grid { grid-template-columns: 1fr 1fr; }
     .freetrial__inner { flex-direction: column; align-items: flex-start; }
+    .freetrial--vellecap .freetrial__inner { flex-direction: column; }
     .freetrial__cta { width: 100%; justify-content: center; }
     .entreprise__inner { flex-direction: column; align-items: flex-start; }
   }

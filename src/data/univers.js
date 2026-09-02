@@ -25,6 +25,15 @@ export const univers = [
       text: "Le mois de septembre est offert : viens essayer le Team Loisirs quand tu veux, sur les créneaux de ton groupe et sans aucun engagement. Inscris-toi via le lien.",
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
     },
+    // Second essai, propre au groupe féminin VELLECAP (bande jumelle de
+    // freeTrial ci-dessus, même bouton). `name` passe par le wordmark -> ELLE rouge.
+    trialVellecap: {
+      eyebrow: 'Septembre offert · sans engagement',
+      name: 'Loisirs VELLECAP',
+      text: "Viens tester le groupe VELLECAP en septembre, dans un cadre 100 % féminin et sans aucun engagement.",
+      href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
+      aria: "Réserver mon essai gratuit pour le groupe Loisirs VELLECAP",
+    },
     // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
     // VELLECAP (100 % féminin). Même contenu, même prix ; la distinction se
     // fait par le nom (« ELLE » en rouge) et la mention sous le titre.
@@ -44,14 +53,6 @@ export const univers = [
           '1 social run festif par mois',
           'Participation à tous nos événements',
         ],
-        // Invitation à tester une session découverte gratuite (carte mixte
-        // uniquement). Le champ n'existe pas sur la carte VELLECAP.
-        trial: {
-          text: "Pas encore sûr ? Viens tester une session découverte, c'est gratuit.",
-          href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
-          cta: "Je m'inscris gratuitement",
-          aria: "Réserver ma session d'essai gratuite Loisirs VELCAP",
-        },
       },
       {
         name: 'Loisirs VELLECAP',
