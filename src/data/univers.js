@@ -20,20 +20,27 @@ export const univers = [
     ],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
     placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
-    freeTrial: {
-      title: "Tout septembre est gratuit",
-      text: "Le mois de septembre est offert : viens essayer le Team Loisirs quand tu veux, sur les créneaux de ton groupe et sans aucun engagement. Inscris-toi via le lien.",
-      href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
-    },
-    // Second essai, propre au groupe féminin VELLECAP (bande jumelle de
-    // freeTrial ci-dessus, même bouton). `name` passe par le wordmark -> ELLE rouge.
-    trialVellecap: {
-      eyebrow: 'Septembre offert · sans engagement',
-      name: 'Loisirs VELLECAP',
-      text: "Viens tester le groupe VELLECAP en septembre, dans un cadre 100 % féminin et sans aucun engagement.",
-      href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
-      aria: "Réserver mon essai gratuit pour le groupe Loisirs VELLECAP",
-    },
+    // Deux bandes d'essai jumelles (VELCAP mixte + VELLECAP féminin) rendues
+    // par le même gabarit paramétré. `title` passe par le wordmark : « ELLE »
+    // rouge sur VELLECAP, sobre sur VELCAP. `mirror` inverse la disposition
+    // pour que les deux bandes se répondent en miroir.
+    trialBands: [
+      {
+        eyebrow: 'Septembre offert · sans engagement',
+        title: 'Loisirs VELCAP',
+        text: "Viens tester le groupe VELCAP en septembre, dans un cadre mixte et sans aucun engagement.",
+        href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
+        aria: "Réserver mon essai gratuit pour le groupe Loisirs VELCAP",
+      },
+      {
+        eyebrow: 'Septembre offert · sans engagement',
+        title: 'Loisirs VELLECAP',
+        text: "Viens tester le groupe VELLECAP en septembre, dans un cadre 100 % féminin et sans aucun engagement.",
+        href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
+        aria: "Réserver mon essai gratuit pour le groupe Loisirs VELLECAP",
+        mirror: true,
+      },
+    ],
     // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
     // VELLECAP (100 % féminin). Même contenu, même prix ; la distinction se
     // fait par le nom (« ELLE » en rouge) et la mention sous le titre.
