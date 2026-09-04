@@ -544,20 +544,10 @@ if (u.slug === 'coaching' && u.coaches) {
                     </details>
                   )}
 
-                  {e.notify && (
-                    <details class="ev-acc">
-                      <summary class="ev-acc__btn btn btn--red">Être recontacté à l'ouverture <span class="ev-acc__chev" aria-hidden="true"></span></summary>
-                      <div class="ev-acc__body">
-                        <WaitlistForm
-                          idPrefix={`notify-${i}`}
-                          ctaLabel="Me prévenir à l'ouverture"
-                          eventName={e.name}
-                          subject={`Recontact ouverture ${e.name} - site VELCAP`}
-                          context={`à l'ouverture des inscriptions du ${e.name}`}
-                          success="Merci {firstname}, c'est noté. On te prévient dès l'ouverture des inscriptions."
-                        />
-                      </div>
-                    </details>
+                  {e.register && (
+                    <a class="btn btn--red btn--lg ecard__register" href={e.register.href} target="_blank" rel="noopener noreferrer" data-magnetic>
+                      {e.register.label} <span class="arrow" aria-hidden="true">↗</span>
+                    </a>
                   )}
                 </article>
               ))}
@@ -1024,6 +1014,9 @@ if (u.slug === 'coaching' && u.coaches) {
   .ev-acc__chev { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.25s var(--ease); }
   .ev-acc[open] .ev-acc__chev { transform: rotate(-135deg); }
   .ev-acc__body { margin-top: 0.9rem; }
+
+  /* Inscription externe : bouton rouge centré, mis en avant en bas de carte */
+  .ecard__register { align-self: center; margin-top: clamp(1.2rem, 2.5vw, 1.6rem); }
 
   /* Déclencheur de galerie (compact, hauteur fixe : ne décale pas la carte) */
   .ecard__gallery { align-self: flex-start; margin-top: 1.2rem; display: inline-flex; align-items: center; gap: 0.55rem;

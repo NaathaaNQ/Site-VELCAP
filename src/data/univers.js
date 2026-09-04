@@ -196,10 +196,10 @@ export const univers = [
       "Social runs hebdomadaires, social rides, pacers, fan zones et stages : le calendrier des événements VELCAP qui animent Besançon et la Franche-Comté toute l'année.",
     events: {
       // Chaque événement accepte des champs optionnels réutilisables :
-      //   link:   { href, label }  -> bouton lien externe (nouvel onglet)
+      //   link:     { href, label } -> bouton lien externe secondaire (nouvel onglet)
+      //   register: { href, label } -> bouton rouge d'inscription, centré et mis en avant (nouvel onglet)
       //   teaser: 'texte'          -> mention teasing mise en avant
       //   signup: true             -> formulaire d'inscription dépliable (nom, prénom, e-mail, tel, message)
-      //   notify: true             -> bouton « être recontacté » (composant liste d'attente, comme le Club FFC)
       //   badge:  'texte'          -> pastille discrète (ex. accès réservé)
       //   note:   'texte'          -> précision courte sous la description
       //   photos: ['fichier.webp']  -> carrousel photo (voir past). Vide = pas de carrousel.
@@ -224,7 +224,7 @@ export const univers = [
         {
           name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
           desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui fait aussi découvrir les monuments historiques de la ville.",
-          notify: true,
+          register: { href: 'https://www.corrida-salins-les-bains.fr', label: "Je m'inscris" },
         },
       ],
       // passés : du plus récent au plus ancien.
