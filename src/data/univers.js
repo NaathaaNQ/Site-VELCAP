@@ -203,24 +203,9 @@ export const univers = [
       //   badge:  'texte'          -> pastille discrète (ex. accès réservé)
       //   note:   'texte'          -> précision courte sous la description
       //   photos: ['fichier.webp']  -> carrousel photo (voir past). Vide = pas de carrousel.
+      //   photoDir: 'evenements/xxx' -> dossier dédié de l'événement dans public/img/photos/
       // à venir : du plus proche au plus lointain
       upcoming: [
-        {
-          name: 'Social Run avec Décathlon', date: 'Tous les vendredis', place: 'Décathlon Besançon',
-          desc: "Un rendez-vous hebdomadaire décontracté au départ du magasin : on court ensemble, tous niveaux, puis on partage un moment.",
-          link: { href: 'https://activites.decathlon.fr/fr-FR/activites-sportives/details/11325257', label: 'Toutes les infos et inscriptions' },
-        },
-        {
-          name: 'Social Ride avec ASSOS x PRODUSPORT', date: '12/09/2026', place: 'Besançon et alentours',
-          desc: "Une sortie vélo qui réunit ASSOS, PRODUSPORT et la communauté VELCAP autour d'un moment de partage.",
-          teaser: 'Quelques surprises attendent les participants.',
-          signup: true,
-        },
-        {
-          name: 'Pacers Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
-          desc: 'Nos pacers t’emmènent sur la Boucle Vauban, en toute régularité : de 36 min à 1 h 10 sur le 10 km, et de 1 h 20 à 2 h 10 sur le semi-marathon.',
-          note: '15 pacers VELCAP sur le parcours, accompagnés des pacers Décathlon.',
-        },
         {
           name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
           desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui fait aussi découvrir les monuments historiques de la ville.",
@@ -228,9 +213,29 @@ export const univers = [
         },
       ],
       // passés : du plus récent au plus ancien.
-      // photos : dépose les fichiers dans public/img/photos/ et liste ici leurs noms,
-      // ex. photos: ['event-volodalen-1.webp', 'event-volodalen-2.webp']. Tableau vide = pas de carrousel.
+      // Galerie photo : `photos` liste les images de l'événement. Tableau vide =
+      // aucune galerie affichée (pas de zone vide, pas de placeholder).
+      //   - photoDir: 'evenements/xxx' -> les fichiers sont lus dans
+      //     public/img/photos/evenements/xxx/ (un dossier par événement)
+      //   - sans photoDir, les noms sont relatifs à public/img/photos/
+      //   - chaque entrée : 'fichier.webp' (alt généré « Nom, photo N ») ou
+      //     { src: 'fichier.webp', alt: 'description précise' }
       past: [
+        {
+          name: 'Pacers Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
+          desc: "Nos pacers ont emmené les coureurs sur la Boucle Vauban, en toute régularité : de 36 min à 1 h 10 sur le 10 km, et de 1 h 20 à 2 h 10 sur le semi-marathon. 15 pacers VELCAP étaient sur le parcours, aux côtés des pacers Décathlon.",
+          photoDir: 'evenements/pacers-boucle-vauban', photos: [],
+        },
+        {
+          name: 'Social Ride avec ASSOS x PRODUSPORT', date: '12/09/2026', place: 'Besançon et alentours',
+          desc: "Une sortie vélo qui a réuni ASSOS, PRODUSPORT et la communauté VELCAP autour d'un moment de partage.",
+          photoDir: 'evenements/social-ride', photos: [],
+        },
+        {
+          name: 'Social Run avec Décathlon', date: 'Tous les vendredis', place: 'Décathlon Besançon',
+          desc: "Un rendez-vous hebdomadaire décontracté au départ du magasin : on a couru ensemble, tous niveaux, avant de partager un moment.",
+          photoDir: 'evenements/social-run', photos: [],
+        },
         { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.', photos: [] },
         // photos : chemin simple (string) ou objet { src, alt } pour un texte alternatif précis.
         { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.', photos: [

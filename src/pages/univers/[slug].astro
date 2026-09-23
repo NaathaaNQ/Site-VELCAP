@@ -111,6 +111,10 @@ const se = u.sportEntreprise;
 // Met « ELLE » en rouge à l'intérieur du wordmark VELLECAP (carte Loisirs féminin).
 const wordmark = (name) => name.replace('VELLECAP', 'V<span class="wm-elle">ELLE</span>CAP');
 
+// Lien Instagram (source unique site.js) : message affiché quand aucun
+// événement à venir n'est annoncé.
+const instagramUrl = site.socials.find((s) => s.icon === 'instagram')?.url || site.socials[0]?.url;
+
 // Témoignages : photo optionnelle (public/img/photos/), sinon fallback initiales.
 const photoExists = (src) => !!src && fs.existsSync(`public/img/photos/${src}`);
 const initials = (name) =>
@@ -479,9 +483,10 @@ if (u.slug === 'coaching' && u.coaches) {
         {[
           { key: 'upcoming', title: 'Événements à venir', items: u.events.upcoming },
           { key: 'past', title: 'Événements passés', items: u.events.past },
-        ].filter((g) => g.items && g.items.length).map((g) => (
+        ].filter((g) => g.key === 'upcoming' || (g.items && g.items.length)).map((g) => (
           <div class={`events__group events__group--${g.key}`}>
             <h3 class="events__group-title display" data-reveal>{g.title}</h3>
+            {g.items && g.items.length ? (
             <div class="ecards" data-reveal-group>
               {g.items.map((e, i) => (
                 <article class={`ecard ${g.key === 'past' ? 'ecard--past' : ''}`} data-reveal-item>
@@ -512,9 +517,10 @@ if (u.slug === 'coaching' && u.coaches) {
                           en lazy loading : elles ne sont pas téléchargées, juste lues par la galerie. */}
                       <div class="ecard__photos" hidden data-gallery-src>
                         {e.photos.map((ph, k) => {
-                          const src = typeof ph === 'string' ? ph : ph.src;
+                          const file = typeof ph === 'string' ? ph : ph.src;
+                          const src = e.photoDir ? `${e.photoDir}/${file}` : file;
                           const alt = typeof ph === 'string' ? `${e.name}, photo ${k + 1}` : ph.alt;
-                          return <img src={`/img/photos/${src}`} alt={alt} loading="lazy" />;
+                          return <img src={`/img/photos/${src}`} alt={alt} loading="lazy" decoding="async" />;
                         })}
                       </div>
                     </div>
@@ -552,6 +558,9 @@ if (u.slug === 'coaching' && u.coaches) {
                 </article>
               ))}
             </div>
+            ) : (
+              <p class="events__empty" data-reveal>Pas de nouvelle date annoncée pour l'instant. Suis-nous sur <a href={instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a> pour découvrir les prochains rendez-vous.</p>
+            )}
           </div>
         ))}
         {u.request && <p class="events__request" data-reveal>{u.request}</p>}
@@ -988,6 +997,10 @@ if (u.slug === 'coaching' && u.coaches) {
   .events__group + .events__group { margin-top: clamp(2.4rem, 5vw, 3.8rem); }
   .events__group-title { font-size: var(--fs-h3); margin: clamp(1.4rem, 3vw, 2.2rem) 0 0.2rem; }
   .events__group--past .events__group-title { color: var(--smoke); }
+  /* Aucun événement à venir : invitation sobre à suivre Instagram */
+  .events__empty { margin-top: 1rem; color: #4a4a50; max-width: 52ch; line-height: 1.55; }
+  .events__empty a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+  .events__empty a:hover { color: var(--ink); }
 
   /* Cartes d'événement */
   .ecards { margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.5rem); align-items: start; }
