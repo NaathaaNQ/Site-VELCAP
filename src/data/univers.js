@@ -235,7 +235,8 @@ export const univers = [
         {
           name: 'Social Run avec Décathlon', date: 'Tous les vendredis', place: 'Décathlon Besançon',
           desc: "Un rendez-vous hebdomadaire décontracté au départ du magasin : on a couru ensemble, tous niveaux, avant de partager un moment.",
-          photoDir: 'evenements/social-run', photos: [],
+          photoDir: 'evenements/social-run',
+          photos: Array.from({ length: 7 }, (_, i) => `social-run-${String(i + 1).padStart(2, '0')}.webp`),
         },
         { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.', photos: [] },
         // photos : chemin simple (string) ou objet { src, alt } pour un texte alternatif précis.
