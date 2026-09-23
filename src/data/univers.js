@@ -223,7 +223,7 @@ export const univers = [
       past: [
         {
           name: 'Pacers Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
-          desc: "Nos pacers ont emmené les coureurs sur la Boucle Vauban, en toute régularité : de 36 min à 1 h 10 sur le 10 km, et de 1 h 20 à 2 h 10 sur le semi-marathon. 15 pacers VELCAP étaient sur le parcours, aux côtés des pacers Décathlon.",
+          desc: "Nos pacers ont emmené les coureurs sur la Boucle Vauban, en toute régularité : de 36 min à 1 h 10 sur le 10 km, et de 1 h 25 à 2 h 20 sur le semi-marathon. 15 pacers VELCAP étaient sur le parcours, aux côtés des pacers Décathlon.",
           photoDir: 'evenements/pacers-boucle-vauban',
           photos: Array.from({ length: 18 }, (_, i) => `pacers-vauban-${String(i + 1).padStart(2, '0')}.webp`),
         },
