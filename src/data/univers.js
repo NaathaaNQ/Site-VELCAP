@@ -12,14 +12,14 @@ export const univers = [
       "Marre de courir seul ? Deux soirs par semaine, un coach t'attend aux Rives du Doubs ou sur les forts. Aucun niveau requis, juste l'envie de venir.",
     seoTitle: 'Club de course à pied loisir à Besançon · Team Loisirs VELCAP',
     seoDesc:
-      "Cours encadré à Besançon avec la Team Loisirs VELCAP : 2 entraînements par semaine, tous niveaux, groupe mixte ou 100 % féminin (VELLECAP). Adhésion 180 € par an, deux séances d'essai gratuites.",
+      "Cours encadré à Besançon avec la Team Loisirs VELCAP : 2 entraînements par semaine, tous niveaux, groupe mixte ou 100 % féminin (VELLECAP). Adhésion 180 € par an, deux séances d'essai.",
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: [
       'Groupe VELCAP · mardi et jeudi, 18h30 à 20h',
       'Groupe VELLECAP · mercredi et vendredi, 18h30 à 20h',
     ],
     places: 'Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou en centre-ville.',
-    placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
+    placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai.",
     // Deux bandes d'essai jumelles (VELCAP mixte + VELLECAP féminin) rendues
     // par le même gabarit paramétré. `title` passe par le wordmark : « ELLE »
     // rouge sur VELLECAP, sobre sur VELCAP. `mirror` inverse la disposition
@@ -30,14 +30,14 @@ export const univers = [
         title: 'Loisirs VELCAP',
         text: "Viens tester le groupe VELCAP en septembre, dans un cadre mixte et sans aucun engagement.",
         href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
-        aria: "Réserver mon essai gratuit pour le groupe Loisirs VELCAP",
+        aria: "Réserver mon essai pour le groupe Loisirs VELCAP",
       },
       {
         eyebrow: 'Septembre offert · sans engagement',
         title: 'Loisirs VELLECAP',
         text: "Viens tester le groupe VELLECAP en septembre, dans un cadre 100 % féminin et sans aucun engagement.",
         href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
-        aria: "Réserver mon essai gratuit pour le groupe Loisirs VELLECAP",
+        aria: "Réserver mon essai pour le groupe Loisirs VELLECAP",
         mirror: true,
       },
     ],
@@ -141,7 +141,7 @@ export const univers = [
       "Du premier cross des jeunes aux Championnats de France : trois créneaux par semaine pour faire de la compétition dans un collectif qui pousse.",
     seoTitle: "Club FFA d'athlétisme à Besançon · Compétition et jeunes | VELCAP",
     seoDesc:
-      "Le club FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales jusqu'aux Championnats de France et formation des jeunes. Licence 200 € par an, deux séances d'essai gratuites.",
+      "Le club FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales jusqu'aux Championnats de France et formation des jeunes. Licence 200 € par an, deux séances d'essai.",
     points: [
       { k: 'Trois créneaux / semaine', v: 'Lundi et mercredi dès 18h30, samedi de 9h à 12h.' },
       { k: 'Objectifs forts', v: 'Les compétitions fédérales, jusqu’aux Championnats de France.' },
@@ -149,13 +149,16 @@ export const univers = [
       { k: 'Licence FFA', v: 'Ouvert à toute personne désireuse de faire de la compétition.' },
     ],
     schedule: ['Lundi · dès 18h30', 'Mercredi · dès 18h30', 'Samedi · 9h à 12h'],
-    places: "Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou le stade d'athlétisme de l'UFR STAPS.",
-    placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai gratuites.",
+    // UFR STAPS retirée temporairement des lieux de rendez-vous. Pour la
+    // réactiver, remplacer `places` par la ligne commentée ci-dessous.
+    // places: "Les Rives du Doubs, les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…) ou le stade d'athlétisme de l'UFR STAPS.",
+    places: 'Les Rives du Doubs ou les forts de Besançon (Rosemont, Chaudanne, Bregille, Planoise…).',
+    placesNote: "Sur les plus grands lieux d'entraînement : deux séances d'essai.",
     price: '200 €',
     priceNote: "Licence FFA, à l'année",
     freeTrial: {
-      title: "Deux jours d'essai, gratuits",
-      text: "Jeune ou adulte, viens essayer le club pendant deux jours d'essai gratuits avant de prendre ta licence FFA.",
+      title: "Deux jours d'essai",
+      text: "Jeune ou adulte, viens essayer le club pendant deux jours d'essai avant de prendre ta licence FFA.",
     },
     coaches: [
       { name: 'Hugo Gachod', photo: 'coach-hugo.webp' },
@@ -204,8 +207,20 @@ export const univers = [
       //   note:   'texte'          -> précision courte sous la description
       //   photos: ['fichier.webp']  -> carrousel photo (voir past). Vide = pas de carrousel.
       //   photoDir: 'evenements/xxx' -> dossier dédié de l'événement dans public/img/photos/
+      //   subtitle: 'texte'        -> mention sous le titre (ex. partenariat)
+      //   accent: 'rose'           -> touche de couleur sur la carte (liseré + pastille), ex. Octobre Rose
       // à venir : du plus proche au plus lointain
       upcoming: [
+        {
+          name: 'Test VMA – Octobre Rose',
+          subtitle: 'Organisé en partenariat avec Décathlon Besançon',
+          date: 'Vendredi 9 octobre 2026, 19h à 20h', place: 'Décathlon Besançon',
+          desc: "Un test VMA encadré par les coachs VELCAP dans le cadre d'Octobre Rose, ouvert à tous les niveaux : connais ta vitesse maximale aérobie et calibre tes allures d'entraînement. Prévois tes chaussures de running et une réserve d'eau.",
+          note: 'Gratuit · durée 1 h · 3 rue André Breton, 25000 Besançon',
+          badge: 'Octobre Rose',
+          accent: 'rose',
+          register: { href: 'https://activites.decathlon.fr/fr-FR/activites-sportives/details/11325257', label: "S'inscrire" },
+        },
         {
           name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
           desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui fait aussi découvrir les monuments historiques de la ville.",

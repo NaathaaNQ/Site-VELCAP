@@ -193,7 +193,7 @@ if (u.slug === 'coaching' && u.coaches) {
     <section class="section freetrial">
       <div class="container freetrial__inner" data-reveal>
         <div class="freetrial__copy">
-          <p class="mono eyebrow">Gratuit · sans engagement</p>
+          <p class="mono eyebrow">Sans engagement</p>
           <p class="freetrial__title display">{u.freeTrial.title}</p>
           <p class="freetrial__text">{u.freeTrial.text}</p>
         </div>
@@ -201,7 +201,7 @@ if (u.slug === 'coaching' && u.coaches) {
            href={u.freeTrial.href || '/contact'}
            target={u.freeTrial.href ? '_blank' : undefined}
            rel={u.freeTrial.href ? 'noopener noreferrer' : undefined}
-           aria-label={u.freeTrial.href ? "Réserver mes deux séances d'essai gratuites" : undefined}
+           aria-label={u.freeTrial.href ? "Réserver mes deux séances d'essai" : undefined}
            data-magnetic>
           Réserver mon essai <span class="arrow" aria-hidden="true">→</span>
         </a>
@@ -489,11 +489,12 @@ if (u.slug === 'coaching' && u.coaches) {
             {g.items && g.items.length ? (
             <div class="ecards" data-reveal-group>
               {g.items.map((e, i) => (
-                <article class={`ecard ${g.key === 'past' ? 'ecard--past' : ''}`} data-reveal-item>
+                <article class={`ecard ${g.key === 'past' ? 'ecard--past' : ''} ${e.accent ? `ecard--${e.accent}` : ''}`} data-reveal-item>
                   <div class="ecard__top">
                     <span class="ecard__n mono">{String(i + 1).padStart(2, '0')}</span>
                     <div class="ecard__head">
                       <h4 class="ecard__name display">{e.name}</h4>
+                      {e.subtitle && <p class="ecard__sub">{e.subtitle}</p>}
                       <p class="ecard__meta mono">{e.date} · {e.place}</p>
                     </div>
                     {e.badge && <span class="ecard__badge mono">{e.badge}</span>}
@@ -802,7 +803,7 @@ if (u.slug === 'coaching' && u.coaches) {
   .udetail__intro { font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem); line-height: 1.45; color: var(--ink); font-family: var(--font-body); font-weight: 500; max-width: 60ch; }
   .udetail__note { margin-top: 1.2rem; color: var(--smoke); max-width: 60ch; letter-spacing: 0.06em; }
 
-  /* — Essai gratuit — */
+  /* — Séance d'essai — */
   .freetrial { padding-block: clamp(1rem, 2vw, 1.5rem); }
   .freetrial__inner {
     display: flex; align-items: center; justify-content: space-between; gap: clamp(1.4rem, 3vw, 2.5rem);
@@ -1018,6 +1019,12 @@ if (u.slug === 'coaching' && u.coaches) {
   .ecard--past .ecard__desc { color: #4a4a50; }
   .ecard__note { margin-top: 0.8rem; color: var(--smoke); text-transform: none; letter-spacing: 0.02em; line-height: 1.45; }
   .ecard__cta { align-self: flex-start; margin-top: 1.2rem; }
+  .ecard__sub { margin-top: 0.45rem; color: #4a4a50; font-size: 0.95rem; line-height: 1.4; }
+  /* Accent Octobre Rose : liseré haut + pastille roses, le reste de la carte
+     garde l'identité blanc / noir / rouge (bouton d'inscription inclus). */
+  .ecard--rose { --rose: #d6307a; box-shadow: inset 0 3px 0 var(--rose), var(--shadow); }
+  .ecard--rose .ecard__badge { color: var(--rose); border-color: var(--rose); display: inline-flex; align-items: center; gap: 0.4rem; }
+  .ecard--rose .ecard__badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
   .events__request { margin-top: clamp(2rem, 4vw, 3rem); font-size: var(--fs-lead); color: #3a3a40; max-width: 44ch; }
 
   /* Bloc dépliable (inscription / recontact) dans une carte */
@@ -1185,6 +1192,9 @@ if (u.slug === 'coaching' && u.coaches) {
   @media (max-width: 760px) {
     .umodal__form { grid-template-columns: 1fr; }
     .ecards { grid-template-columns: 1fr; }
+    /* la pastille passe sous le titre pour laisser toute la largeur au texte */
+    .ecard__top { grid-template-columns: auto 1fr; }
+    .ecard__badge { grid-column: 2; grid-row: 2; justify-self: start; }
     .ugallery__grid { grid-template-columns: 1fr 1fr; }
     .coaches__grid { grid-template-columns: 1fr; }
     /* mobile : la carte seule (groupe VELLECAP) reprend la pleine largeur,
