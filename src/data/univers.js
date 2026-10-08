@@ -216,7 +216,7 @@ export const univers = [
           subtitle: 'Organisé en partenariat avec Décathlon Besançon',
           date: 'Vendredi 9 octobre 2026, 19h à 20h', place: 'Décathlon Besançon',
           desc: "Un test VMA encadré par les coachs VELCAP dans le cadre d'Octobre Rose, ouvert à tous les niveaux : connais ta vitesse maximale aérobie et calibre tes allures d'entraînement. Prévois tes chaussures de running et une réserve d'eau.",
-          note: 'Gratuit · durée 1 h · 3 rue André Breton, 25000 Besançon',
+          note: 'Gratuit · durée 1 h',
           badge: 'Octobre Rose',
           accent: 'rose',
           register: { href: 'https://activites.decathlon.fr/fr-FR/activites-sportives/details/11325257', label: "S'inscrire" },
