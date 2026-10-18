@@ -212,16 +212,6 @@ export const univers = [
       // à venir : du plus proche au plus lointain
       upcoming: [
         {
-          name: 'Test VMA – Octobre Rose',
-          subtitle: 'Organisé en partenariat avec Décathlon Besançon',
-          date: 'Vendredi 9 octobre 2026, 19h à 20h', place: 'Décathlon Besançon',
-          desc: "Un test VMA encadré par les coachs VELCAP dans le cadre d'Octobre Rose, ouvert à tous les niveaux : connais ta vitesse maximale aérobie et calibre tes allures d'entraînement. Prévois tes chaussures de running et une réserve d'eau.",
-          note: 'Gratuit · durée 1 h',
-          badge: 'Octobre Rose',
-          accent: 'rose',
-          register: { href: 'https://activites.decathlon.fr/fr-FR/activites-sportives/details/11325257', label: "S'inscrire" },
-        },
-        {
           name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
           desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui fait aussi découvrir les monuments historiques de la ville.",
           register: { href: 'https://www.corrida-salins-les-bains.fr', label: "Je m'inscris" },
@@ -236,6 +226,21 @@ export const univers = [
       //   - chaque entrée : 'fichier.webp' (alt généré « Nom, photo N ») ou
       //     { src: 'fichier.webp', alt: 'description précise' }
       past: [
+        {
+          name: 'Test VMA – Octobre Rose',
+          subtitle: 'Organisé en partenariat avec Décathlon Besançon',
+          date: '09/10/2026', place: 'Décathlon Besançon',
+          desc: "Un test VMA encadré par les coachs VELCAP dans le cadre d'Octobre Rose, ouvert à tous les niveaux : chacun est reparti avec sa vitesse maximale aérobie pour calibrer ses allures d'entraînement.",
+          badge: 'Octobre Rose',
+          accent: 'rose',
+          photoDir: 'evenements/test-vma-octobre-rose',
+          photos: [
+            { src: 'test-vma-01.webp', alt: "Photo de groupe du Test VMA Octobre Rose au crépuscule sur la piste d'athlétisme, de nombreux participants en tenue rose." },
+            { src: 'test-vma-02.webp', alt: "Les participants du Test VMA Octobre Rose réunis sur la piste d'athlétisme à la tombée du jour." },
+            { src: 'test-vma-03.webp', alt: 'Photo de groupe de nuit après le Test VMA Octobre Rose, la piste éclairée au premier plan.' },
+            { src: 'test-vma-04.webp', alt: "Les coureurs du Test VMA Octobre Rose réunis pour une photo de nuit sur la piste d'athlétisme." },
+          ],
+        },
         {
           name: 'Pacers Boucle Vauban (semi et 10 km)', date: '20/09/2026', place: 'Besançon',
           desc: "Nos pacers ont emmené les coureurs sur la Boucle Vauban, en toute régularité : de 36 min à 1 h 10 sur le 10 km, et de 1 h 25 à 2 h 20 sur le semi-marathon. 15 pacers VELCAP étaient sur le parcours, aux côtés des pacers Décathlon.",

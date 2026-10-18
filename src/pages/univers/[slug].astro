@@ -1023,6 +1023,8 @@ if (u.slug === 'coaching' && u.coaches) {
   /* Accent Octobre Rose : liseré haut + pastille roses, le reste de la carte
      garde l'identité blanc / noir / rouge (bouton d'inscription inclus). */
   .ecard--rose { --rose: #d6307a; box-shadow: inset 0 3px 0 var(--rose), var(--shadow); }
+  /* une fois passé : le liseré reste, sans l'ombre portée des cartes à venir */
+  .ecard--past.ecard--rose { box-shadow: inset 0 3px 0 var(--rose); }
   .ecard--rose .ecard__badge { color: var(--rose); border-color: var(--rose); display: inline-flex; align-items: center; gap: 0.4rem; }
   .ecard--rose .ecard__badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
   .events__request { margin-top: clamp(2rem, 4vw, 3rem); font-size: var(--fs-lead); color: #3a3a40; max-width: 44ch; }
