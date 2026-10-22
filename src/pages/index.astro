@@ -13,6 +13,8 @@ const partners = [
   { src: '/img/partenaires/triobois.webp', name: 'Triobois', url: 'https://www.triobois.fr', w: 712, h: 220, alt: 'Triobois' },
   { src: '/img/partenaires/comte-frasne.webp', name: 'Comté de Frasne', url: 'https://comte-frasne.fr', w: 400, h: 185, alt: 'Comté de Frasne' },
   { src: '/img/partenaires/gites-bernard.webp', name: 'Gîtes Bernard', url: 'https://www.gitesbernard.com/acceuil', w: 742, h: 216, alt: 'Logo Gîtes Bernard' },
+  // pas de site web : `url` pointe vers le compte Instagram, `label` adapte le libellé du lien
+  { src: '/img/partenaires/on-air-fitness.webp', name: 'On Air Fitness Besançon', url: 'https://www.instagram.com/onairfitness_besancon/', w: 760, h: 270, alt: 'Logo On Air Fitness Besançon', label: 'On Air Fitness Besançon sur Instagram' },
 ];
 // Bandeau défilant : on répète la liste pour remplir la piste et boucler sans
 // couture, même avec peu de partenaires.
@@ -140,7 +142,7 @@ const jsonLd = {
       <ul class="partners__links">
         {partners.map((p) => (
           <li>
-            <a href={p.url} target="_blank" rel="noopener noreferrer">Site de {p.name}</a>
+            <a href={p.url} target="_blank" rel="noopener noreferrer">{p.label || `Site de ${p.name}`}</a>
           </li>
         ))}
       </ul>
@@ -155,7 +157,7 @@ const jsonLd = {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Site de ${p.name}`}
+                aria-label={p.label || `Site de ${p.name}`}
                 tabindex="-1"
               >
                 <img class="partners__img" src={p.src} alt={p.alt || ''} width={p.w} height={p.h} loading="lazy" decoding="async" />
