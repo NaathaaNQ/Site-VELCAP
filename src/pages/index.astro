@@ -29,7 +29,7 @@ const jsonLd = {
   logo: 'https://velcap.fr/img/velcap-logo.svg',
   image: 'https://velcap.fr/img/og-velcap.jpg',
   description:
-    "Collectif sportif à Besançon : course à pied loisir et compétition (club FFA), cyclisme (club FFC), team élite, événements et coaching.",
+    "Collectif sportif à Besançon : course à pied loisir et compétition (club FFA), team élite en course à pied et en cyclisme, événements et coaching.",
   email: site.email,
   telephone: '+33750455758',
   address: {
@@ -46,7 +46,7 @@ const jsonLd = {
 ---
 <Base
   title="VELCAP · Course à pied et cyclisme à Besançon"
-  description="VELCAP, collectif sportif bisontin : course à pied loisir et compétition (club FFA), cyclisme (club FFC), team élite, événements toute l'année et coaching individualisé."
+  description="VELCAP, collectif sportif bisontin : course à pied loisir et compétition (club FFA), team élite en course à pied et en cyclisme, événements toute l'année et coaching individualisé."
   jsonLd={jsonLd}
 >
   <!-- ============ HERO ============ -->
@@ -205,7 +205,7 @@ const jsonLd = {
           <label class="mono" for="f-interest">Je veux</label>
           <select id="f-interest" name="interest" required>
             <option value="" disabled selected>Choisir…</option>
-            {univers.filter((u) => u.slug !== 'club-ffc' && u.slug !== 'evenements').map((u) => <option data-slug={u.slug}>{u.cta}</option>)}
+            {univers.filter((u) => u.slug !== 'team-elite-cyclisme' && u.slug !== 'evenements').map((u) => <option data-slug={u.slug}>{u.cta}</option>)}
             <option>Demander un partenariat</option>
             <option>Créer ou participer à un événement</option>
           </select>

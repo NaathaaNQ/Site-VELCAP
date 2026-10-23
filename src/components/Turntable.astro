@@ -12,7 +12,7 @@ const total = String(univers.length).padStart(2, '0');
   <div class="tt__stage" data-turntable role="group" aria-roledescription="carrousel" aria-label="Les univers VELCAP">
     <div class="tt__deck">
       {univers.map((u) => (
-        <article class="tt-panel" data-panel data-name={u.name} aria-hidden="true">
+        <article class="tt-panel" data-panel data-name={u.ttName || u.name} aria-hidden="true">
           <a class="board" href={`/univers/${u.slug}`}>
             <div class="board__visual">
               <Photo src={`tt-${u.slug}.webp`} treatment="color" slug={u.slug} alt={u.ttAlt || u.name} hint={false} />
@@ -22,7 +22,7 @@ const total = String(univers.length).padStart(2, '0');
                 <span class="board__idx mono">{u.index} / {total}</span>
                 <span class="board__disc mono">{u.discipline}</span>
               </div>
-              <h3 class="board__name display">{u.name}</h3>
+              <h3 class="board__name display">{u.ttName || u.name}</h3>
               <p class="board__lead">{u.lead}</p>
               <span class="board__cta mono">Explorer l'univers <span class="arrow" aria-hidden="true">→</span></span>
             </div>

@@ -20,7 +20,7 @@ export function getStaticPaths() {
 const { u, prev, next } = Astro.props;
 const total = String(univers.length).padStart(2, '0');
 
-// Formulaire sur-mesure par univers (Club FFC = pas de formulaire)
+// Formulaire sur-mesure par univers (Team Élite Cyclisme = liste d'attente seule)
 const FIELD = {
   firstname: { name: 'firstname', label: 'Prénom', type: 'text', required: true },
   name: { name: 'name', label: 'Nom', type: 'text', required: true },
@@ -181,13 +181,15 @@ if (u.slug === 'coaching' && u.coaches) {
     </div>
   </section>
 
-  <!-- INTRO -->
-  <section class="section udetail">
-    <div class="container">
-      <p class="udetail__intro" data-reveal>{u.intro}</p>
-      {u.note && <p class="udetail__note mono" data-reveal data-delay="0.05">{u.note}</p>}
-    </div>
-  </section>
+  <!-- INTRO (facultative : la Team Élite Cyclisme s'en tient à sa phrase d'accroche) -->
+  {u.intro && (
+    <section class="section udetail">
+      <div class="container">
+        <p class="udetail__intro" data-reveal>{u.intro}</p>
+        {u.note && <p class="udetail__note mono" data-reveal data-delay="0.05">{u.note}</p>}
+      </div>
+    </section>
+  )}
 
   {u.freeTrial && (
     <section class="section freetrial">
@@ -236,15 +238,15 @@ if (u.slug === 'coaching' && u.coaches) {
       <div class="container soon__inner" data-reveal>
         <p class="soon__tag mono">En préparation</p>
         <p class="soon__line display">Le projet<br />arrive <span class="accent">bientôt.</span></p>
-        <p class="soon__text">Laisse-nous tes coordonnées : on te préviendra par e-mail dès l'ouverture du {u.name}.</p>
+        <p class="soon__text">Laisse-nous tes coordonnées : on te préviendra par e-mail dès le lancement de la {u.name}.</p>
         <WaitlistForm
           narrow
           big
-          idPrefix="ffc"
+          idPrefix="soon"
           ctaLabel={u.cta}
           eventName={u.name}
           subject={`Liste d'attente ${u.name} - site VELCAP`}
-          context={`au lancement du ${u.name}`}
+          context={`au lancement de la ${u.name}`}
           success="Merci {firstname}, tu es sur la liste. On te prévient dès l'ouverture."
         />
       </div>

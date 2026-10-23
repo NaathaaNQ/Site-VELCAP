@@ -1,0 +1,20 @@
+---
+// Ancienne adresse du Club FFC, devenu Team Élite Cyclisme : on redirige
+// (chemin relatif, quel que soit le domaine) pour ne casser ni les liens
+// partagés ni le référencement.
+const target = '/univers/team-elite-cyclisme/';
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Team Élite Cyclisme · VELCAP</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={new URL(target, Astro.site).href} />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <script is:inline define:vars={{ target }}>location.replace(target);</script>
+  </head>
+  <body>
+    <p><a href={target}>Team Élite Cyclisme</a></p>
+  </body>
+</html>

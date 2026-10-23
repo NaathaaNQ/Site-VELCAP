@@ -196,7 +196,7 @@ function initContactForm() {
   });
 }
 
-// Formulaires de collecte (composant WaitlistForm) : Club FFC, inscriptions et
+// Formulaires de collecte (composant WaitlistForm) : Team Élite Cyclisme, inscriptions et
 // recontacts d'événements. Plusieurs instances possibles sur une même page.
 function initWaitlistForms() {
   document.querySelectorAll('[data-waitlist-form]').forEach((form) => {

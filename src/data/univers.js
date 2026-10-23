@@ -106,8 +106,8 @@ export const univers = [
     slug: 'team-elite',
     index: '02',
     name: 'Team Élite',
-    discipline: 'Haut niveau',
-    lead: 'Une élite franc-comtoise, soudée et ambitieuse.',
+    discipline: 'Course à pied',
+    lead: 'Une élite franc-comtoise de la course à pied, soudée et ambitieuse.',
     intro:
       "Faire émerger une élite franc-comtoise qui gagne en équipe : stages, kiné, logistique et coaching pour viser plus haut, ensemble.",
     seoTitle: 'Team Élite VELCAP · Trail, route, cross et piste en Franche-Comté',
@@ -132,8 +132,26 @@ export const univers = [
     ctaKind: 'Candidature',
   },
   {
-    slug: 'club-ffa',
+    slug: 'team-elite-cyclisme',
     index: '03',
+    name: 'Team Élite Cyclisme',
+    // nom court sur la carte du carrousel (l'intitulé « Cyclisme » le précise)
+    ttName: 'Team Élite',
+    discipline: 'Cyclisme',
+    lead: 'Une team élite de vélo pour aller gagner les cyclosportives de la région.',
+    seoTitle: 'Team Élite Cyclisme VELCAP · Cyclosportives en Franche-Comté',
+    seoDesc:
+      "La Team Élite Cyclisme VELCAP : une team élite de vélo pour aller gagner les cyclosportives de la région. Laisse tes coordonnées pour être prévenu du lancement.",
+    comingSoon: true,
+    // Textes alternatifs descriptifs des visuels vélo (accessibilité).
+    ttAlt: "Un cycliste VELCAP à vélo de route devant l'arche de l'ancienne saline de Salins, d'autres cyclistes rassemblés au départ.",
+    heroAlt: "Trois cyclistes VELCAP roulant en file sur une route de campagne.",
+    cta: 'Être informé du lancement',
+    ctaKind: 'Newsletter',
+  },
+  {
+    slug: 'club-ffa',
+    index: '04',
     name: 'Club FFA',
     discipline: 'Compétitions et formation des jeunes',
     lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
@@ -167,24 +185,6 @@ export const univers = [
     ],
     cta: 'Prendre une licence FFA',
     ctaKind: 'Licence',
-  },
-  {
-    slug: 'club-ffc',
-    index: '04',
-    name: 'Club FFC',
-    discipline: 'Cyclisme',
-    lead: 'Bientôt.',
-    intro:
-      "Le vélo arrive chez VELCAP : un club FFC bisontin en préparation. Sois prévenu avant tout le monde.",
-    seoTitle: 'Club de cyclisme FFC à Besançon · Ouverture prochaine | VELCAP',
-    seoDesc:
-      "VELCAP prépare son club de cyclisme FFC à Besançon. Laisse tes coordonnées pour être prévenu dès l'ouverture et rejoindre la Team Vélo.",
-    comingSoon: true,
-    // Textes alternatifs descriptifs des visuels vélo (accessibilité).
-    ttAlt: "Un cycliste VELCAP à vélo de route devant l'arche de l'ancienne saline de Salins, d'autres cyclistes rassemblés au départ.",
-    heroAlt: "Trois cyclistes de la Team Vélo VELCAP roulant en file sur une route de campagne.",
-    cta: 'Être informé du lancement',
-    ctaKind: 'Newsletter',
   },
   {
     slug: 'evenements',

@@ -1,6 +1,6 @@
 ---
 // Formulaire de collecte réutilisable (liste d'attente / inscription).
-// Utilisé par : Club FFC (informé du lancement), Corrida de Salins (recontact),
+// Utilisé par : Team Élite Cyclisme (informé du lancement), Corrida de Salins (recontact),
 // Social Ride (inscription, avec téléphone + message). Style identique partout.
 // Envoi vers Web3Forms (champs cachés access_key + subject + honeypot botcheck).
 import { site } from '../data/site.js';
@@ -11,7 +11,7 @@ const {
   eventName = '',                           // identifie l'événement dans le message reçu
   withPhone = false,
   withMessage = false,
-  narrow = false,                           // largeur limitée + centré (page FFC)
+  narrow = false,                           // largeur limitée + centré (page Team Élite Cyclisme)
   big = false,                              // bouton btn--lg
   success = "Merci {firstname}, c'est bien noté. On revient vers toi très vite.",
   subject = 'Nouvelle demande - site VELCAP',  // objet de l'e-mail reçu
