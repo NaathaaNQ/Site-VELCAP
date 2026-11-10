@@ -27,15 +27,15 @@ export const univers = [
     // de demande d'essai (TrialModal) avec ce groupe présélectionné.
     trialBands: [
       {
-        eyebrow: 'Septembre offert · sans engagement',
+        eyebrow: 'Sans engagement',
         title: 'Loisirs VELCAP',
-        text: "Viens tester le groupe VELCAP en septembre, dans un cadre mixte et sans aucun engagement.",
+        text: "Viens tester le groupe VELCAP dans un cadre mixte et sans aucun engagement.",
         team: 'mixte',
       },
       {
-        eyebrow: 'Septembre offert · sans engagement',
+        eyebrow: 'Sans engagement',
         title: 'Loisirs VELLECAP',
-        text: "Viens tester le groupe VELLECAP en septembre, dans un cadre 100 % féminin et sans aucun engagement.",
+        text: "Viens tester le groupe VELLECAP dans un cadre 100 % féminin et sans aucun engagement.",
         team: 'vellecap',
         mirror: true,
       },
