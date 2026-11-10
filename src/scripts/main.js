@@ -3,6 +3,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { initTurntable } from './turntable.js';
 import { initGallery } from './gallery.js';
+import { initTrialModal } from './trial.js';
+import { sendWeb3Form } from './web3forms.js';
 
 gsap.registerPlugin(ScrollTrigger);
 // Mobile : la barre d'adresse qui apparaît/disparaît pendant le scroll change la
@@ -151,18 +153,9 @@ async function submitWeb3Form(form, out, successMsg) {
   btn?.setAttribute('disabled', 'true');
   if (out) { out.textContent = 'Envoi en cours…'; out.classList.remove('is-error'); }
   try {
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: new FormData(form),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok && data.success) {
-      if (out) out.textContent = successMsg;
-      form.reset();                       // vide les champs ; le bouton reste désactivé
-    } else {
-      throw new Error(data.message || 'echec');
-    }
+    await sendWeb3Form(form);
+    if (out) out.textContent = successMsg;
+    form.reset();                         // vide les champs ; le bouton reste désactivé
   } catch {
     if (out) { out.textContent = "Oups, l'envoi a échoué. Réessaie, ou écris-nous à velcapteam@gmail.com."; out.classList.add('is-error'); }
     btn?.removeAttribute('disabled');     // on laisse réessayer
@@ -279,6 +272,7 @@ export function initSite() {
   initUniversModal();
   initTestimonials();
   initGallery({ lenis });
+  initTrialModal({ lenis });
   initMagnetic();
   initTurntable({ lenis, reduced: REDUCED });
   // Recalcule après chargement des polices

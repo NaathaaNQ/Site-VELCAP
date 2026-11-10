@@ -1,0 +1,179 @@
+---
+// Modale « Demander une séance d'essai » (Team Loisirs). Un seul composant pour
+// les deux groupes : le bouton cliqué (data-trial-open + data-team) présélectionne
+// le groupe, qui reste modifiable dans la modale. Le choix met à jour le champ
+// caché « team », l'objet du mail et le rappel des créneaux (src/scripts/trial.js).
+// Envoi Web3Forms : clé unique dans site.js, honeypot botcheck, réponse directe
+// à la personne (replyto = son adresse mail).
+import { site } from '../data/site.js';
+
+const { teams = [] } = Astro.props;
+const first = teams[0];
+---
+{first && (
+  <div class="tmodal" data-trial-modal aria-hidden="true" hidden>
+    <div class="tmodal__backdrop" data-trial-close></div>
+    <div class="tmodal__panel" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="trial-title">
+      <button type="button" class="tmodal__x" data-trial-close aria-label="Fermer la fenêtre">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+
+      <p class="mono eyebrow">Team Loisirs</p>
+      <h2 class="tmodal__title display" id="trial-title">Demander une séance d'essai</h2>
+
+      <div data-trial-view="form">
+        {/* Choix du groupe : hors du <form>, il n'est pas envoyé tel quel ; il
+            renseigne les champs cachés « team » et « subject ». */}
+        <fieldset class="tmodal__teams">
+          <legend class="mono">Ton groupe</legend>
+          <div class="tmodal__seg">
+            {teams.map((t, i) => (
+              <label class="tmodal__opt">
+                <input type="radio" name="trial-team" value={t.id} checked={i === 0}
+                       data-value={t.value} data-subject={t.subject} data-slots={t.slots} />
+                <span class="tmodal__opt-name">{t.label}</span>
+                <span class="tmodal__opt-mention mono">{t.mention}</span>
+              </label>
+            ))}
+          </div>
+          <p class="tmodal__slots">
+            <span class="mono">Créneaux</span>
+            <span data-trial-slots>{first.slots}</span>
+          </p>
+        </fieldset>
+
+        <form class="tmodal__form" data-trial-form novalidate>
+          <input type="hidden" name="access_key" value={site.web3formsKey} />
+          <input type="hidden" name="subject" value={first.subject} data-trial-subject />
+          <input type="hidden" name="from_name" value="Site VELCAP" />
+          <input type="hidden" name="team" value={first.value} data-trial-teamfield />
+          <input type="hidden" name="replyto" value="" data-trial-replyto />
+          <input type="checkbox" name="botcheck" class="tmodal__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="tfield">
+            <label for="trial-name" class="mono">Nom *</label>
+            <input id="trial-name" name="name" type="text" autocomplete="family-name" required
+                   aria-describedby="trial-name-err" data-msg-required="Indique ton nom." />
+            <p class="tfield__err" id="trial-name-err" aria-live="polite"></p>
+          </div>
+          <div class="tfield">
+            <label for="trial-firstname" class="mono">Prénom *</label>
+            <input id="trial-firstname" name="firstname" type="text" autocomplete="given-name" required
+                   aria-describedby="trial-firstname-err" data-msg-required="Indique ton prénom." />
+            <p class="tfield__err" id="trial-firstname-err" aria-live="polite"></p>
+          </div>
+          <div class="tfield tfield--full">
+            <label for="trial-email" class="mono">Adresse mail *</label>
+            <input id="trial-email" name="email" type="email" inputmode="email" autocomplete="email" required
+                   placeholder="prenom@exemple.fr" aria-describedby="trial-email-err"
+                   data-msg-required="Indique ton adresse mail." data-check="email"
+                   data-msg-format="Cette adresse mail ne semble pas valide (exemple : prenom@exemple.fr)." />
+            <p class="tfield__err" id="trial-email-err" aria-live="polite"></p>
+          </div>
+          <div class="tfield tfield--full">
+            <label for="trial-phone" class="mono">Numéro de téléphone *</label>
+            <input id="trial-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required
+                   placeholder="06 12 34 56 78" aria-describedby="trial-phone-err"
+                   data-msg-required="Indique ton numéro de téléphone." data-check="phone-fr"
+                   data-msg-format="Indique un numéro français valide, par exemple 06 12 34 56 78 ou +33 6 12 34 56 78." />
+            <p class="tfield__err" id="trial-phone-err" aria-live="polite"></p>
+          </div>
+          <div class="tfield tfield--full">
+            <label for="trial-message" class="mono">Message <span class="tfield__opt">(facultatif)</span></label>
+            <textarea id="trial-message" name="message" rows="3" maxlength="600"
+                      placeholder="Ton niveau, une question, tes disponibilités…"></textarea>
+          </div>
+
+          <p class="tmodal__legal">
+            Tes informations servent uniquement à te recontacter pour cette séance d'essai.
+            <a href="/confidentialite" target="_blank" rel="noopener">Politique de confidentialité</a>
+          </p>
+
+          <button type="submit" class="btn btn--red btn--lg tmodal__submit" data-trial-submit>
+            <span data-trial-submit-label>Envoyer ma demande</span> <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="tmodal__feedback" data-trial-feedback role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="tmodal__done" data-trial-view="done" hidden>
+        <p class="tmodal__done-msg display" tabindex="-1" data-trial-done>Merci, on revient vers toi très vite !</p>
+        <button type="button" class="btn btn--dark tmodal__done-btn" data-trial-close>Fermer</button>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  .tmodal { position: fixed; inset: 0; z-index: 130; display: grid; place-items: center; padding: 1rem;
+    opacity: 0; transition: opacity 0.3s var(--ease); }
+  .tmodal[hidden] { display: none; }
+  .tmodal.is-open { opacity: 1; }
+  .tmodal__backdrop { position: absolute; inset: 0; background: rgba(6, 6, 8, 0.62); backdrop-filter: blur(4px); }
+  .tmodal__panel {
+    position: relative; z-index: 1; width: min(560px, 100%);
+    max-height: 92vh; max-height: 92svh; overflow-y: auto; overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: var(--white); border-radius: 18px; border-top: 5px solid var(--red);
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+    box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.5);
+    transform: translateY(16px) scale(0.98); transition: transform 0.4s var(--ease-out);
+  }
+  .tmodal.is-open .tmodal__panel { transform: none; }
+  .tmodal__x { position: absolute; top: 0.9rem; right: 0.9rem; width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center; border: 1.5px solid var(--ink); background: var(--white); color: var(--ink); cursor: pointer; }
+  .tmodal__x:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .tmodal__title { font-size: clamp(1.7rem, 5vw, 2.4rem); margin: 0.35rem 2.6rem 1.1rem 0; }
+
+  .tmodal__teams { border: 0; margin: 0 0 1.1rem; padding: 0; min-width: 0; }
+  .tmodal__teams legend { color: var(--smoke); margin-bottom: 0.45rem; padding: 0; }
+  .tmodal__seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .tmodal__opt { position: relative; display: grid; gap: 0.15rem; padding: 0.75rem 0.9rem; cursor: pointer;
+    border: 1.5px solid var(--hairline); border-radius: 12px; background: var(--paper);
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease); }
+  .tmodal__opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .tmodal__opt-name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.15rem; line-height: 1; }
+  .tmodal__opt-mention { text-transform: none; letter-spacing: 0.04em; font-size: 0.7rem; }
+  .tmodal__opt:has(input:checked) { border-color: var(--red); background: var(--white); box-shadow: inset 0 0 0 1px var(--red); }
+  .tmodal__opt:has(input:checked) .tmodal__opt-name { color: var(--red); }
+  .tmodal__opt:has(input:focus-visible) { outline: 2px solid var(--red); outline-offset: 2px; }
+  .tmodal__slots { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.7rem; margin-top: 0.7rem;
+    font-weight: 600; color: var(--ink); }
+  .tmodal__slots .mono { color: var(--red); }
+
+  .tmodal__form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 0.9rem; }
+  .tmodal__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .tfield { display: grid; gap: 0.35rem; align-content: start; }
+  .tfield--full, .tmodal__legal, .tmodal__submit, .tmodal__feedback { grid-column: 1 / -1; }
+  .tfield label { color: var(--smoke); }
+  .tfield__opt { text-transform: none; letter-spacing: 0.02em; }
+  .tfield input, .tfield textarea {
+    width: 100%; background: var(--paper); border: 1px solid var(--hairline); border-radius: 9px;
+    padding: 0.8rem 0.9rem; color: var(--ink); font-family: var(--font-body); font-size: max(16px, 1rem);
+  }
+  .tfield textarea { resize: vertical; min-height: 5.2rem; }
+  .tfield input:focus, .tfield textarea:focus { outline: 2px solid var(--red); outline-offset: 0; border-color: var(--red); }
+  .tfield input[aria-invalid="true"] { border-color: var(--red); background: #fff5f5; }
+  .tfield__err { min-height: 1.15rem; font-size: 0.8rem; line-height: 1.35; color: var(--red-deep); }
+  .tmodal__legal { font-size: 0.8rem; color: #55555c; line-height: 1.45; margin-top: 0.2rem; }
+  .tmodal__legal a { color: var(--red); text-decoration: underline; }
+  .tmodal__submit { justify-content: center; margin-top: 0.9rem; }
+  .tmodal__submit:disabled { opacity: 0.6; cursor: progress; }
+  .tmodal__feedback { min-height: 1.3rem; margin-top: 0.6rem; font-size: 0.9rem; text-align: center; color: var(--ink); }
+  .tmodal__feedback.is-error { color: var(--red-deep); font-weight: 600; }
+
+  .tmodal__done { display: grid; justify-items: start; gap: 1.2rem; padding: 0.4rem 0 0.2rem; }
+  .tmodal__done[hidden] { display: none; }
+  .tmodal__done-msg { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1; color: var(--ink); outline: none; }
+
+  @media (max-width: 560px) {
+    .tmodal { place-items: end center; padding: 0; }
+    .tmodal__panel { width: 100%; border-radius: 18px 18px 0 0; max-height: 94vh; max-height: 94svh;
+      transform: translateY(24px); padding-bottom: calc(1.4rem + env(safe-area-inset-bottom)); }
+    .tmodal__form { grid-template-columns: 1fr; }
+    .tmodal__submit { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tmodal, .tmodal__panel { transition: none; }
+  }
+</style>

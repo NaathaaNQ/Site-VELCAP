@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
 import WaitlistForm from '../../components/WaitlistForm.astro';
+import TrialModal from '../../components/TrialModal.astro';
 import { univers } from '../../data/univers.js';
 import { site } from '../../data/site.js';
 
@@ -222,16 +223,16 @@ if (u.slug === 'coaching' && u.coaches) {
           <p class="freetrial__title display" set:html={wordmark(t.title)}></p>
           <p class="freetrial__text">{t.text}</p>
         </div>
-        <a class="btn btn--red btn--lg freetrial__cta"
-           href={t.href}
-           target="_blank" rel="noopener noreferrer"
-           aria-label={t.aria}
-           data-magnetic>
-          Réserver mon essai <span class="arrow" aria-hidden="true">→</span>
-        </a>
+        <button type="button" class="btn btn--red btn--lg freetrial__cta"
+                data-trial-open data-team={t.team} aria-haspopup="dialog"
+                aria-label={`Demander une séance d'essai, groupe ${t.title}`}
+                data-magnetic>
+          Demander une séance d'essai <span class="arrow" aria-hidden="true">→</span>
+        </button>
       </div>
     </section>
   ))}
+  {u.trialTeams && <TrialModal teams={u.trialTeams} />}
 
   {u.comingSoon && (
     <section class="section soon">

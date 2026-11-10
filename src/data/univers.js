@@ -23,22 +23,41 @@ export const univers = [
     // Deux bandes d'essai jumelles (VELCAP mixte + VELLECAP féminin) rendues
     // par le même gabarit paramétré. `title` passe par le wordmark : « ELLE »
     // rouge sur VELLECAP, sobre sur VELCAP. `mirror` inverse la disposition
-    // pour que les deux bandes se répondent en miroir.
+    // pour que les deux bandes se répondent en miroir. `team` ouvre la modale
+    // de demande d'essai (TrialModal) avec ce groupe présélectionné.
     trialBands: [
       {
         eyebrow: 'Septembre offert · sans engagement',
         title: 'Loisirs VELCAP',
         text: "Viens tester le groupe VELCAP en septembre, dans un cadre mixte et sans aucun engagement.",
-        href: 'https://docs.google.com/forms/d/e/1FAIpQLSepE1Iem3anCdVrW_9xVXIA79rqFKUfWcx784cvEvzySJkmRQ/viewform?usp=header',
-        aria: "Réserver mon essai pour le groupe Loisirs VELCAP",
+        team: 'mixte',
       },
       {
         eyebrow: 'Septembre offert · sans engagement',
         title: 'Loisirs VELLECAP',
         text: "Viens tester le groupe VELLECAP en septembre, dans un cadre 100 % féminin et sans aucun engagement.",
-        href: 'https://docs.google.com/forms/d/e/1FAIpQLScsh1lmMOFFBKiQpvVII9jKKWh5Cg0z3-T7cnT7SJTTJXgZmA/viewform',
-        aria: "Réserver mon essai pour le groupe Loisirs VELLECAP",
+        team: 'vellecap',
         mirror: true,
+      },
+    ],
+    // Demande de séance d'essai (modale TrialModal, envoi Web3Forms).
+    // `value` part dans le champ caché « team » du mail, `subject` en objet.
+    trialTeams: [
+      {
+        id: 'mixte',
+        label: 'Loisirs VELCAP',
+        mention: 'Mixte',
+        slots: 'Mardi et jeudi, 18h30 à 20h',
+        value: 'Team Loisirs VELCAP (mixte)',
+        subject: "Demande d'essai - Team Loisirs VELCAP (mixte)",
+      },
+      {
+        id: 'vellecap',
+        label: 'VELLECAP',
+        mention: '100 % femmes',
+        slots: 'Mercredi et vendredi, 18h30 à 20h',
+        value: 'VELLECAP (100 % femmes)',
+        subject: "Demande d'essai - VELLECAP (100 % femmes)",
       },
     ],
     // Deux offres sur la même page : Loisirs VELCAP (mixte) et Loisirs
@@ -210,13 +229,7 @@ export const univers = [
       //   subtitle: 'texte'        -> mention sous le titre (ex. partenariat)
       //   accent: 'rose'           -> touche de couleur sur la carte (liseré + pastille), ex. Octobre Rose
       // à venir : du plus proche au plus lointain
-      upcoming: [
-        {
-          name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
-          desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui fait aussi découvrir les monuments historiques de la ville.",
-          register: { href: 'https://www.corrida-salins-les-bains.fr', label: "Je m'inscris" },
-        },
-      ],
+      upcoming: [],
       // passés : du plus récent au plus ancien.
       // Galerie photo : `photos` liste les images de l'événement. Tableau vide =
       // aucune galerie affichée (pas de zone vide, pas de placeholder).
@@ -226,6 +239,13 @@ export const univers = [
       //   - chaque entrée : 'fichier.webp' (alt généré « Nom, photo N ») ou
       //     { src: 'fichier.webp', alt: 'description précise' }
       past: [
+        {
+          name: 'Corrida de Salins', date: 'Novembre 2026', place: 'Salins-les-Bains',
+          desc: "La corrida de fin d'année : une course conviviale dans les rues de Salins, entre effort et ambiance de fête, qui a aussi fait découvrir les monuments historiques de la ville.",
+          // galerie prête : déposer les photos dans public/img/photos/evenements/corrida-salins/
+          // puis les lister ici (le bouton « Voir les photos » apparaît alors).
+          photoDir: 'evenements/corrida-salins', photos: [],
+        },
         {
           name: 'Test VMA – Octobre Rose',
           subtitle: 'Organisé en partenariat avec Décathlon Besançon',
