@@ -128,56 +128,9 @@ export const univers = [
     ctaKind: 'Adhésion',
   },
   {
-    slug: 'team-elite',
-    index: '02',
-    name: 'Team Élite',
-    discipline: 'Course à pied',
-    lead: 'Une élite franc-comtoise de la course à pied, soudée et ambitieuse.',
-    intro:
-      "Faire émerger une élite franc-comtoise qui gagne en équipe : stages, kiné, logistique et coaching pour viser plus haut, ensemble.",
-    seoTitle: 'Team Élite VELCAP · Trail, route, cross et piste en Franche-Comté',
-    seoDesc:
-      "La Team Élite VELCAP réunit des athlètes de haut niveau en Franche-Comté : stages, coaching, suivi kiné et soutien logistique pour performer en trail, sur route, en cross et sur piste.",
-    points: [
-      { k: 'Stages', v: 'Des stages réguliers pour franchir des paliers ensemble.' },
-      { k: 'Coaching', v: 'Un accompagnement coaching pour celles et ceux qui en ont besoin.' },
-      { k: 'Santé', v: 'Des créneaux rapides chez le kiné.' },
-      { k: 'Logistique et financier', v: 'Un soutien sur les déplacements et la logistique.' },
-      { k: 'Visibilité', v: 'Tes performances relayées sur nos réseaux.' },
-      { k: 'En équipe', v: 'Les pacers des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
-    ],
-    criteria: [
-      'La motivation à porter le projet',
-      'Un esprit d’équipe fort',
-      'Renvoyer une image positive',
-      'Évoluer avec le projet',
-      'La performance',
-    ],
-    cta: 'Candidater à la Team Élite',
-    ctaKind: 'Candidature',
-  },
-  {
-    slug: 'team-elite-cyclisme',
-    index: '03',
-    name: 'Team Élite Cyclisme',
-    // nom court sur la carte du carrousel (l'intitulé « Cyclisme » le précise)
-    ttName: 'Team Élite',
-    discipline: 'Cyclisme',
-    lead: 'Une team élite de vélo pour aller gagner les cyclosportives de la région.',
-    seoTitle: 'Team Élite Cyclisme VELCAP · Cyclosportives en Franche-Comté',
-    seoDesc:
-      "La Team Élite Cyclisme VELCAP : une team élite de vélo pour aller gagner les cyclosportives de la région. Laisse tes coordonnées pour être prévenu du lancement.",
-    comingSoon: true,
-    // Textes alternatifs descriptifs des visuels vélo (accessibilité).
-    ttAlt: "Un cycliste VELCAP à vélo de route devant l'arche de l'ancienne saline de Salins, d'autres cyclistes rassemblés au départ.",
-    heroAlt: "Trois cyclistes VELCAP roulant en file sur une route de campagne.",
-    cta: 'Être informé du lancement',
-    ctaKind: 'Newsletter',
-  },
-  {
     // Anciennement « Club FFA » (adresse /univers/club-ffa/ redirigée).
     slug: 'team-perf',
-    index: '04',
+    index: '02',
     name: 'Team Perf',
     discipline: 'Compétitions et formation des jeunes',
     lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
@@ -217,6 +170,53 @@ export const univers = [
     ],
     cta: "S'inscrire à la Team Perf 2026-2027",
     ctaKind: 'Licence',
+  },
+  {
+    slug: 'team-elite',
+    index: '03',
+    name: 'Team Élite',
+    discipline: 'Course à pied',
+    lead: 'Une élite franc-comtoise de la course à pied, soudée et ambitieuse.',
+    intro:
+      "Faire émerger une élite franc-comtoise qui gagne en équipe : stages, kiné, logistique et coaching pour viser plus haut, ensemble.",
+    seoTitle: 'Team Élite VELCAP · Trail, route, cross et piste en Franche-Comté',
+    seoDesc:
+      "La Team Élite VELCAP réunit des athlètes de haut niveau en Franche-Comté : stages, coaching, suivi kiné et soutien logistique pour performer en trail, sur route, en cross et sur piste.",
+    points: [
+      { k: 'Stages', v: 'Des stages réguliers pour franchir des paliers ensemble.' },
+      { k: 'Coaching', v: 'Un accompagnement coaching pour celles et ceux qui en ont besoin.' },
+      { k: 'Santé', v: 'Des créneaux rapides chez le kiné.' },
+      { k: 'Logistique et financier', v: 'Un soutien sur les déplacements et la logistique.' },
+      { k: 'Visibilité', v: 'Tes performances relayées sur nos réseaux.' },
+      { k: 'En équipe', v: 'Les pacers des Rives du Doubs, les Boucles Vauban, l’Ekiden…' },
+    ],
+    criteria: [
+      'La motivation à porter le projet',
+      'Un esprit d’équipe fort',
+      'Renvoyer une image positive',
+      'Évoluer avec le projet',
+      'La performance',
+    ],
+    cta: 'Candidater à la Team Élite',
+    ctaKind: 'Candidature',
+  },
+  {
+    slug: 'team-elite-cyclisme',
+    index: '04',
+    name: 'Team Élite Cyclisme',
+    // nom court sur la carte du carrousel (l'intitulé « Cyclisme » le précise)
+    ttName: 'Team Élite',
+    discipline: 'Cyclisme',
+    lead: 'Une team élite de vélo pour aller gagner les cyclosportives de la région.',
+    seoTitle: 'Team Élite Cyclisme VELCAP · Cyclosportives en Franche-Comté',
+    seoDesc:
+      "La Team Élite Cyclisme VELCAP : une team élite de vélo pour aller gagner les cyclosportives de la région. Laisse tes coordonnées pour être prévenu du lancement.",
+    comingSoon: true,
+    // Textes alternatifs descriptifs des visuels vélo (accessibilité).
+    ttAlt: "Un cycliste VELCAP à vélo de route devant l'arche de l'ancienne saline de Salins, d'autres cyclistes rassemblés au départ.",
+    heroAlt: "Trois cyclistes VELCAP roulant en file sur une route de campagne.",
+    cta: 'Être informé du lancement',
+    ctaKind: 'Newsletter',
   },
   {
     slug: 'evenements',
