@@ -169,16 +169,23 @@ export const univers = [
     ctaKind: 'Newsletter',
   },
   {
-    slug: 'club-ffa',
+    // Anciennement « Club FFA » (adresse /univers/club-ffa/ redirigée).
+    slug: 'team-perf',
     index: '04',
-    name: 'Club FFA',
+    name: 'Team Perf',
     discipline: 'Compétitions et formation des jeunes',
     lead: 'Compétitions, championnats fédéraux et formation des jeunes !',
     intro:
       "Du premier cross des jeunes aux Championnats de France : trois créneaux par semaine pour faire de la compétition dans un collectif qui pousse.",
-    seoTitle: "Club FFA d'athlétisme à Besançon · Compétition et jeunes | VELCAP",
+    seoTitle: "Team Perf VELCAP · Athlétisme et compétition à Besançon",
     seoDesc:
-      "Le club FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales jusqu'aux Championnats de France et formation des jeunes. Licence 200 € par an, deux séances d'essai.",
+      "La Team Perf VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales jusqu'aux Championnats de France et formation des jeunes. Licence 200 € par an, deux séances d'essai.",
+    // Adhésion HelloAsso : bouton lien dans le hero, widget en fin de page.
+    join: {
+      href: 'https://www.helloasso.com/associations/team-velcap/adhesions/adhesion-2026-2027-team-perf',
+      label: "S'inscrire à la Team Perf 2026-2027",
+      aria: "S'inscrire à la Team Perf 2026-2027 sur HelloAsso, nouvel onglet",
+    },
     points: [
       { k: 'Trois créneaux / semaine', v: 'Lundi et mercredi dès 18h30, samedi de 9h à 12h.' },
       { k: 'Objectifs forts', v: 'Les compétitions fédérales, jusqu’aux Championnats de France.' },
@@ -202,7 +209,7 @@ export const univers = [
       { name: 'Enzo Vasallucci', photo: 'coach-enzo.webp' },
       { name: 'Adam Mantega', photo: 'coach-adam.webp' },
     ],
-    cta: 'Prendre une licence FFA',
+    cta: "S'inscrire à la Team Perf 2026-2027",
     ctaKind: 'Licence',
   },
   {

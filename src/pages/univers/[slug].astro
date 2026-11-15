@@ -44,14 +44,6 @@ const FORMS = {
       { name: 'motivation', label: 'Ta motivation', type: 'textarea', required: true },
       FIELD.message],
   },
-  'club-ffa': {
-    title: 'Licence et inscription · Club FFA',
-    fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
-      { name: 'age', label: 'Âge', type: 'number' },
-      { name: 'level', label: 'Niveau actuel', type: 'select',
-        options: ['Intermédiaire', 'Confirmé', 'Compétiteur'] },
-      FIELD.message],
-  },
   coaching: {
     title: 'Demander un coaching',
     fields: [FIELD.firstname, FIELD.name, FIELD.email, FIELD.phone,
@@ -76,20 +68,20 @@ const form = FORMS[u.slug];
 const GALLERY = {
   'team-loisirs': ['gal-team-loisirs-1.webp', 'gal-team-loisirs-2.webp', 'gal-team-loisirs-3.webp'],
   'team-elite': ['gal-team-elite-1.webp', 'gal-team-elite-2.webp', 'gal-team-elite-3.webp'],
-  'club-ffa': ['gal-club-ffa-1.webp', 'gal-club-ffa-2.webp', 'gal-club-ffa-3.webp'],
+  'team-perf': ['gal-team-perf-1.webp', 'gal-team-perf-2.webp', 'gal-team-perf-3.webp'],
   evenements: ['gal-evenements-1.webp', 'gal-evenements-2.webp', 'gal-evenements-3.webp'],
 };
 const gallery = GALLERY[u.slug];
 
 // Recadrages sur-mesure (object-position / dézoom), sans déformer l'image.
 // flat = pas de sur-zoom de parallaxe : on voit davantage du sujet (dézoom).
-// Club FFA : hero remonté (visages) + dézoomé. Team Loisirs : hero dézoomé.
+// Team Perf : hero remonté (visages) + dézoomé. Team Loisirs : hero dézoomé.
 const HERO_FRAME = {
   // photo portrait dans un bandeau large : on dézoome en agrandissant le bandeau
   // (on révèle plus de la scène) et on remonte le cadrage sur les visages.
   // svh : hauteur stable (pas de saut mobile). Les navigateurs sans svh
   // ignorent cette valeur en ligne et retombent sur la hauteur CSS .uhero__visual.
-  'club-ffa': { pos: 'center 38%', flat: true, h: 'clamp(460px, 88svh, 940px)' },
+  'team-perf': { pos: 'center 38%', flat: true, h: 'clamp(460px, 88svh, 940px)' },
   'team-loisirs': { flat: true },
 };
 // Team Élite : la 3e photo (droite) est dézoomée pour montrer les athlètes coupés.
@@ -136,14 +128,14 @@ if (u.slug === 'team-loisirs') {
     offers: { '@type': 'Offer', price: '180', priceCurrency: 'EUR', url: 'https://velcap.fr/univers/team-loisirs/', availability: 'https://schema.org/InStock' },
   });
 }
-if (u.slug === 'club-ffa') {
+if (u.slug === 'team-perf') {
   jsonLd.push({
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Licence FFA · Club VELCAP Besançon',
-    description: "Licence annuelle au club d'athlétisme FFA VELCAP à Besançon : trois créneaux par semaine, compétitions fédérales et formation des jeunes.",
+    name: 'Adhésion Team Perf VELCAP 2026-2027',
+    description: "Adhésion annuelle à la Team Perf VELCAP à Besançon, avec licence FFA : trois créneaux par semaine, compétitions fédérales et formation des jeunes.",
     brand: ORG,
-    offers: { '@type': 'Offer', price: '200', priceCurrency: 'EUR', url: 'https://velcap.fr/univers/club-ffa/', availability: 'https://schema.org/InStock' },
+    offers: { '@type': 'Offer', price: '200', priceCurrency: 'EUR', url: u.join.href, availability: 'https://schema.org/InStock' },
   });
 }
 if (u.slug === 'coaching' && u.coaches) {
@@ -173,6 +165,13 @@ if (u.slug === 'coaching' && u.coaches) {
           <p class="mono eyebrow" data-intro data-intro-order="2">{u.discipline}</p>
           <h1 class="uhero__name display" data-intro="clip" data-intro-order="2">{u.name}</h1>
           <p class="uhero__lead" data-intro data-intro-order="3">{u.lead}</p>
+          {u.join && (
+            <a class="btn btn--red btn--lg uhero__join" href={u.join.href}
+               target="_blank" rel="noopener noreferrer" aria-label={u.join.aria}
+               data-intro data-intro-order="3" data-magnetic>
+              {u.join.label} <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -599,7 +598,23 @@ if (u.slug === 'coaching' && u.coaches) {
       <div class="container ucta__inner">
         <p class="mono eyebrow" data-reveal>Passer à l'action</p>
         <p class="ucta__line display" data-reveal data-delay="0.05">Rejoins <span class="accent">{u.name}.</span></p>
-        <button type="button" class="btn btn--red btn--lg" data-open-form data-magnetic>{u.cta} <span class="arrow">→</span></button>
+        {u.join ? (
+          <div class="ucta__join" data-reveal data-delay="0.1">
+            <iframe
+              class="helloasso__btn"
+              title={`${u.join.label} sur HelloAsso`}
+              allowtransparency="true"
+              loading="lazy"
+              src={`${u.join.href}/widget-bouton`}
+            ></iframe>
+            {/* secours si le widget est bloqué (bloqueur de contenu, réseau) */}
+            <a class="ucta__join-link" href={u.join.href} target="_blank" rel="noopener noreferrer" aria-label={u.join.aria}>
+              Ouvrir la page d'adhésion HelloAsso <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        ) : (
+          <button type="button" class="btn btn--red btn--lg" data-open-form data-magnetic>{u.cta} <span class="arrow">→</span></button>
+        )}
       </div>
     </section>
   )}
@@ -757,18 +772,6 @@ if (u.slug === 'coaching' && u.coaches) {
             </div>
           ))}
 
-          {u.slug === 'club-ffa' && (
-            <label class="consent field--full">
-              <input type="checkbox" name="minor_auth" />
-              <span>Pour l'adhésion d'un·e mineur·e, je suis le représentant légal et fournirai l'autorisation parentale.</span>
-            </label>
-          )}
-          {!['evenements', 'team-elite', 'coaching', 'team-loisirs'].includes(u.slug) && (
-            <label class="consent field--full">
-              <input type="checkbox" name="pps" required />
-              <span>Je m'engage à compléter le PPS (Parcours de Prévention Santé), obligatoire. *</span>
-            </label>
-          )}
           <label class="consent field--full">
             <input type="checkbox" name="rgpd" required />
             <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/confidentialite" target="_blank">Politique de confidentialité</a>. *</span>
@@ -798,6 +801,7 @@ if (u.slug === 'coaching' && u.coaches) {
   .uhero__index { font-size: clamp(4rem, 15vw, 12rem); line-height: 0.8; color: var(--red); }
   .uhero__name { font-size: var(--fs-h2); margin: 0.4rem 0 0.9rem; }
   .uhero__lead { font-size: var(--fs-lead); color: #3a3a40; max-width: 30ch; }
+  .uhero__join { margin-top: clamp(1.1rem, 2.4vw, 1.6rem); }
   /* hero pleine largeur (full-bleed, bord à bord) */
   .uhero__visual { margin-top: clamp(2rem, 5vw, 4rem); width: 100%; height: clamp(340px, 62vh, 720px); height: clamp(340px, 62svh, 720px); }
   .uhero__visual :global(.ph) { height: 100%; }
@@ -1137,6 +1141,11 @@ if (u.slug === 'coaching' && u.coaches) {
   .ucta { background: var(--ink); color: #fff; padding-block: clamp(3rem, 7vw, 6rem); text-align: center; }
   .ucta__inner { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
   .ucta__line { font-size: var(--fs-h2); }
+  /* adhésion HelloAsso : widget officiel + lien texte de secours */
+  .ucta__join { width: 100%; display: grid; justify-items: center; gap: 0.8rem; }
+  .ucta__join-link { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #b9b9c0; text-decoration: underline; text-underline-offset: 4px; transition: color 0.3s var(--ease); }
+  .ucta__join-link:hover { color: #fff; }
 
   .unav { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--hairline); }
   .unav__link { padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); display: grid; gap: 0.5rem; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
