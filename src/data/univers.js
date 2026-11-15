@@ -13,6 +13,12 @@ export const univers = [
     seoTitle: 'Club de course à pied loisir à Besançon · Team Loisirs VELCAP',
     seoDesc:
       "Cours encadré à Besançon avec la Team Loisirs VELCAP : 2 entraînements par semaine, tous niveaux, groupe mixte ou 100 % féminin (VELLECAP). Adhésion 180 € par an, deux séances d'essai.",
+    // Adhésion HelloAsso : bouton lien dans le hero, widget sous les formules.
+    join: {
+      href: 'https://www.helloasso.com/associations/team-velcap/adhesions/adhesion-2026-2027',
+      label: "S'inscrire à la Team Loisirs 2026-2027",
+      aria: "S'inscrire à la Team Loisirs 2026-2027 sur HelloAsso, nouvel onglet",
+    },
     note: 'Sorties et entraînements orientés trail et route, encadrés par nos coachs certifiés.',
     schedule: [
       'Groupe VELCAP · mardi et jeudi, 18h30 à 20h',

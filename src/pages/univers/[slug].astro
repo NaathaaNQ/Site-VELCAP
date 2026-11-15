@@ -125,7 +125,7 @@ if (u.slug === 'team-loisirs') {
     name: 'Adhésion Team Loisirs VELCAP',
     description: "Adhésion annuelle au groupe course à pied loisir VELCAP à Besançon : deux entraînements encadrés par semaine, groupe mixte ou 100 % féminin.",
     brand: ORG,
-    offers: { '@type': 'Offer', price: '180', priceCurrency: 'EUR', url: 'https://velcap.fr/univers/team-loisirs/', availability: 'https://schema.org/InStock' },
+    offers: { '@type': 'Offer', price: '180', priceCurrency: 'EUR', url: u.join.href, availability: 'https://schema.org/InStock' },
   });
 }
 if (u.slug === 'team-perf') {
@@ -347,14 +347,14 @@ if (u.slug === 'coaching' && u.coaches) {
           ))}
         </div>
 
-        {u.slug === 'team-loisirs' && (
+        {u.join && (
           <div class="helloasso" data-reveal>
             <iframe
               class="helloasso__btn"
-              title="Adhérer au Team Loisirs via HelloAsso"
+              title={`${u.join.label} sur HelloAsso`}
               allowtransparency="true"
               loading="lazy"
-              src="https://www.helloasso.com/associations/team-velcap/adhesions/adhesion-2026-2027/widget-bouton"
+              src={`${u.join.href}/widget-bouton`}
             ></iframe>
           </div>
         )}
