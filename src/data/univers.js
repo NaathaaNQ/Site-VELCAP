@@ -174,14 +174,16 @@ export const univers = [
   {
     slug: 'team-elite',
     index: '03',
-    name: 'Team Élite',
+    name: 'Team Élite Running',
+    // nom court sur la carte du carrousel (l'intitulé « Course à pied » le précise)
+    ttName: 'Team Élite',
     discipline: 'Course à pied',
     lead: 'Une élite franc-comtoise de la course à pied, soudée et ambitieuse.',
     intro:
       "Faire émerger une élite franc-comtoise qui gagne en équipe : stages, kiné, logistique et coaching pour viser plus haut, ensemble.",
-    seoTitle: 'Team Élite VELCAP · Trail, route, cross et piste en Franche-Comté',
+    seoTitle: 'Team Élite Running VELCAP · Trail, route, cross et piste en Franche-Comté',
     seoDesc:
-      "La Team Élite VELCAP réunit des athlètes de haut niveau en Franche-Comté : stages, coaching, suivi kiné et soutien logistique pour performer en trail, sur route, en cross et sur piste.",
+      "La Team Élite Running VELCAP réunit des athlètes de haut niveau en Franche-Comté : stages, coaching, suivi kiné et soutien logistique pour performer en trail, sur route, en cross et sur piste.",
     points: [
       { k: 'Stages', v: 'Des stages réguliers pour franchir des paliers ensemble.' },
       { k: 'Coaching', v: 'Un accompagnement coaching pour celles et ceux qui en ont besoin.' },
@@ -197,7 +199,7 @@ export const univers = [
       'Évoluer avec le projet',
       'La performance',
     ],
-    cta: 'Candidater à la Team Élite',
+    cta: 'Candidater à la Team Élite Running',
     ctaKind: 'Candidature',
   },
   {
