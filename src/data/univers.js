@@ -175,8 +175,6 @@ export const univers = [
     slug: 'team-elite',
     index: '03',
     name: 'Team Élite Running',
-    // nom court sur la carte du carrousel (l'intitulé « Course à pied » le précise)
-    ttName: 'Team Élite',
     discipline: 'Course à pied',
     lead: 'Une élite franc-comtoise de la course à pied, soudée et ambitieuse.',
     intro:
