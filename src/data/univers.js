@@ -204,8 +204,6 @@ export const univers = [
     slug: 'team-elite-cyclisme',
     index: '04',
     name: 'Team Élite Cyclisme',
-    // nom court sur la carte du carrousel (l'intitulé « Cyclisme » le précise)
-    ttName: 'Team Élite',
     discipline: 'Cyclisme',
     lead: 'Une team élite de vélo pour aller gagner les cyclosportives de la région.',
     seoTitle: 'Team Élite Cyclisme VELCAP · Cyclosportives en Franche-Comté',
