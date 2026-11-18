@@ -320,7 +320,6 @@ export const univers = [
           photoDir: 'evenements/social-run',
           photos: Array.from({ length: 7 }, (_, i) => `social-run-${String(i + 1).padStart(2, '0')}.webp`),
         },
-        { name: 'Fan Zone Trail Volodalen', date: '25/07/2026', place: 'Massif jurassien', desc: 'VELCAP a posé sa fan zone sur le Trail Volodalen pour soutenir les coureurs sur les portions clés.', photos: [] },
         // photos : chemin simple (string) ou objet { src, alt } pour un texte alternatif précis.
         { name: 'Fan Zone Trail des Forts', date: '8 au 10 mai 2026', place: 'Forts de Besançon', desc: 'On a installé la fan zone pour encourager les traileurs sur les forts : tambours, banderoles et bonne humeur.', photos: [
           'event-forts-1.webp', 'event-forts-2.webp', 'event-forts-3.webp', 'event-forts-4.webp', 'event-forts-5.webp', 'event-forts-6.webp', 'event-forts-7.webp',
